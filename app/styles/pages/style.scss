@@ -1,0 +1,210 @@
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+html{
+   height: 100%;
+  -webkit-overlow-scrolling: touch;
+  background: white;
+}
+
+@font-face {
+    font-family: Walburn;
+    src: url('../fonts/Walburn.ttf');
+}
+
+body {
+    height: 100%;
+//    background: #171725;
+}
+
+#instantclick-bar {
+    background: black;
+    height: 8px;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.main-nav {
+    .bot-left, .bot-right {
+        position: fixed;
+//        bottom: 10px;
+        top: 50px;
+
+        a {
+            color: #da6f6f;
+            text-decoration: none;
+            font-size: 30px;
+            font-family: Walburn;
+
+        }
+    }
+
+    .bot-left {
+        left: 20px;
+
+        img {
+            width: 90px;
+        }
+    }
+
+    .bot-right {
+        right: 20px;
+    }
+}
+
+.container {
+    height: 100%;
+    p, h1, a {
+        color: gray;
+        font-family: Courier New;
+
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .zoa {
+        width: 400px;
+    }
+
+    .sec {
+        @include flex(1);
+        position: relative;
+    }
+
+    .block {
+//        right: 0px;
+//        position: absolute;
+        padding: 0px 30px;
+
+        .item {
+          margin-bottom: 30px;
+            &:hover {
+//                cursor: help;
+            }
+        }
+
+        h1 {
+            color: black;
+            border-bottom: 1px dashed pink;
+            padding-bottom: 5px;
+            margin-bottom: 8px;
+        }
+
+
+        .title {
+//            color: red;
+            cursor: url('../images/click-cursor.gif') 50 20, pointer;
+            p span {
+                position: absolute;
+                left: 0px;
+            }
+        }
+    }
+
+    .left, .right {
+        @include flex(1);
+        text-align: center;
+    }
+
+    .right p {
+        font-size: 50px;
+    }
+
+    .shows {
+        margin-top: 120px;
+
+        .show {
+            width: 80%;
+            margin: 0 auto;
+            @include display(flex);
+            padding: 20px 0px;
+            border-top: 1px solid pink;
+            border-bottom: 1px solid pink;
+
+            p {
+                display: inline-block;
+                @include flex(1);
+            }
+
+            .left {
+                text-align: left;
+            }
+
+            .right {
+                text-align: right;
+            }
+        }
+    }
+}
+
+.container.info {
+    margin-top: 250px;
+
+    .title {
+        padding-top: 200px;
+    }
+    p:first-child {
+        color: black;
+    }
+    p {
+        text-align: left;
+        width: 60%;
+        line-height: 28px;
+        margin: 0 auto;
+    }
+
+    img {
+        width: 60%;
+        margin: 0 auto;
+        display: block;
+        padding: 40px 0px;
+    }
+}
+
+body.home {
+//    background: url('../images/ZOA_texture.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.container.home {
+    width: 80%;
+    margin: 0 auto;
+    @include display(flex);
+    @include justify-content(center);
+//    @include align-items(center);
+    padding-top: 250px;
+
+    p {
+//        filter: blur(.6px);
+//        -webkit-filter: blur(.3px);
+    }
+}

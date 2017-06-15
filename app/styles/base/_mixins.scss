@@ -1,0 +1,14 @@
+
+//////// responsive
+
+@mixin md {
+  @media (max-width:$screen-md-max) { @content; }
+}
+
+@mixin sm {
+  @media (max-width:$screen-sm-max) { @content; }
+}
+
+@mixin xs {
+  @media (max-width: 480px) { @content; }
+}

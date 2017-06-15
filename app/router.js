@@ -7,6 +7,10 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('about');
+  this.route('zone-of-avoidance');
+  this.route('home');
+  this.route('geminii');
 });
 
 export default Router;

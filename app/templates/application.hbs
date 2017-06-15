@@ -1,5 +1,19 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+<div>
+    <div class="main-nav">
+        <div class="bot-left">
+          {{#link-to 'index'}}
+            <img src="images/2mass-logo.svg" alt="">
+          {{/link-to}}
+        </div>
+    </div>
 
-{{outlet}}
+    {{#if showPage}}
+    <div class="container info">
+      {{outlet}}
+    </div>
+    {{else}}
+    <div class="container home">
+      {{outlet}}
+    </div>
+    {{/if}}
+</div>
