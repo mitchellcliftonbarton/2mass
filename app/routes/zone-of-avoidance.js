@@ -1,5 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-    showPage: true
+    showPage: true,
+    renderTemplate: function() {
+      this.render('show-page');
+    }
 });
