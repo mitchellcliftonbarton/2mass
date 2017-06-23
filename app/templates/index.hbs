@@ -1,1 +1,25 @@
-{{outlet}}
+<div class="container home">
+  <div class="upcoming sec">
+      <div class="block">
+        <h1>UPCOMING</h1>
+        {{#each model as |showUnit|}}
+            {{show-listing index=showUnit}}
+        {{/each}}
+      </div>
+  </div>
+  <div class="archive sec">
+      <div class="block">
+          <h1>ARCHIVE</h1>
+          {{#each model as |showUnit|}}
+              {{show-listing index=showUnit}}
+          {{/each}}
+      </div>
+  </div>
+  <div class="info sec">
+      <div class="block">
+          <p>INFO SOON</p>
+      </div>
+  </div>
+
+  {{outlet}}
+</div>

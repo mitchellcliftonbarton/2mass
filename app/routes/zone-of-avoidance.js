@@ -2,7 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
     showPage: true,
-    renderTemplate: function() {
-      this.render('show-page');
+    templateName: 'show-page',
+    model() {
+      return this.get('store').findRecord('show', 'zone-of-avoidance');
     }
 });

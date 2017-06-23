@@ -30,10 +30,10 @@ html{
   background: white;
 }
 
-@font-face {
-    font-family: Walburn;
-    src: url('../fonts/Walburn.ttf');
-}
+// @font-face {
+//     font-family: Walburn;
+//     src: url('../fonts/Walburn.ttf');
+// }
 
 body {
     height: 100%;
@@ -60,7 +60,7 @@ canvas {
             color: #da6f6f;
             text-decoration: none;
             font-size: 30px;
-            font-family: Walburn;
+            // font-family: Walburn;
 
         }
     }
@@ -121,7 +121,7 @@ canvas {
 
         .title {
 //            color: red;
-            cursor: url('../images/click-cursor.gif') 50 20, pointer;
+            // cursor: url('../images/click-cursor.gif') 50 20, pointer;
             p span {
                 position: absolute;
                 left: 0px;
@@ -207,4 +207,11 @@ body.home {
 //        filter: blur(.6px);
 //        -webkit-filter: blur(.3px);
     }
+}
+
+.login {
+  position: absolute;
+  top: 60px;
+  right: 60px;
+  font-family: Courier;
 }

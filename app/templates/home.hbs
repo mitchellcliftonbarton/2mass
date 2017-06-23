@@ -1,14 +1,28 @@
 <div class="upcoming sec">
     <div class="block">
       <h1>UPCOMING</h1>
+      {{#each model.upcoming as |show|}}
+      <div class="item">
+        <p>{{show.title}}</p>
+        <p>{{show.artists}}</p>
+        <p>{{show.date}}</p>
+      </div>
+      {{/each}}
     </div>
 </div>
 <div class="archive sec">
     <div class="block">
         <h1>ARCHIVE</h1>
-        {{#each model as |showUnit|}}
-            {{show-listing home=showUnit}}
+        {{#each model.archived as |show|}}
+        <div class="item">
+          {{#link-to show.link class="title"}}
+            <p>{{show.title}} <span>&#8599;</span></p>
+            <p>{{show.artists}}</p>
+            <p>{{show.date}}</p>
+          {{/link-to}}
+        </div>
         {{/each}}
+        <p></p>
     </div>
 </div>
 <div class="info sec">

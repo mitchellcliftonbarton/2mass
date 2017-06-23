@@ -1,9 +1,9 @@
 <div class="item">
-        {{#link-to home.link class="title"}}
-          <p>{{home.title}} <span>&#8599;</span></p>
-          <p>{{home.artists}}</p>
-          <p>{{home.date}}</p>
-        {{/link-to}}
+  {{#link-to model.link class="title"}}
+    <p>{{model.title}} <span>&#8599;</span></p>
+    <p>{{model.artists}}</p>
+    <p>{{model.date}}</p>
+  {{/link-to}}
 </div>
 
 {{yield}}
