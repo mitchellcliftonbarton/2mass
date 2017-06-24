@@ -6,5 +6,6 @@ export default DS.Model.extend({
   artists: DS.attr('string'),
   link: DS.attr('string'),
   status: DS.attr('string'),
-  text: DS.attr('string')
+  text: DS.attr('string'),
+  images: D.hasMany('image')
 });

@@ -14,7 +14,7 @@ export default [
     artists: 'Featuring - Pearl Corry, Julian Harper, Mykaela Rogers',
     link: 'geminii',
     status: 'archive',
-    text: 'Its gonna be a show!'
+    text: null
   }, {
     id: 'zone-of-avoidance',
     title: 'Zone of Avoidance',
