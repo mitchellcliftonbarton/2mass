@@ -3,7 +3,7 @@ export default function() {
   this.namespace = '/api';
 
   this.get('/shows');
-  // this.get('/shows/:id');
+  this.get('/shows/:id');
   // this.get('/shows', (schema, request) => {
   //
   //   let query = {};

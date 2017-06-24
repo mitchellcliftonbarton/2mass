@@ -30,61 +30,99 @@ html{
   background: white;
 }
 
-// @font-face {
-//     font-family: Walburn;
-//     src: url('../fonts/Walburn.ttf');
-// }
+@font-face {
+    font-family: Practice;
+    src: url('/type/practice.otf');
+}
 
 body {
     height: 100%;
-//    background: #171725;
-}
-
-#instantclick-bar {
-    background: black;
-    height: 8px;
-}
-
-canvas {
-    width: 100%;
-    height: 100%;
+    font-family: Practice, sans-serif;
+    letter-spacing: .5px;
 }
 
 .main-nav {
-    .bot-left, .bot-right {
-        position: fixed;
-//        bottom: 10px;
-        top: 50px;
+  width: 100%;
+  height: 60px;
+  // background: ;
+  position: fixed;
+  z-index: 50;
 
-        a {
-            color: #da6f6f;
-            text-decoration: none;
-            font-size: 30px;
-            // font-family: Walburn;
+  .left-half {
+    width: 50%;
+    height: 100%;
+    background: #c5c5c5;
+    position: relative;
 
-        }
+    .logo img {
+      width: 80px;
+      position: absolute;
+      top: 17px;
+      left: 19px;
     }
 
-    .bot-left {
-        left: 20px;
-
-        img {
-            width: 90px;
-        }
+    .logo, .about-link {
+      position: absolute;
+      color: black;
+      text-decoration: none;
     }
 
-    .bot-right {
-        right: 20px;
+    .logo {
+      top: 20px;
+      left: 20px;
     }
+
+    .about-link {
+      top: 20px;
+      right: 20px;
+    }
+  }
+
+  .left-half, .right-half {
+    float: left;
+  }
+
+  .right-half {
+    width: 50%;
+    height: 100%;
+    background: white;
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+  }
+//     .bot-left, .bot-right {
+//         position: fixed;
+// //        bottom: 10px;
+//         top: 50px;
+//
+//         a {
+//             color: #da6f6f;
+//             text-decoration: none;
+//             font-size: 30px;
+//             // font-family: Walburn;
+//
+//         }
+//     }
+
+    // .bot-left {
+    //     left: 20px;
+    //
+    //     img {
+    //         width: 90px;
+    //     }
+    // }
+    //
+    // .bot-right {
+    //     right: 20px;
+    // }
 }
 
 .container {
     height: 100%;
-    p, h1, a {
-        color: gray;
-        font-family: Courier New;
-
-    }
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    // background: red;
 
     a {
         text-decoration: none;
@@ -99,43 +137,37 @@ canvas {
         position: relative;
     }
 
-    .block {
-//        right: 0px;
-//        position: absolute;
-        padding: 0px 30px;
-
-        .item {
-          margin-bottom: 30px;
-            &:hover {
-//                cursor: help;
-            }
-        }
-
-        h1 {
-            color: black;
-            border-bottom: 1px dashed pink;
-            padding-bottom: 5px;
-            margin-bottom: 8px;
-        }
-
-
-        .title {
-//            color: red;
-            // cursor: url('../images/click-cursor.gif') 50 20, pointer;
-            p span {
-                position: absolute;
-                left: 0px;
-            }
-        }
-    }
-
     .left, .right {
-        @include flex(1);
-        text-align: center;
+      width: 50%;
+      height: 100%;
+      // float: left;
     }
 
-    .right p {
-        font-size: 50px;
+    .left {
+      overflow-y: auto;
+
+      img {
+        width: 100%;
+      }
+
+      img:first-child {
+        margin-top: 60px;
+      }
+    }
+
+    .right {
+      overflow: hidden;
+      @include display(flex);
+      @include align-items(center);
+      @include justify-content(center);
+
+      .text {
+        width: 70%;
+
+        p {
+          margin-bottom: 15px;
+        }
+      }
     }
 
     .shows {
@@ -166,7 +198,7 @@ canvas {
 }
 
 .container.info {
-    margin-top: 250px;
+    // margin-top: 250px;
 
     .title {
         padding-top: 200px;
@@ -190,18 +222,17 @@ canvas {
 }
 
 body.home {
-//    background: url('../images/ZOA_texture.jpg');
     background-size: cover;
     background-position: center;
 }
 
 .container.home {
-    width: 80%;
-    margin: 0 auto;
+    // width: 80%;
+    // margin: 0 auto;
     @include display(flex);
     @include justify-content(center);
-//    @include align-items(center);
-    padding-top: 250px;
+    @include align-items(center);
+    // padding-top: 250px;
 
     p {
 //        filter: blur(.6px);
@@ -213,5 +244,17 @@ body.home {
   position: absolute;
   top: 60px;
   right: 60px;
-  font-family: Courier;
+  // font-family: Courier;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  font-size: 11px;
+  @include display(flex);
+  @include justify-content(space-around);
+  padding: 13px 0px;
+  z-index: 50;
+  background: none;
 }

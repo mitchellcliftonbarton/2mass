@@ -1,21 +1,29 @@
-<div>
-    <div class="main-nav">
-        <div class="bot-left">
-          {{#link-to 'home'}}
-            <img src="images/2mass-logo.svg" alt="">
-          {{/link-to}}
-        </div>
-    </div>
+<div class="main-nav">
+    <div class="left-half">
+      {{#link-to 'home' class="logo"}}
+        <!-- <img src="images/2mass-logo.svg" alt=""> -->
+        2MASS
+      {{/link-to}}
 
-    {{#if showPage}}
-    <div class="container info">
-      {{outlet}}
+      {{#link-to 'about' class="about-link"}}
+        ABOUT
+      {{/link-to}}
     </div>
-    {{else}}
-    <div class="container home">
-      {{outlet}}
+    <div class="right-half">
+      <p>NEXT SHOW: SATURDAY JULY, 14, 2017</p>
     </div>
-    <div class="login">
+</div>
+
+    <!-- {{#if showPage}} -->
+    <!-- <div class="container info">
+      {{outlet}}
+    </div> -->
+    <!-- {{else}} -->
+    <!-- <div class="container home">
+      {{outlet}}
+    </div> -->
+
+    <!-- <div class="login">
       {{#if session.isAuthenticated}}
         <a href="#" {{action 'logout'}}>Logout</a>
       {{else}}
@@ -23,6 +31,14 @@
           Login
         {{/link-to}}
       {{/if}}
-    </div>
-    {{/if}}
+    </div> -->
+    <!-- {{/if}} -->
+<div class="container home">
+  {{outlet}}
+</div>
+<div class="footer">
+  <p>'FRIENDSHIP'  FEATURING  NOAH  JACKSON,  JACOB  HAUPT</p>
+  <p>JULY, 14 -15, 2017</p>
+  <p>ATTEND THE NEXT 2MASS</p>
+  <p>'FRIENDSHIP'  FEATURING  NOAH  JACKSON,  JACOB  HAUPT</p>
 </div>

@@ -15,6 +15,7 @@ Router.map(function() {
   this.route('geminii');
   this.route('friendship');
   this.route('login');
+  this.route('about');
 });
 
 export default Router;

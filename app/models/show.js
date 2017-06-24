@@ -5,5 +5,6 @@ export default DS.Model.extend({
   date: DS.attr('string'),
   artists: DS.attr('string'),
   link: DS.attr('string'),
-  status: DS.attr('string')
+  status: DS.attr('string'),
+  text: DS.attr('string')
 });
