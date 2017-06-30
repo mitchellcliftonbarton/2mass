@@ -11,5 +11,9 @@ export default Ember.Controller.extend({
     logout() {
       this.get('session').invalidate();
     }
-  }
+  },
+
+  openAlert: function() {
+    console.log('this is kind of like dom ready');
+  }.on('init')
 });

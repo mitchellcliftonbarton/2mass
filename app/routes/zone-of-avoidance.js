@@ -5,5 +5,19 @@ export default Ember.Route.extend({
     templateName: 'show-page',
     model() {
       return this.get('store').findRecord('show', 'zone-of-avoidance');
+    },
+
+    actions: {
+
+      // willTransition() {
+      //   alert('transitioning!');
+      // },
+      //
+      // didTransition() {
+      //   alert('zoa');
+      //   $('.container .text').css('opacity', '0');
+      //
+      // }
     }
+
 });
