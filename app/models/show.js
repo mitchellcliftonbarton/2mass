@@ -7,5 +7,5 @@ export default DS.Model.extend({
   link: DS.attr('string'),
   status: DS.attr('string'),
   text: DS.attr('string'),
-  images: D.hasMany('image')
+  images: DS.hasMany('image')
 });
