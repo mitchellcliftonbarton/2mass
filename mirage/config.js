@@ -4,6 +4,8 @@ export default function() {
 
   this.get('/shows');
   this.get('/shows/:id');
+  this.get('/images');
+  this.get('/images/:id');
   // this.get('/shows', (schema, request) => {
   //
   //   let query = {};

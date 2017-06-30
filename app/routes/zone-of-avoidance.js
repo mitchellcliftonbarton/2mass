@@ -5,5 +5,6 @@ export default Ember.Route.extend({
     templateName: 'show-page',
     model() {
       return this.get('store').findRecord('show', 'zone-of-avoidance');
+      // return this.get('store').findAll('image');
     }
 });
