@@ -1,18 +1,84 @@
 export default [
   {
     id: 1,
-    name: 'zoa-1',
-    url: 'images/zoa-1.jpg',
-    alt: 'Zone of Avoidance Image'
+    url: 'images/zoa-1.jpg'
   }, {
     id: 2,
-    name: 'zoa-2',
-    url: 'images/zoa-2.jpg',
-    alt: 'Zone of Avoidance Image'
+    url: 'images/zoa-2.jpg'
   }, {
     id: 3,
-    name: 'zoa-3',
-    url: 'images/zoa-3.jpg',
-    alt: 'Zone of Avoidance Image'
+    url: 'images/zoa-3.jpg'
+  }, {
+    id: 4,
+    url: 'images/zoa-4.jpg'
+  }, {
+    id: 5,
+    url: 'images/zoa-5.jpg'
+  }, {
+    id: 6,
+    url: 'images/zoa-6.jpg'
+  }, {
+    id: 7,
+    url: 'images/zoa-7.jpg'
+  }, {
+    id: 8,
+    url: 'images/zoa-8.jpg'
+  }, {
+    id: 9,
+    url: 'images/zoa-9.jpg'
+  }, {
+    id: 10,
+    url: 'images/zoa-10.jpg'
+  }, {
+    id: 11,
+    url: 'images/zoa-11.jpg'
+  }, {
+    id: 12,
+    url: 'images/zoa-12.jpg'
+  }, {
+    id: 13,
+    url: 'images/zoa-13.jpg'
+  }, {
+    id: 14,
+    url: 'images/zoa-14.jpg'
+  }, {
+    id: 15,
+    url: 'images/gem-1.jpg'
+  }, {
+    id: 16,
+    url: 'images/gem-2.jpg'
+  }, {
+    id: 17,
+    url: 'images/gem-3.jpg'
+  }, {
+    id: 18,
+    url: 'images/gem-4.jpg'
+  }, {
+    id: 19,
+    url: 'images/gem-5.jpg'
+  }, {
+    id: 20,
+    url: 'images/gem-6.jpg'
+  }, {
+    id: 21,
+    url: 'images/gem-7.jpg'
+  }, {
+    id: 22,
+    url: 'images/gem-8.jpg'
+  }, {
+    id: 23,
+    url: 'images/gem-9.jpg'
+  }, {
+    id: 24,
+    url: 'images/gem-10.jpg'
+  }, {
+    id: 25,
+    url: 'images/gem-11.jpg'
+  }, {
+    id: 26,
+    url: 'images/gem-12.jpg'
+  }, {
+    id: 27,
+    url: 'images/gem-13.jpg'
   }
 ];

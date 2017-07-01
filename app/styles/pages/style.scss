@@ -104,12 +104,26 @@ body {
     .left {
       overflow-y: auto;
 
+      &::-webkit-scrollbar {
+        width: 5px;
+        background-color: black;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #000;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: white;
+      }
+
       img {
         width: 100%;
+        display: block;
       }
 
       img:first-child {
-        margin-top: 60px;
+        // margin-top: 60px;
       }
     }
 
@@ -121,6 +135,8 @@ body {
 
       .text {
         width: 70%;
+        opacity: 0;
+        @include transform(translateY(10px));
 
         p {
           margin-bottom: 15px;
@@ -185,7 +201,7 @@ body.home {
 }
 
 .container.home {
-    background: #212131;
+    // background: #212131;
     // display: none;
     // width: 80%;
     // margin: 0 auto;
@@ -198,6 +214,10 @@ body.home {
 //        filter: blur(.6px);
 //        -webkit-filter: blur(.3px);
     }
+}
+
+.container.show {
+  @include display(flex);
 }
 
 .login {

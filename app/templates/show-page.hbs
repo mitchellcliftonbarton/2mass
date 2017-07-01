@@ -1,10 +1,7 @@
 <div class="left">
-  <!-- <img src="/images/zoa-1.jpg" alt="">
-  <img src="/images/zoa-2.jpg" alt="">
-  <img src="/images/zoa-3.jpg" alt="">
-  <img src="/images/zoa-4.jpg" alt="">
-  <img src="/images/zoa-5.jpg" alt="">
-  <img src="/images/zoa-6.jpg" alt=""> -->
+  {{#each model.images as |img|}}
+    <img src="{{img.url}}" alt="">
+  {{/each}}
 </div>
 <div class="right">
   <div class="text">

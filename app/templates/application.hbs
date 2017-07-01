@@ -1,6 +1,12 @@
+{{#if show-page}}
 <div class="container home">
   {{outlet}}
 </div>
+{{else}}
+<div class="container show">
+  {{outlet}}
+</div>
+{{/if}}
 <div class="footer">
   <p>'FRIENDSHIP'  FEATURING  NOAH  JACKSON,  JACOB  HAUPT</p>
   <p>JULY, 14 -15, 2017</p>
