@@ -20,6 +20,12 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    contentSecurityPolicy: {
+      'style-src': "'self' 'unsafe-inline'",
+      'connect-src': "'self' http://localhost:5000"
+      // 'connect-src': "'self' https://arcane-eyrie-59193.herokuapp.com"
     }
   };
 

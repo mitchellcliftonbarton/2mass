@@ -1,0 +1,33 @@
+<div class="create-image">
+  <div class="form">
+    <div class="options">
+      <select onChange={{action (route-action 'loadImage')}} id="image-list">
+        <option value="create-new" selected>Create New Image</option>
+        {{#each model as |page|}}
+          <option value="page-title" data-id={{page.id}}>{{page.title}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <form {{action 'createImage' on='submit'}} id="create-image-form">
+      <div class="half selection">
+        <p>Select Show</p>
+        {{#select-box/native id="showSelect" as |sb|}}
+          {{#each allShows as |show|}}
+            {{sb.option value=show.id label=show.title}}
+          {{/each}}
+        {{/select-box/native}}
+      </div>
+      <div class="half">
+        {{input value=url placeholder="Enter URL" class="form-control"}}
+      </div>
+      <div class="half">
+        {{input value=title placeholder="Enter Title" class="form-control"}}
+      </div>
+
+      <div {{action 'deleteRecord'}} class="btn btn-default delete">Delete Record</div>
+      <button type="submit" class="btn btn-default">Create Page Record</button>
+    </form>
+  </div>
+</div>
+
+{{outlet}}

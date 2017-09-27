@@ -1,0 +1,22 @@
+{{#if isInitialLoad}}
+
+  <div class="landing">
+    <div class="split">
+      <div class="left" {{action 'goAwayLeft'}}>
+
+      </div>
+      <div class="right" {{action 'goAwayRight'}}>
+
+      </div>
+    </div>
+    <div class="full" {{action 'goAwayFull'}}>
+      
+    </div>
+    <div class="watermark">
+      <p>&copy;<br>2017<br>2MASS</p>
+    </div>
+  </div>
+
+  {{yield}}
+
+{{/if}}

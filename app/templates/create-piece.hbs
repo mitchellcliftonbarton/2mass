@@ -1,0 +1,38 @@
+<div class="create-piece">
+  <div class="form">
+    <div class="options">
+      <select onChange={{action (route-action 'loadPiece')}} id="piece-list">
+        <option value="create-new" selected>Create New Piece</option>
+        {{#each model as |page|}}
+          <option value="page-title" data-id={{page.id}}>{{page.title}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <form {{action 'createPiece' on='submit'}} id="create-piece-form">
+      <div class="half selection">
+        <p>Select Show</p>
+        {{#select-box/native id="showSelect" as |sb|}}
+          {{#each allShows as |show|}}
+            {{sb.option value=show.id label=show.title}}
+          {{/each}}
+        {{/select-box/native}}
+      </div>
+      <div class="half selection">
+        <p>Select Person</p>
+        {{#select-box/native id="personSelect" as |sb|}}
+          {{#each allPeople as |person|}}
+            {{sb.option value=person.id label=person.name}}
+          {{/each}}
+        {{/select-box/native}}
+      </div>
+      <div class="half">
+        {{input value=title placeholder="Enter Title" class="form-control"}}
+      </div>
+
+      <div {{action 'deleteRecord'}} class="btn btn-default delete">Delete Record</div>
+      <button type="submit" class="btn btn-default">Create Piece Record</button>
+    </form>
+  </div>
+</div>
+
+{{outlet}}

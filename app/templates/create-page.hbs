@@ -1,0 +1,41 @@
+<div class="create-page">
+  <div class="form">
+    <div class="options">
+      <select onChange={{action (route-action 'loadPage')}} id="page-list">
+        <option value="create-new" selected>Create New Show Page</option>
+        {{#each model as |page|}}
+          <option value="page-title" data-id={{page.id}}>{{page.title}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <form {{action 'createPage' on='submit'}}id="create-page-form">
+      <div class="half">
+        {{input value=title placeholder="Enter Title" class="form-control"}}
+      </div>
+      <div class="half">
+        {{input value=when placeholder="Enter Date" class="form-control"}}
+      </div>
+      <!-- <div class="half selection">
+        <p>Select Images</p>
+        {{multiselect-checkboxes
+          options=allImages
+          selection=selectedImages
+          labelProperty="url"}}
+      </div> -->
+      <div class="half">
+        {{input value=link placeholder="Enter Link" class="form-control"}}
+      </div>
+      <div class="half">
+        {{input value=status placeholder="Enter Status" class="form-control"}}
+      </div>
+      <div class="half">
+        {{textarea value=text placeholder="Enter Text" class="form-control"}}
+      </div>
+
+      <div {{action 'deleteRecord'}} class="btn btn-default delete">Delete Record</div>
+      <button type="submit" class="btn btn-default">Create Page Record</button>
+    </form>
+  </div>
+</div>
+
+{{outlet}}

@@ -1,0 +1,22 @@
+<div class="show-footer">
+  <div class="show-info">
+    <p>ARTISTS:</p>
+    {{#each  people as |person|}}
+      <div class="artist">
+        <div class="left">
+          <p>{{person.name}}</p>
+        </div>
+        <div class="right">
+          {{#each person.pieces as |piece|}}
+            <p>{{piece.title}}</p>
+          {{/each}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  <div class="watermark">
+    <p>&copy;<br>2017<br>2MASS</p>
+  </div>
+</div>
+
+{{yield}}

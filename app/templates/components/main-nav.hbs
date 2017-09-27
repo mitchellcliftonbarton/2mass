@@ -1,0 +1,33 @@
+<div class="main-nav">
+  <div class="nav-left hidden">
+    {{#link-to 'home'}}
+      2MASS.INFO
+    {{/link-to}}
+  </div>
+  <div class="nav-center hidden" {{action 'show'}}>
+    <div class="hov">
+      <p class="ex-link">EXHIBITIONS 1–3</p>
+      <div class="exhibitions-links">
+        <ul>
+          <li>
+            {{#link-to 'friendship'}}
+              FRIENDSHIP
+            {{/link-to}}
+          </li>
+          <li>
+            {{#link-to 'geminii'}}
+              GEMINII
+            {{/link-to}}
+          </li>
+          <li>
+            {{#link-to 'zone-of-avoidance'}}
+              ZONE OF AVOIDANCE
+            {{/link-to}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{yield}}

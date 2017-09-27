@@ -1,5 +1,25 @@
-<p>LOGIN</p>
-<input type="text" name="" value="">
-<input type="text" name="" value="">
+<div class="login">
+  {{#if session.isAuthenticated}}
+    <button class="btn" {{action 'logout'}}>Logout</button>
+  {{else}}
+    <form {{action 'authenticate' on='submit'}}>
+      <div>
+        {{input value=identification placeholder="Enter Username" class="form-control"}}
+      </div>
+      <div>
+        {{input value=password placeholder="Enter Password" class="form-control" type="password"}}
+      </div>
 
-{{outlet}}
+      <button type="submit" class="btn">Submit</button>
+    </form>
+
+    {{#if errorMessage}}
+      <p>
+        Login Failed! :
+        <code>{{errorMessage}}</code>
+      </p>
+    {{/if}}
+  {{/if}}
+
+  {{outlet}}
+</div>

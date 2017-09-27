@@ -1,1 +1,18 @@
+<div class="photos geminii">
+  {{ carousel-el images=model.images}}
+</div>
+<div class="content has-scroll">
+  <div class="content-inner">
+    <p class="show-title">
+      EXHIBITION:
+      <br>
+      {{ model.title }}
+    </p>
+    <p>
+      {{{ model.text }}}
+    </p>
+  </div>
+  {{alt-footer-left people=model.people}}
+</div>
+
 {{outlet}}

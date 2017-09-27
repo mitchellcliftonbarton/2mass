@@ -10,6 +10,7 @@ module.exports = function(defaults) {
   });
 
   app.import('vendor/TweenMax.min.js');
+  app.import('vendor/carousel.js');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

@@ -1,35 +1,16 @@
-<div class="indent-nav">
-  <ul>
-    <li>
-      {{#link-to 'home'}}
-        <span>-</span>2MASS
-      {{/link-to}}
-    </li>
-    <li>
-      {{#link-to 'about'}}
-        <span>-</span>About
-      {{/link-to}}
-    </li>
-    <li><span>-</span>Shows
-      <ul>
-        <li>
-          {{#link-to 'friendship'}}
-            <span>-</span>Friendship
-          {{/link-to}}
-        </li>
-        <li>
-          {{#link-to 'geminii'}}
-            <span>-</span>Geminii
-          {{/link-to}}
-        </li>
-        <li>
-          {{#link-to 'zone-of-avoidance'}}
-            <span>-</span>Zone of Avoidance
-          {{/link-to}}
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
+{{#if allImages.length}}
+  {{random-landing isInitialLoad=isInitialLoad allImages=allImages}}
+{{/if}}
 
+<div class="main">
+  {{photo-clicker imageClicker=imageClicker}}
+</div>
+<div class="content">
+  <p>
+    Thank you to all who have donated thus far to help us continue 2MASS. Your contributions help artists and collaborators fund future events and projects.
+    <br><br>
+    As a part of a larger discussion of the connection between art and music, 2MASS is a venue for artists to conceptualize, create and exhibit art in and related to the concept of 2MASS. On a monthly basis, 2MASS will curate art and music shows for an audience interested in mentioned fields of art. The experience is expected to be new and experimental.
+  </p>
+</div>
+{{alt-footer-right}}
 {{outlet}}

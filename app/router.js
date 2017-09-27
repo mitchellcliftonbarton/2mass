@@ -7,15 +7,16 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  // this.route('index', { path: '/' });
-  // this.route('index', { path: '/:id' });
-  // this.route('about');
   this.route('zone-of-avoidance');
   this.route('home', { path: '/' });
   this.route('geminii');
   this.route('friendship');
   this.route('login');
-  this.route('about');
+  this.route('create-page');
+  this.route('create-image');
+  this.route('create-person');
+  this.route('create-piece');
+  this.route('loading');
 });
 
 export default Router;
