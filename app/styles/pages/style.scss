@@ -226,21 +226,18 @@ body {
     height: 100%;
     position: absolute;
 
-    .left {
-      width: 50%;
-      height: 100%;
-    }
-
-    .right {
-      width: 50%;
-      height: 100%;
-    }
-
     .left, .right {
       // background-size: cover;
       background-position: center;
       float: left;
       overflow: hidden;
+      width: 50%;
+      height: 100%;
+
+      @include xs {
+        width: 100%;
+        height: 50%;
+      }
 
       video {
         height: 100%;

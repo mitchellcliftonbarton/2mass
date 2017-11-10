@@ -8,6 +8,14 @@ export default Ember.Controller.extend({
     return this.get('currentRouteName') === 'home'
   }),
 
+  isMobile: Ember.computed(() => {
+    if ($(window).width() < 450) {
+      return true;
+    } else {
+        return false;
+    }
+  }),
+
 
   allImages: [],
 

@@ -35,7 +35,6 @@ export default Ember.Component.extend({
       vid.addEventListener('loadedmetadata', function() {
         console.log(vid.duration)
         this.currentTime = vid.duration - 10;
-        // this.play()
       })
     }
 

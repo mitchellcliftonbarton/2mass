@@ -8,8 +8,8 @@ export default Ember.Component.extend({
     this._super(...arguments);
 
     if (this.isInitialLoad) {
-
-      if (this.randomLanding) {
+      console.log('initial load')
+      if (this.randomLanding && !this.isMobile) {
 
       } else {
 
@@ -32,7 +32,7 @@ export default Ember.Component.extend({
       }
 
     } else {
-
+        console.log(' notinitial load')
     }
 
   },

@@ -1,22 +1,23 @@
 {{#if isInitialLoad}}
+  {{#unless isMobile}}
+    <div class="landing">
+      <div class="split">
+        <div class="left" {{action 'goAwayFull'}}>
 
-  <div class="landing">
-    <div class="split">
-      <div class="left" {{action 'goAwayFull'}}>
+        </div>
+        <div class="right" {{action 'goAwayFull'}}>
+
+        </div>
+      </div>
+      <div class="full" {{action 'goAwayFull'}}>
 
       </div>
-      <div class="right" {{action 'goAwayFull'}}>
-
+      <div class="watermark">
+        <p>&copy;<br>2017<br>2MASS</p>
       </div>
     </div>
-    <div class="full" {{action 'goAwayFull'}}>
 
-    </div>
-    <div class="watermark">
-      <p>&copy;<br>2017<br>2MASS</p>
-    </div>
-  </div>
+    {{yield}}
 
-  {{yield}}
-
+  {{/unless}}
 {{/if}}
