@@ -46,5 +46,8 @@
     "node": ">= 4"
   },
   "private": true,
-  "false": {}
+  "false": {},
+  "dependencies": {
+    "nprogress": "^0.2.0"
+  }
 }

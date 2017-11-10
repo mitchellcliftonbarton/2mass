@@ -24,8 +24,8 @@ module.exports = function(environment) {
 
     contentSecurityPolicy: {
       'style-src': "'self' 'unsafe-inline'",
-      'connect-src': "'self' http://localhost:5000"
-      // 'connect-src': "'self' https://arcane-eyrie-59193.herokuapp.com"
+      // 'connect-src': "'self' http://localhost:5000"
+      'connect-src': "'self' https://arcane-eyrie-59193.herokuapp.com"
     }
   };
 

@@ -24,6 +24,66 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
+
+/////// nprogress stuff
+
+
+::-moz-selection {
+  background: gray;
+}
+
+::selection {
+  background: gray;
+}
+
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #000;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  // box-shadow: 0 0 10px #29d, 0 0 5px #29d;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+
+
+////// real stuff
+
+
+
 html{
    height: 100%;
   -webkit-overlow-scrolling: touch;
@@ -64,15 +124,102 @@ body {
     font-family: 'F-Grotesk', sans-serif;
     letter-spacing: .5px;
     font-weight: 500;
+    cursor: url('/images/mouse-cursor.svg') 5 5 , none;
+
+    .initial-loading-animation {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // @include transition(opacity .3s);
+
+      @keyframes skewing {
+        0% {
+          transform: skewY(0deg);
+        }
+
+        25% {
+          transform: skewY(10deg);
+        }
+
+        50% {
+          transform: skewY(0deg);
+        }
+
+        75% {
+          transform: skewY(-10deg);
+        }
+      }
+
+      .outer {
+        display: block;
+        overflow: hidden;
+        @include transition(transform .3s);
+
+        &.ani {
+          animation: skewing 3s infinite;
+          @include transition(transform .3s);
+        }
+      }
+
+      .inner {
+        display: block;
+        transform: translateY(0%);
+        @include transition(transform .3s);
+      }
+
+      p {
+        font-size: 25px;
+      }
+
+      svg {
+        fill: #000;
+      }
+
+      &.hide {
+
+        .inner {
+          transform: translateY(-100%);
+          @include transition(transform .3s);
+        }
+        // opacity: 0;
+        // visibility: hidden;
+      }
+
+      @keyframes dot {
+        0% {
+          transform: translateY(0%);
+        }
+
+        50% {
+          transform: translateY(-50%);
+        }
+
+        100% {
+          transform: translateY(0%);
+        }
+      }
+
+      span {
+        display: inline-block;
+        // animation: dot 1.7s infinite;
+      }
+    }
 }
 
 .landing {
   position: fixed;
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  cursor: url('/images/mouse-cursor.svg') 5 5 , none;
   z-index: 1000;
   opacity: 0;
+  transition: height .4s;
+  overflow: hidden;
+  // transform: translateX(0);
 
   .split, .full {
     width: 100%;
@@ -90,7 +237,7 @@ body {
     }
 
     .left, .right {
-      background-size: cover;
+      // background-size: cover;
       background-position: center;
       float: left;
       overflow: hidden;
@@ -117,6 +264,13 @@ body {
 }
 
 .watermark {
+  opacity: 1;
+  @include transition(opacity .3s);
+
+  &.hide {
+      opacity: 0;
+      @include transition(opacity .3s);
+  }
 
   p {
     position: fixed;
@@ -140,6 +294,39 @@ body {
   }
 }
 
+.audio-sounds {
+  position: absolute;
+  bottom: 20px;
+  left: 18px;
+  z-index: 100;
+
+  .outer {
+    overflow: hidden;
+    display: block;
+
+    .inner {
+      display: block;
+      transform: translateY(0%);
+      @include transition(transform .6s);
+
+    }
+  }
+
+  .speaker {
+    font-size: 12px;
+    cursor: url('/images/mouse-cursor-red.svg') 5 5 , none;
+    padding: 10px 15px;
+  }
+
+  &.hidden {
+
+    .inner {
+      transform: translateY(100%);
+      @include transition(transform .6s);
+    }
+  }
+}
+
 .main-nav {
   // opacity: 1;
 
@@ -148,6 +335,8 @@ body {
     font-weight: 500;
     a, p {
       color: black;
+      display: block;
+      cursor: url('/images/mouse-cursor-red.svg') 5 5 , none;
     }
   }
 
@@ -157,12 +346,31 @@ body {
     left: -10px;
     font-size: 12px;
     z-index: 110;
-    opacity: 1;
-    @include transition(opacity .3s, transform .3s);
+    // opacity: 1;
+    @include transition(opacity 1s, transform .3s);
+
+    a {
+      padding: 20px;
+
+      .outer {
+        overflow: hidden;
+        display: block;
+
+        .inner {
+          display: block;
+          transform: translateY(0%);
+          @include transition(transform .6s);
+
+        }
+      }
+    }
 
     &.hidden {
-      opacity: 0;
-      @include transition(opacity .3s);
+
+      a .outer .inner {
+        transform: translateY(100%);
+        @include transition(transform .6s);
+      }
     }
 
     &:hover {
@@ -171,25 +379,133 @@ body {
     }
   }
 
+  @keyframes loading {
+    to {
+      stroke-dashoffset: 333;
+    }
+  }
+
+  svg {
+    transform: translate(30px, 13px);
+    width: 60px;
+    @include transition(opacity .3s);
+  }
+
+  svg .st0 {
+    fill: none;
+    stroke: #000;
+    stroke-width: 2;
+    stroke-dasharray: 111;
+    stroke-dashoffset: 111;
+    // opacity: 0;
+  }
+
+  svg .st0.w-animation {
+    animation: loading 4s infinite;
+    // opacity: 1;
+    // @include transition(opacity .3s);
+  }
+
   .nav-left.reset {
     left: 8px;
     top: 50px;
   }
 
   .nav-center {
-    top: 20px;
-    // letter-spacing: 2px;
+    top: 10px;
     width: 100%;
     text-align: center;
     font-size: 12px;
     z-index: 100;
-    pointer-events: none;
     opacity: 1;
-    @include transition(opacity .3s);
+    pointer-events: none;
+    @include display(flex);
+    @include justify-content(center);
+    @include transition(opacity 1s);
+
+    .nav-center-inner {
+      width: auto;
+      pointer-events: auto;
+      position: relative;
+
+      .loader {
+        content: '';
+        background: red;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    a {
+      padding: 20px 15px;
+      display: inline-block;
+      transform: rotate3d(0, 0, 0, 0deg);
+      color: black;
+      @include transition(transform .3s, color .5s);
+
+      &:hover {
+        transform: rotate3d(0, 0, 200, 5deg);
+        @include transition(transform .3s);
+      }
+
+      .outer {
+        overflow: hidden;
+        display: block;
+
+        .inner {
+          display: block;
+          transform: translateY(0%);
+          @include transition(transform .6s);
+
+        }
+      }
+
+      @keyframes load {
+        0% {
+          color: black;
+        }
+
+        20% {
+          color: purple;
+        }
+
+        40% {
+          color: blue;
+        }
+
+        60% {
+          color: green;
+        }
+
+        80% {
+          color: red;
+        }
+
+        100% {
+          color: black;
+        }
+      }
+
+      &.animation-active {
+        animation-name: load;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        // padding: 0px 0px;
+        transition: color .2s;
+      }
+    }
 
     &.hidden {
-      opacity: 0;
-      @include transition(opacity .3s);
+
+      a .outer .inner {
+        transform: translateY(100%);
+        @include transition(transform .6s);
+      }
     }
 
     .hov {
@@ -203,7 +519,7 @@ body {
     }
 
     .ex-link {
-      cursor: pointer;
+      cursor: url('/images/mouse-cursor.svg') 5 5 , none;
       transform: none;
       margin-bottom: 5px;
       @include transition(transform .3s);
@@ -268,11 +584,29 @@ a {
         width: 100%;
         height: 100%;
         position: absolute;
-        cursor: pointer;
+        cursor: url('/images/mouse-cursor.svg') 5 5 , none;
+
+        .delete-text {
+          position: absolute;
+          top: 30px;
+          right: 40px;
+          z-index: 100;
+          font-size: 12px;
+          opacity: 0;
+          @include transition(opacity .3s);
+
+          &.visible {
+            opacity: 1;
+            @include transition(opacity .3s);
+          }
+        }
 
         .photo-clicker-img {
           position: absolute;
           width: 60%;
+          opacity: 0;
+          transform: scale(.98);
+          transition: opacity .4s, transform .2s;
         }
       }
     }
@@ -393,7 +727,7 @@ body.home {
   .content {
     width: 80%;
     margin: 0 auto;
-    opacity: 0;
+    // opacity: 0;
 
     &.has-scroll {
       width: 100%;
@@ -442,30 +776,55 @@ body.home {
       margin-bottom: 30px;
     }
 
-    .read-more {
-      cursor: pointer;
-      @include transition(filter .3s, color .3s);
-
-      &:hover {
-        filter: blur(1.5px);
-        @include transition(filter .3s, color .3s);
-        color: blue;
-      }
-    }
-
     .hidden {
       visibility: hidden;
+    }
+  }
+
+  .buttons {
+    position: absolute;
+    z-index: 1000;
+    bottom: 20px;
+    right: 30px;
+    span {
+      cursor: url('/images/mouse-cursor-red.svg') 5 5 , none;
+      font-size: 20px;
+      padding: 10px 15px;
     }
   }
 
   .photos {
     opacity: 0;
 
-    img {
-      width: 100%;
+    .image-container {
+      // position: relative;
+      @include transition(transform .4s);
 
+      // p {
+      //   position: absolute;
+      //   font-size: 24px;
+      //   right: 0px;
+      //   text-align: right;
+      //   bottom: -100px;
+      //   opacity: 0;
+      //   transform: translateY(25px);
+      //   @include transition(opacity .5s, transform .6s);
+      //
+      //   &.in {
+      //     opacity: 1;
+      //     transform: translateY(0px);
+      //     @include transition(opacity .5s, transform .6s);
+      //   }
+      // }
+    }
+
+    img {
+      // width: 100%;
+      min-width: 100vh;
+      min-height: 100vh;
+      @include transition(width .3s);
       padding: 0px;
-      margin: 0px;
+      margin: 0px auto;
       display: block;
     }
 
@@ -483,24 +842,72 @@ body.home {
 
   .carousel {
     position: relative;
+    cursor: url('/images/mouse-cursor.svg') 5 5 , none;
+
+    .carousel-inner {
+      @include display(flex);
+      @include justify-content(center);
+      @include align-items(center);
+      height: 100vh;
+      width: 100vw;
+
+      &.small {
+        .item {
+          .image-container {
+            transform: scale(.3);
+
+            .tall {
+              width: 60%;
+              @include transition(width .3s);
+
+              & + p {
+                right: 20%;
+              }
+            }
+          }
+        }
+      }
+    }
 
     .item {
       display: none;
       @include justify-content(center);
       @include align-items(center);
-      width: 100vw;
-      height: 100vh;
+      min-width: 100vw;
+      min-height: 100vh;
       overflow: hidden;
+
+      p {
+        position: absolute;
+        font-size: 12px;
+        right: 45px;
+        text-align: right;
+        bottom: 55px;
+        overflow: hidden;
+
+        span {
+          transform: translateY(100%);
+          display: block;
+          @include transition(transform .5s);
+
+          &.in {
+            transform: translateY(0%);
+          }
+        }
+      }
     }
     .item.active {
         @include display(flex);
     }
+
+
 
     .carousel-control.left, .carousel-control.right {
       position: absolute;
       width: 50%;
       top: 0px;
       height: 100%;
+      cursor: url('/images/mouse-cursor.svg') 5 5 , none;
     }
 
     .carousel-control.right {
@@ -515,7 +922,7 @@ body.home {
   .show-footer {
     position: relative;
     height: 300px;
-    opacity: 0;
+    // opacity: 0;
 
     .show-info {
       position: absolute;
@@ -639,11 +1046,10 @@ body.home {
     background: black;
     border: none;
     color: white;
-    // font-family: Practice, sans-serif;
     font-size: 12px;
     text-transform: uppercase;
     padding: 13px;
-    cursor: pointer;
+    cursor: url('/images/mouse-cursor.svg') 5 5 , none;
   }
 
   .half {

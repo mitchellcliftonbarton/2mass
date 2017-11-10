@@ -16,7 +16,6 @@ Router.map(function() {
   this.route('create-image');
   this.route('create-person');
   this.route('create-piece');
-  this.route('loading');
 });
 
 export default Router;

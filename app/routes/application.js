@@ -6,7 +6,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     actions: {
       didTransition() {
         Ember.run.scheduleOnce('afterRender', this, () => {
-          
+
         });
       }
     }

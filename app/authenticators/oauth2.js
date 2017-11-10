@@ -1,6 +1,6 @@
 import OAuth2PasswordGrant from 'ember-simple-auth/authenticators/oauth2-password-grant';
 
 export default OAuth2PasswordGrant.extend({
-  serverTokenEndpoint: 'http://localhost:5000/api/token'
-  // serverTokenEndpoint: 'https://arcane-eyrie-59193.herokuapp.com/api/token'
+  // serverTokenEndpoint: 'http://localhost:5000/api/token'
+  serverTokenEndpoint: 'https://arcane-eyrie-59193.herokuapp.com/api/token'
 });

@@ -16,7 +16,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     createImage() {
 
-      let { url, title } = this.controller.getProperties('url', 'title');
+      let { url, title, piecetitle, artists, size } = this.controller.getProperties('url', 'title', 'piecetitle', 'artists', 'size');
       let form = document.getElementById('create-image-form');
       let formChildren = form.children;
       let dropdown = document.getElementById('image-list');
@@ -31,7 +31,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       if (dropdown.selectedIndex == -1) {
         return null;
       } else if (dropdown.selectedIndex == 0) {
-        let sure = confirm('Are you sure you want to create an image with the following info?\n\n' + 'title: ' + title + '\nurl: ' + url);
+        let sure = confirm('Are you sure you want to create an image with the following info?\n\n' + 'title: ' + title + '\nurl: ' + url + '\npiece title: ' + piecetitle + '\nartists: ' + artists);
 
         if (sure == true) {
           let selectedShow = this.get('store').peekRecord('show', showId);
@@ -40,7 +40,10 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
             // file: ;aslkdfja;sdf,
             show: selectedShow,
             title: title,
-            url: url
+            url: url,
+            piecetitle: piecetitle,
+            artists: artists,
+            size: size
           });
 
           img.save().then(function() {
@@ -74,7 +77,10 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
             img.setProperties({
               show: selectedShow,
               title: formChildren[2].children[0].value,
-              url: formChildren[1].children[0].value
+              url: formChildren[1].children[0].value,
+              piecetitle: formChildren[3].children[0].value,
+              artists: formChildren[4].children[0].value,
+              size: formChildren[5].children[0].value
             })
             img.save().then(function() {
               alert('Success!')
@@ -112,8 +118,11 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       // console.log(form);
       let newData = this.get('store').peekRecord('image', pageName);
       console.log(newData);
-      let pageData = newData.getProperties('url', 'title');
+      let pageData = newData.getProperties('url', 'title', 'piecetitle', 'artists', 'size');
 
+      form[5].children[0].value = pageData.size;
+      form[4].children[0].value = pageData.artists;
+      form[3].children[0].value = pageData.piecetitle;
       form[2].children[0].value = pageData.title;
       form[1].children[0].value = pageData.url;
       form[0].children[0].value = pageData.show;

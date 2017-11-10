@@ -4,7 +4,15 @@
   <div class="carousel-inner" role="listbox">
     {{#each images as |image|}}
       <div class="item">
-        <img src={{image.url}} alt={{image.title}}>
+        <div class="image-container">
+          <img src={{image.url}} alt={{image.title}} class={{image.size}}>
+          <!-- <p>{{image.piecetitle}}<br>{{image.artists}}</p> -->
+        </div>
+        <p>
+          <span>
+            {{image.piecetitle}}<br>{{image.artists}}
+          </span>
+        </p>
       </div>
     {{/each}}
   </div>

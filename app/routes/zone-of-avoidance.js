@@ -12,42 +12,47 @@ export default Ember.Route.extend({
 
     actions: {
       didTransition() {
+        Ember.run(() => {
+          $('.nav-left svg').css('opacity', '0')
+          Ember.run.later(() => {
+            $('.nav-left svg .st0').removeClass('w-animation')
+          }, 300)
+          NProgress.done();
+        })
 
-          $(window).on('scroll.hidden-info', () => {
-            if (document.body.scrollHeight - 200 < document.body.scrollTop + window.innerHeight) {
-                Ember.run(() => {
-                  if (document.body.scrollHeight == document.body.scrollTop + window.innerHeight) {
-                    $('.container.show .content').addClass('showing');
-                    console.log('youre working')
-                  } else {
-                    $('.container.show .content').removeClass('showing');
-                  }
-                })
-            } else {
-              Ember.run(() => {
-                // $('.container.show .content').removeClass('peek');
-              })
-            }
-          })
+
+        $(window).on('wheel DOMMouseScroll', (e) => {
+          console.log('scrolllllll')
+          if (e.originalEvent.deltaY >= 0) {
+            $('.container.show .content').addClass('showing');
+          } else {
+            $('.container.show .content').removeClass('showing');
+          }
+        })
 
 
           Ember.run.scheduleOnce('afterRender', this, () => {
+            document.body.style.overflow = 'hidden';
             document.body.scrollTop = document.documentElement.scrollTop = 0;
 
             Ember.run.later(() => {
               TweenMax.fromTo('.photos', 2, { y: -15, ease:Expo.easeOut }, { y: 0, ease:Expo.easeOut });
               TweenMax.fromTo('.photos', 3, { opacity: 0 }, { opacity: 1 });
-
-              // Ember.run.later(() => {
-                TweenMax.fromTo('.content', 3, { opacity: 0, y: -15, ease:Expo.easeOut }, { opacity: 1, y: 0, ease:Expo.easeOut });
-              // }, 3000)
-
             }, 1000)
           });
       },
 
       willTransition(transition) {
-        $(window).off('scroll.hidden-info');
+        Ember.run(() => {
+          $(window).off();
+          $('.nav-left svg').css('opacity', '1')
+          Ember.run.later(() => {
+            $('.nav-left svg .st0').addClass('w-animation')
+          }, 300)
+
+          NProgress.start();
+        })
+
 
         if (this.futureTransition) {
           transition.abort()
@@ -68,6 +73,20 @@ export default Ember.Route.extend({
         } else {
           this.futureTransition = true
 
+        }
+      },
+
+      resize() {
+        if ($('.carousel-inner').hasClass('small')) {
+          $('.carousel-inner').removeClass('small')
+          Ember.run.later(() => {
+            $('.item p span').removeClass('in')
+          }, 400)
+        } else {
+          $('.carousel-inner').addClass('small')
+          Ember.run.later(() => {
+            $('.item p span').addClass('in')
+          }, 400)
         }
       }
   }

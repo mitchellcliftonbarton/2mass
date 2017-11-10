@@ -1,33 +1,55 @@
 <div class="main-nav">
   <div class="nav-left hidden">
     {{#link-to 'home'}}
-      2MASS.INFO
+      <span class="outer">
+        <span class="inner">
+          2MASS.INFO
+        </span>
+      </span>
     {{/link-to}}
+    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 50.13 15.75" style="enable-background:new 0 0 50.13 15.75;" xml:space="preserve">
+        <path class="st0" d="M49.35,7.63c0,0-12,15.17-7.5,0s-8.96,0.45-8.96,0.45l0.12-0.14c-1.18,1.29-11.79,14.85-7.29-0.31
+        	s-8.96,0.45-8.96,0.45l0.23-0.26C15.73,9.21,5.22,22.79,9.72,7.63S0.76,8.08,0.76,8.08"/>
+    </svg>
   </div>
-  <div class="nav-center hidden" {{action 'show'}}>
-    <div class="hov">
-      <p class="ex-link">EXHIBITIONS 1–3</p>
-      <div class="exhibitions-links">
-        <ul>
-          <li>
-            {{#link-to 'friendship'}}
-              FRIENDSHIP
-            {{/link-to}}
-          </li>
-          <li>
-            {{#link-to 'geminii'}}
-              GEMINII
-            {{/link-to}}
-          </li>
-          <li>
-            {{#link-to 'zone-of-avoidance'}}
-              ZONE OF AVOIDANCE
-            {{/link-to}}
-          </li>
-        </ul>
-      </div>
+  <div class="nav-center hidden">
+    <div class="nav-center-inner">
+      {{#link-to 'zone-of-avoidance'}}
+        <span class="outer">
+          <span class="inner">
+            ZONE OF AVOIDANCE
+          </span>
+        </span>
+      {{/link-to}}
+      {{#link-to 'geminii'}}
+        <span class="outer">
+          <span class="inner">
+            GEMINII
+          </span>
+        </span>
+      {{/link-to}}
+      {{#link-to 'friendship'}}
+        <span class="outer">
+          <span class="inner">
+            FRIENDSHIP
+          </span>
+        </span>
+      {{/link-to}}
+      <span class="loader"></span>
     </div>
   </div>
+  <div class="audio-sounds hidden">
+    <audio autoplay loop id="player">
+      <source src="media/2MASS3-sound.mp3" type="audio/mpeg">
+    </audio>
+    <span class="outer">
+      <span class="inner speaker" {{action 'mute'}}>
+        MUTE
+      </span>
+    </span>
+  </div>
 </div>
+
 
 {{yield}}

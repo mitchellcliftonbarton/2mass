@@ -13,19 +13,42 @@ export default Ember.Route.extend({
 
     actions: {
       didTransition() {
-          Ember.run.scheduleOnce('afterRender', this, () => {
-            document.body.scrollTop = document.documentElement.scrollTop = 0;
 
-            Ember.run.later(() => {
-                TweenMax.fromTo('.content', 3, { opacity: 0, y: -15, ease:Expo.easeOut }, { opacity: 1, y: 0, ease:Expo.easeOut });
-                TweenMax.fromTo('.show-footer', 3, { opacity: 0, y: -15, ease:Expo.easeOut }, { opacity: 1, y: 0, ease:Expo.easeOut });
-            }, 1000)
+        Ember.run(() => {
+          $('.nav-left svg').css('opacity', '0')
+          Ember.run.later(() => {
+            $('.nav-left svg .st0').removeClass('w-animation')
+          }, 300)
+          NProgress.done();
+        })
+
+        $(window).on('wheel DOMMouseScroll', (e) => {
+          console.log('scrolllllll')
+          if (e.originalEvent.deltaY >= 0) {
+            $('.container.home .content').addClass('showing');
+          } else {
+            $('.container.home .content').removeClass('showing');
+          }
+        })
+
+
+          Ember.run.scheduleOnce('afterRender', this, () => {
+            document.body.style.overflow = 'hidden';
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
 
           });
       },
 
       willTransition(transition) {
-        console.log(this.futureTransition)
+        // console.log(this.futureTransition)
+        Ember.run(() => {
+          $(window).off();
+          $('.nav-left svg').css('opacity', '1')
+          Ember.run.later(() => {
+            $('.nav-left svg .st0').addClass('w-animation')
+          }, 300)
+          NProgress.start();
+        })
 
         if (this.futureTransition) {
           transition.abort()

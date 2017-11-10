@@ -171,6 +171,24 @@ define('e-2mass/components/image-upload', ['exports', 'ember'], function (export
   });
   exports.default = _ember.default.Component.extend({});
 });
+define('e-2mass/components/initial-loading-animation', ['exports', 'ember'], function (exports, _ember) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _ember.default.Component.extend({
+    didInsertElement: function didInsertElement() {}
+  });
+});
+define('e-2mass/components/loading-animation', ['exports', 'ember'], function (exports, _ember) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _ember.default.Component.extend({});
+});
 define('e-2mass/components/main-nav', ['exports', 'ember'], function (exports, _ember) {
   'use strict';
 
@@ -184,40 +202,41 @@ define('e-2mass/components/main-nav', ['exports', 'ember'], function (exports, _
     didInsertElement: function didInsertElement() {
       var _this = this;
 
-      if (this.isInitialLoad) {
-        _ember.default.run(function () {
-          _this.$('.main-nav').addClass('opacity-empty');
-        });
+      this._super.apply(this, arguments);
 
-        _ember.default.run.later(function () {
-          _this.$('.main-nav').addClass('opacity-full');
+      if (this.isInitialLoad) {
+
+        if (this.randomLanding) {} else {
+
+          _ember.default.run(function () {
+            $('.initial-loading-animation').addClass('hide');
+            _ember.default.run.later(function () {
+              $('.initial-loading-animation').css('display', 'none');
+            }, 300);
+          });
 
           _ember.default.run.later(function () {
+            _this.$('.main-nav .nav-left').removeClass('hidden');
+            _this.$('.main-nav .nav-center').removeClass('hidden');
+            _this.$('.audio-sounds').removeClass('hidden');
+            console.log('hello');
             _this.set('isInitialLoad', false);
           }, 1000);
-        }, 1400);
+        }
       } else {}
     },
 
 
     actions: {
-      show: function show() {
-        var _this2 = this;
-
-        if (this.$('.nav-center').hasClass('open')) {
-          _ember.default.run(function () {
-            _this2.$('.nav-center').removeClass('open');
-            var tl = new TimelineMax();
-
-            tl.to('.exhibitions-links', .3, { opacity: 0 }), tl.to('.exhibitions-links', 0, { display: 'none' });
-          });
+      mute: function mute() {
+        if ($('.speaker').hasClass('mute')) {
+          $('.speaker').removeClass('mute');
+          document.getElementById('player').volume = 1;
+          $('.speaker').text('MUTE');
         } else {
-          _ember.default.run(function () {
-            _this2.$('.nav-center').addClass('open');
-            var tl = new TimelineMax();
-
-            tl.to('.exhibitions-links', 0, { display: 'block' }), tl.fromTo('.exhibitions-links', .3, { opacity: 0 }, { opacity: 1 });
-          });
+          $('.speaker').addClass('mute');
+          document.getElementById('player').volume = 0.0;
+          $('.speaker').text('PLAY');
         }
       }
     }
@@ -233,6 +252,69 @@ define('e-2mass/components/photo-clicker', ['exports', 'ember'], function (expor
     tagName: 'div',
     classNames: ['photo-clicker-container'],
 
+    didInsertElement: function didInsertElement() {
+      this._super.apply(this, arguments);
+
+      if (this.imageClicker.length) {
+
+        var rando = Math.floor(Math.random() * this.imageClicker.length) + 0;
+
+        var img = document.createElement('img');
+        img.className = 'photo-clicker-img';
+        img.src = this.imageClicker[rando];
+        this.$('.photo-clicker').append(img);
+
+        var pos = [Math.floor(Math.random() * 90) + 10, Math.floor(Math.random() * 90) + 10, (Math.floor(Math.random() * 50) + 0) * -1, (Math.floor(Math.random() * 50) + 0) * -1];
+
+        img.style.top = pos[Math.floor(Math.random() * 3) + 0] + '%';
+        img.style.left = pos[Math.floor(Math.random() * 3) + 0] + '%';
+
+        if (this.load) {
+          console.log('load is true');
+        } else {
+          _ember.default.run.later(function () {
+            console.log('load is false');
+            $('.photo-clicker-img').css('opacity', '1');
+            $('.photo-clicker-img').css('transform', 'scale(1)');
+          }, 300);
+        }
+      } else {
+        _ember.default.run.next(this, function () {
+          this.didInsertElement();
+        });
+      }
+
+      $('.photo-clicker').on({
+        mouseenter: function mouseenter() {
+          _ember.default.run(function () {
+            $('.delete-text').addClass('visible');
+
+            $(window).keypress(function (e) {
+              if (e.keyCode === 13) {
+                console.log(e.keyCode);
+                _ember.default.run(function () {
+                  $('.photo-clicker-img').css('opacity', '0');
+                  $('.delete-text').removeClass('visible');
+
+                  _ember.default.run.later(function () {
+                    $('.photo-clicker-img').remove();
+                  }, 500);
+                });
+              } else {
+                console.log(e.keyCode);
+              }
+            });
+          });
+        },
+        mouseleave: function mouseleave() {
+          _ember.default.run(function () {
+            $('.delete-text').removeClass('visible');
+          });
+        }
+      }, '.photo-clicker-img');
+    },
+
+
     actions: {
       addImage: function addImage() {
         this._super.apply(this, arguments);
@@ -243,14 +325,17 @@ define('e-2mass/components/photo-clicker', ['exports', 'ember'], function (expor
         img.className = 'photo-clicker-img';
         img.src = this.imageClicker[rando];
         this.$('.photo-clicker').append(img);
+        _ember.default.run.later(function () {
+          img.style.opacity = "1";
+          img.style.transform = "scale(1)";
+        }, 150);
 
-        var xc = event.pageX;
-        var yc = event.pageY;
+        var pos = [Math.floor(Math.random() * 70) + 10, Math.floor(Math.random() * 70) + 10, (Math.floor(Math.random() * 50) + 0) * -1, (Math.floor(Math.random() * 50) + 0) * -1];
 
-        console.log('x = ' + xc + ' y = ' + yc);
+        console.log(pos);
 
-        img.style.top = yc + 'px';
-        img.style.left = xc + 'px';
+        img.style.top = pos[Math.floor(Math.random() * 3) + 0] + '%';
+        img.style.left = pos[Math.floor(Math.random() * 3) + 0] + '%';
       }
     }
   });
@@ -273,88 +358,105 @@ define('e-2mass/components/random-landing', ['exports', 'ember'], function (expo
 
       this._super.apply(this, arguments);
 
-      _ember.default.run(function () {
-        if (_this.isInitialLoad) {
-          document.body.style.overflow = "hidden";
-        } else {
-          document.body.style.overflow = "auto";
-        }
-      });
+      /// with video or not
+      var vidRando = Math.floor(Math.random() * 2) + 1;
+      /// vid on left or right
+      var vidRandoSide = Math.floor(Math.random() * 2) + 1;
 
-      if (this.allImages.length > 1) {
+      /// function to make video element
+      function makeVid(el) {
+        var vid = document.createElement('video');
+        vid.autoplay = "autoplay";
+        vid.loop = "loop";
+        vid.className = 'video-spot';
+        vid.preload = "auto";
 
-        _ember.default.run(function () {
-          _this.$('.full').css('display', 'none');
-          _this.$('.split .left').css('background-image', 'url("' + _this.allImages[0] + '")');
-          _this.$('.split .right').css('background-image', 'url("' + _this.allImages[1] + '")');
+        $(el).append(vid);
 
-          TweenMax.to('.landing', 1.5, { opacity: 1 });
-        });
-      } else {
+        var source1 = document.createElement('source');
+        source1.type = "video/mp4";
+        source1.src = "media/2MASS3-vid.mp4";
 
-        _ember.default.run(function () {
-          _this.$('.split').css('display', 'none');
-          _this.$('.full').css('background-image', 'url("' + _this.allImages[0] + '")');
+        vid.append(source1);
 
-          TweenMax.to('.landing', 1.5, { opacity: 1 });
+        vid.addEventListener('loadedmetadata', function () {
+          console.log(vid.duration);
+          this.currentTime = vid.duration - 10;
+          // this.play()
         });
       }
-    },
-    willDestroyElement: function willDestroyElement() {
-      console.log('ha;dslfj');
+
+      _ember.default.run.later(function () {
+        $('.initial-loading-animation').addClass('hide');
+        _ember.default.run.later(function () {
+          $('.initial-loading-animation').css('display', 'none');
+
+          if (_this.allImages.length > 1) {
+
+            _ember.default.run(function () {
+              _this.$('.full').css('display', 'none');
+
+              if (vidRando === 1) {
+                if (vidRandoSide === 1) {
+                  _this.$('.split .left').css('background-image', 'url("' + _this.allImages[0] + '")');
+                  makeVid('.right');
+                } else {
+                  _this.$('.split .right').css('background-image', 'url("' + _this.allImages[1] + '")');
+                  makeVid('.left');
+                }
+              } else {
+                _this.$('.split .left').css('background-image', 'url("' + _this.allImages[0] + '")');
+                _this.$('.split .right').css('background-image', 'url("' + _this.allImages[1] + '")');
+              }
+
+              TweenMax.to('.landing', 1.5, { opacity: 1 });
+            });
+          } else {
+
+            _ember.default.run(function () {
+              _this.$('.split').css('display', 'none');
+
+              if (vidRando === 1) {
+                /// do image
+                _this.$('.full').css('background-image', 'url("' + _this.allImages[0] + '")');
+              } else {
+                /// do video background
+                makeVid('.full');
+              }
+
+              TweenMax.to('.landing', 1.5, { opacity: 1 });
+            });
+          }
+        }, 600);
+      }, 600);
     },
 
 
     actions: {
-      goAwayLeft: function goAwayLeft() {
-        var _this2 = this;
-
-        _ember.default.run(function () {
-          document.body.style.overflow = "auto";
-          $('.landing').css('cursor', 'initial');
-          TweenMax.to('.split .left', .4, { opacity: 0 });
-          TweenMax.to('.split .right', .4, { delay: .7, opacity: 0 });
-          TweenMax.to('.watermark', .4, { opacity: 0 });
-        });
-
-        _ember.default.run.later(function () {
-          _this2.set('isInitialLoad', false);
-          console.log('set it to false');
-        }, 1100);
-      },
-      goAwayRight: function goAwayRight() {
-        var _this3 = this;
-
-        _ember.default.run(function () {
-          document.body.style.overflow = "auto";
-          $('.landing').css('cursor', 'initial');
-          TweenMax.to('.split .right', .4, { opacity: 0 });
-          TweenMax.to('.split .left', .4, { delay: .7, opacity: 0 });
-          TweenMax.to('.watermark', .4, { opacity: 0 });
-        });
-
-        _ember.default.run.later(function () {
-          _this3.set('isInitialLoad', false);
-          console.log('set it to false');
-        }, 1100);
-      },
       goAwayFull: function goAwayFull() {
-        var _this4 = this;
+        var _this2 = this;
 
         this._super.apply(this, arguments);
 
         _ember.default.run(function () {
-          document.body.style.overflow = "auto";
-          $('.landing').css('cursor', 'initial');
+          // document.body.style.overflow = "auto";
 
-          TweenMax.to('.full', .2, { opacity: 0 });
-          TweenMax.to('.watermark', .2, { opacity: 0 });
+          $('.landing').css('height', '0');
+          $('.watermark').addClass('hide');
+
+          _ember.default.run.later(function () {
+
+            $('.main-nav .nav-left').removeClass('hidden');
+            $('.main-nav .nav-center').removeClass('hidden');
+            $('.audio-sounds').removeClass('hidden');
+
+            _ember.default.run.later(function () {
+              $('.photo-clicker-img').css('opacity', '1');
+              $('.photo-clicker-img').css('transform', 'scale(1)');
+              _this2.set('isInitialLoad', false);
+            }, 300);
+          }, 400);
         });
-
-        _ember.default.run.later(function () {
-          _this4.set('isInitialLoad', false);
-          console.log('set it to false');
-        }, 200);
       }
     }
   });
@@ -544,6 +646,14 @@ define('e-2mass/components/show-nav', ['exports', 'ember'], function (exports, _
     }
   });
 });
+define('e-2mass/components/video-thing', ['exports', 'ember'], function (exports, _ember) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _ember.default.Component.extend({});
+});
 define('e-2mass/controllers/application', ['exports', 'ember'], function (exports, _ember) {
   'use strict';
 
@@ -554,9 +664,45 @@ define('e-2mass/controllers/application', ['exports', 'ember'], function (export
     session: _ember.default.inject.service('session'),
     isInitialLoad: true,
 
-    showPage: _ember.default.computed('currentRouteName', function () {
-      return this.get('currentRouteName') === 'zone-of-avoidance' | this.get('currentRouteName') === 'geminii' | this.get('currentRouteName') == 'friendship' | this.get('currentRouteName') === 'about';
+    randomLanding: _ember.default.computed('currentRouteName', function () {
+      return this.get('currentRouteName') === 'home';
     }),
+
+    allImages: [],
+
+    showPage: _ember.default.computed('currentRouteName', function () {
+      return this.get('currentRouteName') === 'zone-of-avoidance' | this.get('currentRouteName') === 'geminii' | this.get('currentRouteName') == 'friendship';
+    }),
+
+    init: function init() {
+      var _this = this;
+
+      return this.get('store').findAll('image').then(function (response) {
+
+        //// this is getting random images for the random landing component
+        var final = [];
+
+        var asArray = response.toArray();
+
+        /// split or full
+        var rando = Math.floor(Math.random() * 2) + 1;
+        /// 2 numbers for photos for split or full
+        var picRando1 = Math.floor(Math.random() * (asArray.length - 1));
+        var picRando2 = Math.floor(Math.random() * (asArray.length - 1));
+
+        if (rando === 1) {
+          var img1 = response.objectAt(picRando1).get('url');
+          var img2 = response.objectAt(picRando2).get('url');
+          final.push(img1, img2);
+        } else {
+          var _img = response.objectAt(picRando1).get('url');
+          final.push(_img);
+        }
+
+        _this.set('allImages', final);
+      });
+    },
+
 
     actions: {
       logout: function logout() {
@@ -628,8 +774,9 @@ define('e-2mass/controllers/home', ['exports', 'ember'], function (exports, _emb
     value: true
   });
   exports.default = _ember.default.Controller.extend({
-    isInitialLoad: true,
-    allImages: [],
+    // isInitialLoad: true,
+    applicationController: _ember.default.inject.controller('application'),
+    load: _ember.default.computed.alias('applicationController.isInitialLoad'),
     imageClicker: [],
 
     init: function init() {
@@ -638,7 +785,6 @@ define('e-2mass/controllers/home', ['exports', 'ember'], function (exports, _emb
       return this.get('store').findAll('image').then(function (response) {
 
         //// this is getting random images for the random landing component
-        var final = [];
         var clickFinal = [];
 
         var asArray = response.toArray();
@@ -649,21 +795,6 @@ define('e-2mass/controllers/home', ['exports', 'ember'], function (exports, _emb
         }
 
         _this.set('imageClicker', clickFinal);
-
-        var rando = Math.floor(Math.random() * 2) + 1;
-        var picRando1 = Math.floor(Math.random() * (asArray.length - 1));
-        var picRando2 = Math.floor(Math.random() * (asArray.length - 1));
-
-        if (rando === 1) {
-          var img1 = response.objectAt(picRando1).get('url');
-          var img2 = response.objectAt(picRando2).get('url');
-          final.push(img1, img2);
-        } else {
-          var _img = response.objectAt(picRando1).get('url');
-          final.push(_img);
-        }
-
-        _this.set('allImages', final);
       });
     }
   });
@@ -971,7 +1102,10 @@ define('e-2mass/models/image', ['exports', 'ember-data'], function (exports, _em
   exports.default = _emberData.default.Model.extend({
     show: _emberData.default.belongsTo('show'),
     url: _emberData.default.attr('string'),
-    title: _emberData.default.attr('string')
+    title: _emberData.default.attr('string'),
+    piecetitle: _emberData.default.attr('string'),
+    artists: _emberData.default.attr('string'),
+    size: _emberData.default.attr('string')
   });
 });
 define('e-2mass/models/person', ['exports', 'ember-data'], function (exports, _emberData) {
@@ -1097,9 +1231,12 @@ define('e-2mass/routes/create-image', ['exports', 'ember', 'ember-simple-auth/mi
         });
       },
       createImage: function createImage() {
-        var _controller$getProper = this.controller.getProperties('url', 'title'),
+        var _controller$getProper = this.controller.getProperties('url', 'title', 'piecetitle', 'artists', 'size'),
             url = _controller$getProper.url,
-            title = _controller$getProper.title;
+            title = _controller$getProper.title,
+            piecetitle = _controller$getProper.piecetitle,
+            artists = _controller$getProper.artists,
+            size = _controller$getProper.size;
 
         var form = document.getElementById('create-image-form');
         var formChildren = form.children;
@@ -1115,7 +1252,7 @@ define('e-2mass/routes/create-image', ['exports', 'ember', 'ember-simple-auth/mi
         if (dropdown.selectedIndex == -1) {
           return null;
         } else if (dropdown.selectedIndex == 0) {
-          var sure = confirm('Are you sure you want to create an image with the following info?\n\n' + 'title: ' + title + '\nurl: ' + url);
+          var sure = confirm('Are you sure you want to create an image with the following info?\n\n' + 'title: ' + title + '\nurl: ' + url + '\npiece title: ' + piecetitle + '\nartists: ' + artists);
 
           if (sure == true) {
             var selectedShow = this.get('store').peekRecord('show', showId);
@@ -1124,7 +1261,10 @@ define('e-2mass/routes/create-image', ['exports', 'ember', 'ember-simple-auth/mi
               // file: ;aslkdfja;sdf,
               show: selectedShow,
               title: title,
-              url: url
+              url: url,
+              piecetitle: piecetitle,
+              artists: artists,
+              size: size
             });
 
             img.save().then(function () {
@@ -1154,7 +1294,10 @@ define('e-2mass/routes/create-image', ['exports', 'ember', 'ember-simple-auth/mi
               img.setProperties({
                 show: _selectedShow,
                 title: formChildren[2].children[0].value,
-                url: formChildren[1].children[0].value
+                url: formChildren[1].children[0].value,
+                piecetitle: formChildren[3].children[0].value,
+                artists: formChildren[4].children[0].value,
+                size: formChildren[5].children[0].value
               });
               img.save().then(function () {
                 alert('Success!');
@@ -1190,8 +1333,11 @@ define('e-2mass/routes/create-image', ['exports', 'ember', 'ember-simple-auth/mi
         // console.log(form);
         var newData = this.get('store').peekRecord('image', pageName);
         console.log(newData);
-        var pageData = newData.getProperties('url', 'title');
+        var pageData = newData.getProperties('url', 'title', 'piecetitle', 'artists', 'size');
 
+        form[5].children[0].value = pageData.size;
+        form[4].children[0].value = pageData.artists;
+        form[3].children[0].value = pageData.piecetitle;
         form[2].children[0].value = pageData.title;
         form[1].children[0].value = pageData.url;
         form[0].children[0].value = pageData.show;
@@ -1694,20 +1840,42 @@ define('e-2mass/routes/friendship', ['exports', 'ember'], function (exports, _em
 
     actions: {
       didTransition: function didTransition() {
+        _ember.default.run(function () {
+          $('.nav-left svg').css('opacity', '0');
+          _ember.default.run.later(function () {
+            $('.nav-left svg .st0').removeClass('w-animation');
+          }, 300);
+          NProgress.done();
+        });
+
+        $(window).on('wheel DOMMouseScroll', function (e) {
+          console.log('scrolllllll');
+          if (e.originalEvent.deltaY >= 0) {
+            $('.container.show .content').addClass('showing');
+          } else {
+            $('.container.show .content').removeClass('showing');
+          }
+        });
+
         _ember.default.run.scheduleOnce('afterRender', this, function () {
+          document.body.style.overflow = 'hidden';
           document.body.scrollTop = document.documentElement.scrollTop = 0;
 
           _ember.default.run.later(function () {
-            TweenMax.fromTo('.photos', 2, { y: 105, ease: Expo.easeOut }, { y: 120, ease: Expo.easeOut });
+            TweenMax.fromTo('.photos', 2, { y: -15, ease: Expo.easeOut }, { y: 0, ease: Expo.easeOut });
             TweenMax.fromTo('.photos', 3, { opacity: 0 }, { opacity: 1 });
-
-            _ember.default.run.later(function () {
-              TweenMax.fromTo('.content', 3, { opacity: 0, y: 105, ease: Expo.easeOut }, { opacity: 1, y: 120, ease: Expo.easeOut });
-            }, 3000);
           }, 1000);
         });
       },
       willTransition: function willTransition(transition) {
+        _ember.default.run(function () {
+          $(window).off();
+          $('.nav-left svg').css('opacity', '1');
+          _ember.default.run.later(function () {
+            $('.nav-left svg .st0').addClass('w-animation');
+          }, 300);
+          NProgress.start();
+        });
 
         if (this.futureTransition) {
           transition.abort();
@@ -1725,6 +1893,19 @@ define('e-2mass/routes/friendship', ['exports', 'ember'], function (exports, _em
           }, 300);
         } else {
           this.futureTransition = true;
+        }
+      },
+      resize: function resize() {
+        if ($('.carousel-inner').hasClass('small')) {
+          $('.carousel-inner').removeClass('small');
+          _ember.default.run.later(function () {
+            $('.item p span').removeClass('in');
+          }, 400);
+        } else {
+          $('.carousel-inner').addClass('small');
+          _ember.default.run.later(function () {
+            $('.item p span').addClass('in');
+          }, 400);
         }
       }
     }
@@ -1745,24 +1926,49 @@ define('e-2mass/routes/geminii', ['exports', 'ember'], function (exports, _ember
     afterModel: function afterModel() {
       return this.get('store').findRecord('show', '3056f58c-12a6-5aa5-92ba-9a96b6e1a2ba', { include: 'pieces,people' });
     },
+    init: function init() {},
 
 
     actions: {
       didTransition: function didTransition() {
+
+        _ember.default.run(function () {
+          $('.nav-left svg').css('opacity', '0');
+          _ember.default.run.later(function () {
+            $('.nav-left svg .st0').removeClass('w-animation');
+          }, 300);
+          NProgress.done();
+        });
+
+        $(window).on('wheel DOMMouseScroll', function (e) {
+          console.log('scrolllllll');
+          if (e.originalEvent.deltaY >= 0) {
+            $('.container.show .content').addClass('showing');
+          } else {
+            $('.container.show .content').removeClass('showing');
+          }
+        });
+
         _ember.default.run.scheduleOnce('afterRender', this, function () {
+          document.body.style.overflow = 'hidden';
           document.body.scrollTop = document.documentElement.scrollTop = 0;
 
           _ember.default.run.later(function () {
             TweenMax.fromTo('.photos', 1, { y: -15, ease: Expo.easeOut }, { y: 0, ease: Expo.easeOut });
             TweenMax.fromTo('.photos', 2, { opacity: 0 }, { opacity: 1 });
-
-            _ember.default.run.later(function () {
-              TweenMax.fromTo('.content', 2, { opacity: 0, y: -15, ease: Expo.easeOut }, { opacity: 1, y: 0, ease: Expo.easeOut });
-            }, 3000);
           }, 1000);
         });
       },
       willTransition: function willTransition(transition) {
+        _ember.default.run(function () {
+          $(window).off();
+          document.body.style.overflow = 'auto';
+          $('.nav-left svg').css('opacity', '1');
+          _ember.default.run.later(function () {
+            $('.nav-left svg .st0').addClass('w-animation');
+          }, 300);
+          NProgress.start();
+        });
 
         if (this.futureTransition) {
           transition.abort();
@@ -1780,6 +1986,19 @@ define('e-2mass/routes/geminii', ['exports', 'ember'], function (exports, _ember
           }, 300);
         } else {
           this.futureTransition = true;
+        }
+      },
+      resize: function resize() {
+        if ($('.carousel-inner').hasClass('small')) {
+          $('.carousel-inner').removeClass('small');
+          _ember.default.run.later(function () {
+            $('.item p span').removeClass('in');
+          }, 400);
+        } else {
+          $('.carousel-inner').addClass('small');
+          _ember.default.run.later(function () {
+            $('.item p span').addClass('in');
+          }, 400);
         }
       }
     }
@@ -1800,30 +2019,52 @@ define('e-2mass/routes/home', ['exports', 'ember'], function (exports, _ember) {
 
     actions: {
       didTransition: function didTransition() {
-        _ember.default.run.scheduleOnce('afterRender', this, function () {
-          document.body.scrollTop = document.documentElement.scrollTop = 0;
 
+        _ember.default.run(function () {
+          $('.nav-left svg').css('opacity', '0');
           _ember.default.run.later(function () {
-            TweenMax.fromTo('.content', 3, { opacity: 0, y: -15, ease: Expo.easeOut }, { opacity: 1, y: 0, ease: Expo.easeOut });
-            TweenMax.fromTo('.show-footer', 3, { opacity: 0, y: -15, ease: Expo.easeOut }, { opacity: 1, y: 0, ease: Expo.easeOut });
-          }, 1000);
+            $('.nav-left svg .st0').removeClass('w-animation');
+          }, 300);
+          NProgress.done();
+        });
+
+        $(window).on('wheel DOMMouseScroll', function (e) {
+          console.log('scrolllllll');
+          if (e.originalEvent.deltaY >= 0) {
+            $('.container.home .content').addClass('showing');
+          } else {
+            $('.container.home .content').removeClass('showing');
+          }
+        });
+
+        _ember.default.run.scheduleOnce('afterRender', this, function () {
+          document.body.style.overflow = 'hidden';
+          document.body.scrollTop = document.documentElement.scrollTop = 0;
         });
       },
       willTransition: function willTransition(transition) {
-        console.log(this.futureTransition);
+        // console.log(this.futureTransition)
+        _ember.default.run(function () {
+          $(window).off();
+          $('.nav-left svg').css('opacity', '1');
+          _ember.default.run.later(function () {
+            $('.nav-left svg .st0').addClass('w-animation');
+          }, 300);
+          NProgress.start();
+        });
 
         if (this.futureTransition) {
           transition.abort();
-          console.log('aborted!');
+          // console.log('aborted!')
 
           _ember.default.run(function () {
-            TweenMax.fromTo('.photos', .3, { opacity: 1 }, { opacity: 0 });
+            TweenMax.fromTo('.main', .3, { opacity: 1 }, { opacity: 0 });
             TweenMax.fromTo('.content', .3, { opacity: 1, y: 0, ease: Expo.easeOut }, { opacity: 0, y: 15, ease: Expo.easeOut });
             TweenMax.fromTo('.show-footer', .3, { opacity: 1, y: 0, ease: Expo.easeOut }, { opacity: 0, y: 15, ease: Expo.easeOut });
           });
 
           this.futureTransition = false;
-          console.log(this.futureTransition);
+          // console.log(this.futureTransition)
 
           _ember.default.run.later(function () {
             transition.retry();
@@ -1898,20 +2139,43 @@ define('e-2mass/routes/zone-of-avoidance', ['exports', 'ember'], function (expor
 
     actions: {
       didTransition: function didTransition() {
+        _ember.default.run(function () {
+          $('.nav-left svg').css('opacity', '0');
+          _ember.default.run.later(function () {
+            $('.nav-left svg .st0').removeClass('w-animation');
+          }, 300);
+          NProgress.done();
+        });
+
+        $(window).on('wheel DOMMouseScroll', function (e) {
+          console.log('scrolllllll');
+          if (e.originalEvent.deltaY >= 0) {
+            $('.container.show .content').addClass('showing');
+          } else {
+            $('.container.show .content').removeClass('showing');
+          }
+        });
+
         _ember.default.run.scheduleOnce('afterRender', this, function () {
+          document.body.style.overflow = 'hidden';
           document.body.scrollTop = document.documentElement.scrollTop = 0;
 
           _ember.default.run.later(function () {
             TweenMax.fromTo('.photos', 2, { y: -15, ease: Expo.easeOut }, { y: 0, ease: Expo.easeOut });
             TweenMax.fromTo('.photos', 3, { opacity: 0 }, { opacity: 1 });
-
-            _ember.default.run.later(function () {
-              TweenMax.fromTo('.content', 3, { opacity: 0, y: -15, ease: Expo.easeOut }, { opacity: 1, y: 0, ease: Expo.easeOut });
-            }, 3000);
           }, 1000);
         });
       },
       willTransition: function willTransition(transition) {
+        _ember.default.run(function () {
+          $(window).off();
+          $('.nav-left svg').css('opacity', '1');
+          _ember.default.run.later(function () {
+            $('.nav-left svg .st0').addClass('w-animation');
+          }, 300);
+
+          NProgress.start();
+        });
 
         if (this.futureTransition) {
           transition.abort();
@@ -1929,6 +2193,19 @@ define('e-2mass/routes/zone-of-avoidance', ['exports', 'ember'], function (expor
           }, 300);
         } else {
           this.futureTransition = true;
+        }
+      },
+      resize: function resize() {
+        if ($('.carousel-inner').hasClass('small')) {
+          $('.carousel-inner').removeClass('small');
+          _ember.default.run.later(function () {
+            $('.item p span').removeClass('in');
+          }, 400);
+        } else {
+          $('.carousel-inner').addClass('small');
+          _ember.default.run.later(function () {
+            $('.item p span').addClass('in');
+          }, 400);
         }
       }
     }
@@ -1990,7 +2267,7 @@ define("e-2mass/templates/application", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "amJsF9zR", "block": "{\"statements\":[[6,[\"if\"],[[28,[\"showPage\"]]],null,{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container show\"],[13],[0,\"\\n  \"],[1,[33,[\"main-nav\"],null,[[\"isInitialLoad\"],[[28,[\"isInitialLoad\"]]]]],false],[0,\"\\n  \"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]},{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container home\"],[13],[0,\"\\n  \"],[1,[33,[\"main-nav\"],null,[[\"isInitialLoad\"],[[28,[\"isInitialLoad\"]]]]],false],[0,\"\\n  \"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]}]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "ypxPIYB3", "block": "{\"statements\":[[1,[33,[\"main-nav\"],null,[[\"isInitialLoad\",\"randomLanding\"],[[28,[\"isInitialLoad\"]],[28,[\"randomLanding\"]]]]],false],[0,\"\\n\\n\"],[6,[\"if\"],[[28,[\"allImages\",\"length\"]]],null,{\"statements\":[[6,[\"if\"],[[28,[\"randomLanding\"]]],null,{\"statements\":[[0,\"    \"],[1,[33,[\"random-landing\"],null,[[\"isInitialLoad\",\"allImages\",\"randomLanding\"],[[28,[\"isInitialLoad\"]],[28,[\"allImages\"]],[28,[\"randomLanding\"]]]]],false],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n\"],[6,[\"if\"],[[28,[\"showPage\"]]],null,{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container show\"],[13],[0,\"\\n  \"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]},{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container home\"],[13],[0,\"\\n  \"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]}]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/application.hbs" } });
 });
 define("e-2mass/templates/components/alt-footer-left", ["exports"], function (exports) {
   "use strict";
@@ -2014,7 +2291,7 @@ define("e-2mass/templates/components/carousel-el", ["exports"], function (export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "vtm1gh1H", "block": "{\"statements\":[[11,\"div\",[]],[15,\"id\",\"carousel-example-generic\"],[15,\"class\",\"carousel slide\"],[15,\"data-ride\",\"carousel\"],[13],[0,\"\\n\\n  \"],[4,\" Wrapper for slides \"],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"carousel-inner\"],[15,\"role\",\"listbox\"],[13],[0,\"\\n\"],[6,[\"each\"],[[28,[\"images\"]]],null,{\"statements\":[[0,\"      \"],[11,\"div\",[]],[15,\"class\",\"item\"],[13],[0,\"\\n        \"],[11,\"img\",[]],[16,\"src\",[28,[\"image\",\"url\"]],null],[16,\"alt\",[28,[\"image\",\"title\"]],null],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n\"]],\"locals\":[\"image\"]},null],[0,\"  \"],[14],[0,\"\\n  \"],[4,\" Controls \"],[0,\"\\n  \"],[11,\"a\",[]],[15,\"class\",\"left carousel-control\"],[15,\"href\",\"#carousel-example-generic\"],[15,\"role\",\"button\"],[15,\"data-slide\",\"prev\"],[13],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"a\",[]],[15,\"class\",\"right carousel-control\"],[15,\"href\",\"#carousel-example-generic\"],[15,\"role\",\"button\"],[15,\"data-slide\",\"next\"],[13],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"p\",[]],[15,\"class\",\"follow\"],[13],[0,\"PREV\"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/carousel-el.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "jOIo7wHS", "block": "{\"statements\":[[11,\"div\",[]],[15,\"id\",\"carousel-example-generic\"],[15,\"class\",\"carousel slide\"],[15,\"data-ride\",\"carousel\"],[13],[0,\"\\n\\n  \"],[4,\" Wrapper for slides \"],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"carousel-inner\"],[15,\"role\",\"listbox\"],[13],[0,\"\\n\"],[6,[\"each\"],[[28,[\"images\"]]],null,{\"statements\":[[0,\"      \"],[11,\"div\",[]],[15,\"class\",\"item\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"image-container\"],[13],[0,\"\\n          \"],[11,\"img\",[]],[16,\"src\",[28,[\"image\",\"url\"]],null],[16,\"alt\",[28,[\"image\",\"title\"]],null],[16,\"class\",[28,[\"image\",\"size\"]],null],[13],[14],[0,\"\\n          \"],[4,\" <p>{{image.piecetitle}}<br>{{image.artists}}</p> \"],[0,\"\\n        \"],[14],[0,\"\\n        \"],[11,\"p\",[]],[13],[0,\"\\n          \"],[11,\"span\",[]],[13],[0,\"\\n            \"],[1,[28,[\"image\",\"piecetitle\"]],false],[11,\"br\",[]],[13],[14],[1,[28,[\"image\",\"artists\"]],false],[0,\"\\n          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n\"]],\"locals\":[\"image\"]},null],[0,\"  \"],[14],[0,\"\\n  \"],[4,\" Controls \"],[0,\"\\n  \"],[11,\"a\",[]],[15,\"class\",\"left carousel-control\"],[15,\"href\",\"#carousel-example-generic\"],[15,\"role\",\"button\"],[15,\"data-slide\",\"prev\"],[13],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"a\",[]],[15,\"class\",\"right carousel-control\"],[15,\"href\",\"#carousel-example-generic\"],[15,\"role\",\"button\"],[15,\"data-slide\",\"next\"],[13],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"p\",[]],[15,\"class\",\"follow\"],[13],[0,\"PREV\"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/carousel-el.hbs" } });
 });
 define("e-2mass/templates/components/footer-rotate", ["exports"], function (exports) {
   "use strict";
@@ -2032,13 +2309,29 @@ define("e-2mass/templates/components/image-upload", ["exports"], function (expor
   });
   exports.default = Ember.HTMLBars.template({ "id": "wvcwW2BI", "block": "{\"statements\":[[1,[26,[\"file-upload\"]],false],[0,\"\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/image-upload.hbs" } });
 });
+define("e-2mass/templates/components/initial-loading-animation", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "dtrghc+s", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"initial-loading-animation\"],[13],[0,\"\\n  \"],[11,\"p\",[]],[13],[0,\"LOAADDDINNNGG\"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/initial-loading-animation.hbs" } });
+});
+define("e-2mass/templates/components/loading-animation", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "Dju9Rabh", "block": "{\"statements\":[[4,\" <p>loading</p> \"],[0,\"\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/loading-animation.hbs" } });
+});
 define("e-2mass/templates/components/main-nav", ["exports"], function (exports) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "yJOWTdQq", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"main-nav\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"nav-left\"],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"home\"],null,{\"statements\":[[0,\"      2MASS.INFO\\n\"]],\"locals\":[]},null],[0,\"  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"nav-center\"],[5,[\"action\"],[[28,[null]],\"show\"]],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"hov\"],[13],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"ex-link\"],[13],[0,\"EXHIBITIONS 1–3\"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"exhibitions-links\"],[13],[0,\"\\n        \"],[11,\"ul\",[]],[13],[0,\"\\n          \"],[11,\"li\",[]],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"friendship\"],null,{\"statements\":[[0,\"              FRIENDSHIP\\n\"]],\"locals\":[]},null],[0,\"          \"],[14],[0,\"\\n          \"],[11,\"li\",[]],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"geminii\"],null,{\"statements\":[[0,\"              GEMINII\\n\"]],\"locals\":[]},null],[0,\"          \"],[14],[0,\"\\n          \"],[11,\"li\",[]],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"zone-of-avoidance\"],null,{\"statements\":[[0,\"              ZONE OF AVOIDANCE\\n\"]],\"locals\":[]},null],[0,\"          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/main-nav.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "L6SPNbVg", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"main-nav\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"nav-left hidden\"],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"home\"],null,{\"statements\":[[0,\"      \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n        \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n          2MASS.INFO\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"    \"],[11,\"svg\",[]],[15,\"version\",\"1.1\"],[15,\"id\",\"Layer_1\"],[15,\"xmlns\",\"http://www.w3.org/2000/svg\",\"http://www.w3.org/2000/xmlns/\"],[15,\"xmlns:xlink\",\"http://www.w3.org/1999/xlink\",\"http://www.w3.org/2000/xmlns/\"],[15,\"x\",\"0px\"],[15,\"y\",\"0px\"],[15,\"viewBox\",\"0 0 50.13 15.75\"],[15,\"style\",\"enable-background:new 0 0 50.13 15.75;\"],[15,\"xml:space\",\"preserve\",\"http://www.w3.org/XML/1998/namespace\"],[13],[0,\"\\n        \"],[11,\"path\",[]],[15,\"class\",\"st0\"],[15,\"d\",\"M49.35,7.63c0,0-12,15.17-7.5,0s-8.96,0.45-8.96,0.45l0.12-0.14c-1.18,1.29-11.79,14.85-7.29-0.31\\n        \\ts-8.96,0.45-8.96,0.45l0.23-0.26C15.73,9.21,5.22,22.79,9.72,7.63S0.76,8.08,0.76,8.08\"],[13],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"nav-center hidden\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"nav-center-inner\"],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"zone-of-avoidance\"],null,{\"statements\":[[0,\"        \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n          \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n            ZONE OF AVOIDANCE\\n          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[6,[\"link-to\"],[\"geminii\"],null,{\"statements\":[[0,\"        \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n          \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n            GEMINII\\n          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[6,[\"link-to\"],[\"friendship\"],null,{\"statements\":[[0,\"        \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n          \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n            FRIENDSHIP\\n          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"      \"],[11,\"span\",[]],[15,\"class\",\"loader\"],[13],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"audio-sounds hidden\"],[13],[0,\"\\n    \"],[11,\"audio\",[]],[15,\"autoplay\",\"\"],[15,\"loop\",\"\"],[15,\"id\",\"player\"],[13],[0,\"\\n      \"],[11,\"source\",[]],[15,\"src\",\"media/2MASS3-sound.mp3\"],[15,\"type\",\"audio/mpeg\"],[13],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n      \"],[11,\"span\",[]],[15,\"class\",\"inner speaker\"],[5,[\"action\"],[[28,[null]],\"mute\"]],[13],[0,\"\\n        MUTE\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/main-nav.hbs" } });
 });
 define("e-2mass/templates/components/photo-clicker", ["exports"], function (exports) {
   "use strict";
@@ -2046,7 +2339,7 @@ define("e-2mass/templates/components/photo-clicker", ["exports"], function (expo
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "F/fh2AD1", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"photo-clicker\"],[5,[\"action\"],[[28,[null]],\"addImage\"]],[13],[0,\"\\n  \\n\"],[14],[0,\"\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/photo-clicker.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "rFxm2JkY", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"photo-clicker\"],[5,[\"action\"],[[28,[null]],\"addImage\"]],[13],[0,\"\\n  \"],[11,\"p\",[]],[15,\"class\",\"delete-text\"],[13],[0,\"ENTER TO CLEAR\"],[14],[0,\"\\n\\n\"],[14],[0,\"\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/photo-clicker.hbs" } });
 });
 define("e-2mass/templates/components/random-landing", ["exports"], function (exports) {
   "use strict";
@@ -2054,7 +2347,7 @@ define("e-2mass/templates/components/random-landing", ["exports"], function (exp
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "y8bhI+h4", "block": "{\"statements\":[[6,[\"if\"],[[28,[\"isInitialLoad\"]]],null,{\"statements\":[[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"landing\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"split\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"left\"],[5,[\"action\"],[[28,[null]],\"goAwayLeft\"]],[13],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"right\"],[5,[\"action\"],[[28,[null]],\"goAwayRight\"]],[13],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"full\"],[5,[\"action\"],[[28,[null]],\"goAwayFull\"]],[13],[0,\"\\n\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"watermark\"],[13],[0,\"\\n      \"],[11,\"p\",[]],[13],[0,\"©\"],[11,\"br\",[]],[13],[14],[0,\"2017\"],[11,\"br\",[]],[13],[14],[0,\"2MASS\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n  \"],[18,\"default\"],[0,\"\\n\\n\"]],\"locals\":[]},null]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/random-landing.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "pua2rQV+", "block": "{\"statements\":[[6,[\"if\"],[[28,[\"isInitialLoad\"]]],null,{\"statements\":[[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"landing\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"split\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"left\"],[5,[\"action\"],[[28,[null]],\"goAwayFull\"]],[13],[0,\"\\n\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"right\"],[5,[\"action\"],[[28,[null]],\"goAwayFull\"]],[13],[0,\"\\n\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"full\"],[5,[\"action\"],[[28,[null]],\"goAwayFull\"]],[13],[0,\"\\n\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"watermark\"],[13],[0,\"\\n      \"],[11,\"p\",[]],[13],[0,\"©\"],[11,\"br\",[]],[13],[14],[0,\"2017\"],[11,\"br\",[]],[13],[14],[0,\"2MASS\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n  \"],[18,\"default\"],[0,\"\\n\\n\"]],\"locals\":[]},null]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/random-landing.hbs" } });
 });
 define("e-2mass/templates/components/show-listing", ["exports"], function (exports) {
   "use strict";
@@ -2072,13 +2365,21 @@ define("e-2mass/templates/components/show-nav", ["exports"], function (exports) 
   });
   exports.default = Ember.HTMLBars.template({ "id": "HY0+29c6", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"main-nav\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"nav-left reset\"],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"home\"],null,{\"statements\":[[0,\"      BACK\\n\"]],\"locals\":[]},null],[0,\"  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"nav-center\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"hov\"],[5,[\"action\"],[[28,[null]],\"show\"],[[\"on\"],[\"mouseEnter\"]]],[5,[\"action\"],[[28,[null]],\"hide\"],[[\"on\"],[\"mouseLeave\"]]],[13],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"ex-link\"],[13],[0,\"EXHIBITIONS 1–3\"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"exhibitions-links\"],[13],[0,\"\\n        \"],[11,\"ul\",[]],[13],[0,\"\\n          \"],[11,\"li\",[]],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"friendship\"],null,{\"statements\":[[0,\"              FRIENDSHIP\\n\"]],\"locals\":[]},null],[0,\"          \"],[14],[0,\"\\n          \"],[11,\"li\",[]],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"geminii\"],null,{\"statements\":[[0,\"              GEMINII\\n\"]],\"locals\":[]},null],[0,\"          \"],[14],[0,\"\\n          \"],[11,\"li\",[]],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"zone-of-avoidance\"],null,{\"statements\":[[0,\"              ZONE OF AVOIDANCE\\n\"]],\"locals\":[]},null],[0,\"          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/show-nav.hbs" } });
 });
+define("e-2mass/templates/components/video-thing", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "vX2vaZY0", "block": "{\"statements\":[[11,\"video\",[]],[15,\"autoplay\",\"\"],[15,\"preload\",\"auto\"],[13],[0,\"\\n  \"],[11,\"source\",[]],[15,\"src\",\"media/2MASS3-vid.mp4\"],[15,\"type\",\"video/mp4\"],[13],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/video-thing.hbs" } });
+});
 define("e-2mass/templates/create-image", ["exports"], function (exports) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "tT0YTNp1", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"create-image\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"form\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"options\"],[13],[0,\"\\n      \"],[11,\"select\",[]],[16,\"onChange\",[33,[\"action\"],[[28,[null]],[33,[\"route-action\"],[\"loadImage\"],null]],null],null],[15,\"id\",\"image-list\"],[13],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"create-new\"],[15,\"selected\",\"\"],[13],[0,\"Create New Image\"],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\"]]],null,{\"statements\":[[0,\"          \"],[11,\"option\",[]],[15,\"value\",\"page-title\"],[16,\"data-id\",[28,[\"page\",\"id\"]],null],[13],[1,[28,[\"page\",\"title\"]],false],[14],[0,\"\\n\"]],\"locals\":[\"page\"]},null],[0,\"      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"form\",[]],[15,\"id\",\"create-image-form\"],[5,[\"action\"],[[28,[null]],\"createImage\"],[[\"on\"],[\"submit\"]]],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"half selection\"],[13],[0,\"\\n        \"],[11,\"p\",[]],[13],[0,\"Select Show\"],[14],[0,\"\\n\"],[6,[\"select-box/native\"],null,[[\"id\"],[\"showSelect\"]],{\"statements\":[[6,[\"each\"],[[28,[\"allShows\"]]],null,{\"statements\":[[0,\"            \"],[1,[33,[\"component\"],[[28,[\"sb\",\"option\"]]],[[\"value\",\"label\"],[[28,[\"show\",\"id\"]],[28,[\"show\",\"title\"]]]]],false],[0,\"\\n\"]],\"locals\":[\"show\"]},null]],\"locals\":[\"sb\"]},null],[0,\"      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"half\"],[13],[0,\"\\n        \"],[1,[33,[\"input\"],null,[[\"value\",\"placeholder\",\"class\"],[[28,[\"url\"]],\"Enter URL\",\"form-control\"]]],false],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"half\"],[13],[0,\"\\n        \"],[1,[33,[\"input\"],null,[[\"value\",\"placeholder\",\"class\"],[[28,[\"title\"]],\"Enter Title\",\"form-control\"]]],false],[0,\"\\n      \"],[14],[0,\"\\n\\n      \"],[11,\"div\",[]],[15,\"class\",\"btn btn-default delete\"],[5,[\"action\"],[[28,[null]],\"deleteRecord\"]],[13],[0,\"Delete Record\"],[14],[0,\"\\n      \"],[11,\"button\",[]],[15,\"type\",\"submit\"],[15,\"class\",\"btn btn-default\"],[13],[0,\"Create Page Record\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/create-image.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "A1eGO7Xy", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"create-image\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"form\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"options\"],[13],[0,\"\\n      \"],[11,\"select\",[]],[16,\"onChange\",[33,[\"action\"],[[28,[null]],[33,[\"route-action\"],[\"loadImage\"],null]],null],null],[15,\"id\",\"image-list\"],[13],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"create-new\"],[15,\"selected\",\"\"],[13],[0,\"Create New Image\"],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\"]]],null,{\"statements\":[[0,\"          \"],[11,\"option\",[]],[15,\"value\",\"page-title\"],[16,\"data-id\",[28,[\"page\",\"id\"]],null],[13],[1,[28,[\"page\",\"title\"]],false],[14],[0,\"\\n\"]],\"locals\":[\"page\"]},null],[0,\"      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"form\",[]],[15,\"id\",\"create-image-form\"],[5,[\"action\"],[[28,[null]],\"createImage\"],[[\"on\"],[\"submit\"]]],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"half selection\"],[13],[0,\"\\n        \"],[11,\"p\",[]],[13],[0,\"Select Show\"],[14],[0,\"\\n\"],[6,[\"select-box/native\"],null,[[\"id\"],[\"showSelect\"]],{\"statements\":[[6,[\"each\"],[[28,[\"allShows\"]]],null,{\"statements\":[[0,\"            \"],[1,[33,[\"component\"],[[28,[\"sb\",\"option\"]]],[[\"value\",\"label\"],[[28,[\"show\",\"id\"]],[28,[\"show\",\"title\"]]]]],false],[0,\"\\n\"]],\"locals\":[\"show\"]},null]],\"locals\":[\"sb\"]},null],[0,\"      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"half\"],[13],[0,\"\\n        \"],[1,[33,[\"input\"],null,[[\"value\",\"placeholder\",\"class\"],[[28,[\"url\"]],\"Enter URL\",\"form-control\"]]],false],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"half\"],[13],[0,\"\\n        \"],[1,[33,[\"input\"],null,[[\"value\",\"placeholder\",\"class\"],[[28,[\"title\"]],\"Enter Title\",\"form-control\"]]],false],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"half\"],[13],[0,\"\\n        \"],[1,[33,[\"input\"],null,[[\"value\",\"placeholder\",\"class\"],[[28,[\"piecetitle\"]],\"Enter Piece Title\",\"form-control\"]]],false],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"half\"],[13],[0,\"\\n        \"],[1,[33,[\"input\"],null,[[\"value\",\"placeholder\",\"class\"],[[28,[\"artists\"]],\"Enter Artists\",\"form-control\"]]],false],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"half\"],[13],[0,\"\\n        \"],[1,[33,[\"input\"],null,[[\"value\",\"placeholder\",\"class\"],[[28,[\"size\"]],\"Enter Size\",\"form-control\"]]],false],[0,\"\\n      \"],[14],[0,\"\\n\\n      \"],[11,\"div\",[]],[15,\"class\",\"btn btn-default delete\"],[5,[\"action\"],[[28,[null]],\"deleteRecord\"]],[13],[0,\"Delete Record\"],[14],[0,\"\\n      \"],[11,\"button\",[]],[15,\"type\",\"submit\"],[15,\"class\",\"btn btn-default\"],[13],[0,\"Create Page Record\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/create-image.hbs" } });
 });
 define("e-2mass/templates/create-page", ["exports"], function (exports) {
   "use strict";
@@ -2110,7 +2411,7 @@ define("e-2mass/templates/friendship", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "J+04U3xZ", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"photos\"],[13],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\",\"images\"]]],null,{\"statements\":[[0,\"    \"],[11,\"img\",[]],[16,\"src\",[28,[\"image\",\"url\"]],null],[16,\"alt\",[28,[\"image\",\"title\"]],null],[15,\"class\",\"w80\"],[13],[14],[0,\"\\n\"]],\"locals\":[\"image\"]},null],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content\"],[13],[0,\"\\n  \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n    EXHIBITION:\\n    \"],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"p\",[]],[13],[0,\"\\n    \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/friendship.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "wmQaK8db", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"buttons\"],[13],[0,\"\\n  \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"resize\"]],[13],[0,\"+\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"photos geminii\"],[13],[0,\"\\n  \"],[1,[33,[\"carousel-el\"],null,[[\"images\"],[[28,[\"model\",\"images\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content has-scroll\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"content-inner\"],[13],[0,\"\\n    \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n      EXHIBITION:\\n      \"],[11,\"br\",[]],[13],[14],[0,\"\\n      \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"\\n      \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/friendship.hbs" } });
 });
 define("e-2mass/templates/geminii", ["exports"], function (exports) {
   "use strict";
@@ -2118,7 +2419,7 @@ define("e-2mass/templates/geminii", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "WTJEAD31", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"photos\"],[13],[0,\"\\n  \"],[1,[33,[\"carousel-el\"],null,[[\"images\"],[[28,[\"model\",\"images\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content\"],[13],[0,\"\\n  \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n    EXHIBITION:\\n    \"],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"p\",[]],[13],[0,\"\\n    \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/geminii.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "SMFFU1YA", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"buttons\"],[13],[0,\"\\n  \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"resize\"]],[13],[0,\"+\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"photos geminii\"],[13],[0,\"\\n  \"],[1,[33,[\"carousel-el\"],null,[[\"images\"],[[28,[\"model\",\"images\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content has-scroll\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"content-inner\"],[13],[0,\"\\n    \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n      EXHIBITION:\\n      \"],[11,\"br\",[]],[13],[14],[0,\"\\n      \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"\\n      \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/geminii.hbs" } });
 });
 define("e-2mass/templates/home", ["exports"], function (exports) {
   "use strict";
@@ -2126,7 +2427,7 @@ define("e-2mass/templates/home", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "IW4sjuNe", "block": "{\"statements\":[[6,[\"if\"],[[28,[\"allImages\",\"length\"]]],null,{\"statements\":[[0,\"  \"],[1,[33,[\"random-landing\"],null,[[\"isInitialLoad\",\"allImages\"],[[28,[\"isInitialLoad\"]],[28,[\"allImages\"]]]]],false],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"main\"],[13],[0,\"\\n  \"],[1,[33,[\"photo-clicker\"],null,[[\"imageClicker\"],[[28,[\"imageClicker\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content\"],[13],[0,\"\\n  \"],[11,\"p\",[]],[13],[0,\"Thank you to all who have donated thus far to help us continue 2MASS. Your contributions help artists and collaborators fund future events and projects.\\n    \"],[11,\"br\",[]],[13],[14],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[11,\"span\",[]],[15,\"class\",\"read-more closed\"],[5,[\"action\"],[[28,[null]],\"show\"]],[13],[0,\"read more\"],[14],[0,\"\\n    \"],[11,\"br\",[]],[13],[14],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[11,\"span\",[]],[15,\"class\",\"hidden\"],[13],[0,\"\\n    As a part of a larger discussion of the connection between art and music, 2MASS is a venue for artists to conceptualize, create and exhibit art in and related to the concept of 2MASS. On a monthly basis, 2MASS will curate art and music shows for an audience interested in mentioned fields of art. The experience is expected to be new and experimental.\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[1,[26,[\"alt-footer-right\"]],false],[0,\"\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/home.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "feDeVtuM", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"main\"],[13],[0,\"\\n  \"],[1,[33,[\"photo-clicker\"],null,[[\"imageClicker\",\"load\"],[[28,[\"imageClicker\"]],[28,[\"load\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content has-scroll\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"content-inner\"],[13],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"\\n      Thank you to all who have donated thus far to help us continue 2MASS. Your contributions help artists and collaborators fund future events and projects.\\n      \"],[11,\"br\",[]],[13],[14],[11,\"br\",[]],[13],[14],[0,\"\\n      As a part of a larger discussion of the connection between art and music, 2MASS is a venue for artists to conceptualize, create and exhibit art in and related to the concept of 2MASS. On a monthly basis, 2MASS will curate art and music shows for an audience interested in mentioned fields of art. The experience is expected to be new and experimental.\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[1,[26,[\"alt-footer-right\"]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/home.hbs" } });
 });
 define("e-2mass/templates/index", ["exports"], function (exports) {
   "use strict";
@@ -2158,7 +2459,7 @@ define("e-2mass/templates/zone-of-avoidance", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "XaWkzn6b", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"photos\"],[13],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\",\"images\"]]],null,{\"statements\":[[0,\"    \"],[11,\"img\",[]],[16,\"src\",[28,[\"image\",\"url\"]],null],[16,\"alt\",[28,[\"image\",\"title\"]],null],[13],[14],[0,\"\\n\"]],\"locals\":[\"image\"]},null],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content\"],[13],[0,\"\\n  \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n    EXHIBITION:\\n    \"],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"p\",[]],[13],[0,\"\\n    \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/zone-of-avoidance.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "yUjM/VMW", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"buttons\"],[13],[0,\"\\n  \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"resize\"]],[13],[0,\"+\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"photos geminii\"],[13],[0,\"\\n  \"],[1,[33,[\"carousel-el\"],null,[[\"images\"],[[28,[\"model\",\"images\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content has-scroll\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"content-inner\"],[13],[0,\"\\n    \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n      EXHIBITION:\\n      \"],[11,\"br\",[]],[13],[14],[0,\"\\n      \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"\\n      \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/zone-of-avoidance.hbs" } });
 });
 define('e-2mass/utils/select-box/class-name', ['exports', 'ember-select-box/utils/select-box/class-name'], function (exports, _className) {
   'use strict';
@@ -2208,6 +2509,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("e-2mass/app")["default"].create({"name":"e-2mass","version":"0.0.0+b1dfb81c"});
+  require("e-2mass/app")["default"].create({"name":"e-2mass","version":"0.0.0+051db45a"});
 }
 //# sourceMappingURL=e-2mass.map

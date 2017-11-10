@@ -1,7 +1,8 @@
-<div class="photos">
-  {{#each model.images as |image|}}
-    <img src={{image.url}} alt={{image.title}} class="w80">
-  {{/each}}
+<div class="buttons">
+  <span {{ action 'resize' }}>+</span>
+</div>
+<div class="photos geminii">
+  {{ carousel-el images=model.images}}
 </div>
 <div class="content has-scroll">
   <div class="content-inner">

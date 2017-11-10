@@ -1,4 +1,10 @@
-{{main-nav isInitialLoad=isInitialLoad}}
+{{main-nav isInitialLoad=isInitialLoad randomLanding=randomLanding}}
+
+{{#if allImages.length}}
+  {{#if randomLanding}}
+    {{random-landing isInitialLoad=isInitialLoad allImages=allImages randomLanding=randomLanding}}
+  {{/if}}
+{{/if}}
 
 {{#if showPage}}
 <div class="container show">

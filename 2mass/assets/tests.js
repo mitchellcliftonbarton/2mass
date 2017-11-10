@@ -50,19 +50,29 @@ define('e-2mass/tests/app.lint-test', [], function () {
     assert.ok(true, 'components/image-upload.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/initial-loading-animation.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/initial-loading-animation.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('components/loading-animation.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/loading-animation.js should pass ESLint\n\n');
+  });
+
   QUnit.test('components/main-nav.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/main-nav.js should pass ESLint\n\n22:12 - Empty block statement. (no-empty)\n33:24 - \'TimelineMax\' is not defined. (no-undef)\n41:24 - \'TimelineMax\' is not defined. (no-undef)');
+    assert.ok(false, 'components/main-nav.js should pass ESLint\n\n12:31 - Empty block statement. (no-empty)\n17:13 - \'$\' is not defined. (no-undef)\n19:15 - \'$\' is not defined. (no-undef)\n28:11 - Unexpected console statement. (no-console)\n34:12 - Empty block statement. (no-empty)\n42:11 - \'$\' is not defined. (no-undef)\n43:9 - \'$\' is not defined. (no-undef)\n45:9 - \'$\' is not defined. (no-undef)\n47:9 - \'$\' is not defined. (no-undef)\n49:9 - \'$\' is not defined. (no-undef)');
   });
 
   QUnit.test('components/photo-clicker.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/photo-clicker.js should pass ESLint\n\n21:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'components/photo-clicker.js should pass ESLint\n\n28:9 - Unexpected console statement. (no-console)\n31:11 - Unexpected console statement. (no-console)\n32:11 - \'$\' is not defined. (no-undef)\n33:11 - \'$\' is not defined. (no-undef)\n44:5 - \'$\' is not defined. (no-undef)\n47:11 - \'$\' is not defined. (no-undef)\n49:11 - \'$\' is not defined. (no-undef)\n51:15 - Unexpected console statement. (no-console)\n53:17 - \'$\' is not defined. (no-undef)\n54:17 - \'$\' is not defined. (no-undef)\n57:19 - \'$\' is not defined. (no-undef)\n61:15 - Unexpected console statement. (no-console)\n69:11 - \'$\' is not defined. (no-undef)\n95:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('components/random-landing.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/random-landing.js should pass ESLint\n\n29:11 - \'TweenMax\' is not defined. (no-undef)\n37:11 - \'TweenMax\' is not defined. (no-undef)\n43:5 - Unexpected console statement. (no-console)\n50:9 - \'$\' is not defined. (no-undef)\n51:9 - \'TweenMax\' is not defined. (no-undef)\n52:9 - \'TweenMax\' is not defined. (no-undef)\n53:9 - \'TweenMax\' is not defined. (no-undef)\n58:11 - Unexpected console statement. (no-console)\n65:9 - \'$\' is not defined. (no-undef)\n66:9 - \'TweenMax\' is not defined. (no-undef)\n67:9 - \'TweenMax\' is not defined. (no-undef)\n68:9 - \'TweenMax\' is not defined. (no-undef)\n73:11 - Unexpected console statement. (no-console)\n82:9 - \'$\' is not defined. (no-undef)\n84:9 - \'TweenMax\' is not defined. (no-undef)\n85:9 - \'TweenMax\' is not defined. (no-undef)\n91:11 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'components/random-landing.js should pass ESLint\n\n27:7 - \'$\' is not defined. (no-undef)\n36:9 - Unexpected console statement. (no-console)\n43:7 - \'$\' is not defined. (no-undef)\n45:9 - \'$\' is not defined. (no-undef)\n65:15 - \'TweenMax\' is not defined. (no-undef)\n80:15 - \'TweenMax\' is not defined. (no-undef)\n98:9 - \'$\' is not defined. (no-undef)\n99:9 - \'$\' is not defined. (no-undef)\n103:11 - \'$\' is not defined. (no-undef)\n104:11 - \'$\' is not defined. (no-undef)\n105:11 - \'$\' is not defined. (no-undef)\n108:13 - \'$\' is not defined. (no-undef)\n109:13 - \'$\' is not defined. (no-undef)');
   });
 
   QUnit.test('components/show-listing.js', function (assert) {
@@ -73,6 +83,11 @@ define('e-2mass/tests/app.lint-test', [], function () {
   QUnit.test('components/show-nav.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'components/show-nav.js should pass ESLint\n\n8:7 - \'TweenMax\' is not defined. (no-undef)\n9:7 - \'TweenMax\' is not defined. (no-undef)\n13:7 - \'TweenMax\' is not defined. (no-undef)\n14:7 - \'TweenMax\' is not defined. (no-undef)');
+  });
+
+  QUnit.test('components/video-thing.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/video-thing.js should pass ESLint\n\n');
   });
 
   QUnit.test('controllers/application.js', function (assert) {
@@ -157,7 +172,7 @@ define('e-2mass/tests/app.lint-test', [], function () {
 
   QUnit.test('routes/create-image.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/create-image.js should pass ESLint\n\n5:9 - \'params\' is defined but never used. (no-unused-vars)\n61:16 - Empty block statement. (no-empty)\n83:16 - Empty block statement. (no-empty)\n97:11 - \'$\' is not defined. (no-undef)\n98:11 - \'$\' is not defined. (no-undef)\n101:11 - \'$\' is not defined. (no-undef)\n102:11 - \'$\' is not defined. (no-undef)\n110:7 - Unexpected console statement. (no-console)\n114:7 - Unexpected console statement. (no-console)\n128:11 - \'page\' is defined but never used. (no-unused-vars)\n146:14 - Empty block statement. (no-empty)');
+    assert.ok(false, 'routes/create-image.js should pass ESLint\n\n5:9 - \'params\' is defined but never used. (no-unused-vars)\n64:16 - Empty block statement. (no-empty)\n89:16 - Empty block statement. (no-empty)\n103:11 - \'$\' is not defined. (no-undef)\n104:11 - \'$\' is not defined. (no-undef)\n107:11 - \'$\' is not defined. (no-undef)\n108:11 - \'$\' is not defined. (no-undef)\n116:7 - Unexpected console statement. (no-console)\n120:7 - Unexpected console statement. (no-console)\n137:11 - \'page\' is defined but never used. (no-unused-vars)\n155:14 - Empty block statement. (no-empty)');
   });
 
   QUnit.test('routes/create-page.js', function (assert) {
@@ -177,17 +192,17 @@ define('e-2mass/tests/app.lint-test', [], function () {
 
   QUnit.test('routes/friendship.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/friendship.js should pass ESLint\n\n16:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n20:13 - \'TweenMax\' is not defined. (no-undef)\n20:58 - \'Expo\' is not defined. (no-undef)\n20:89 - \'Expo\' is not defined. (no-undef)\n21:13 - \'TweenMax\' is not defined. (no-undef)\n24:15 - \'TweenMax\' is not defined. (no-undef)\n24:73 - \'Expo\' is not defined. (no-undef)\n24:116 - \'Expo\' is not defined. (no-undef)\n28:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n29:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n37:11 - \'TweenMax\' is not defined. (no-undef)\n38:11 - \'TweenMax\' is not defined. (no-undef)\n38:68 - \'Expo\' is not defined. (no-undef)\n38:110 - \'Expo\' is not defined. (no-undef)\n39:11 - \'TweenMax\' is not defined. (no-undef)\n39:72 - \'Expo\' is not defined. (no-undef)\n39:114 - \'Expo\' is not defined. (no-undef)');
+    assert.ok(false, 'routes/friendship.js should pass ESLint\n\n17:9 - \'$\' is not defined. (no-undef)\n19:11 - \'$\' is not defined. (no-undef)\n21:9 - \'NProgress\' is not defined. (no-undef)\n24:7 - \'$\' is not defined. (no-undef)\n25:9 - Unexpected console statement. (no-console)\n27:11 - \'$\' is not defined. (no-undef)\n29:11 - \'$\' is not defined. (no-undef)\n33:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n38:13 - \'TweenMax\' is not defined. (no-undef)\n38:58 - \'Expo\' is not defined. (no-undef)\n38:87 - \'Expo\' is not defined. (no-undef)\n39:13 - \'TweenMax\' is not defined. (no-undef)\n42:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n43:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n47:9 - \'$\' is not defined. (no-undef)\n48:9 - \'$\' is not defined. (no-undef)\n50:11 - \'$\' is not defined. (no-undef)\n52:9 - \'NProgress\' is not defined. (no-undef)\n59:11 - \'TweenMax\' is not defined. (no-undef)\n60:11 - \'TweenMax\' is not defined. (no-undef)\n60:68 - \'Expo\' is not defined. (no-undef)\n60:110 - \'Expo\' is not defined. (no-undef)\n61:11 - \'TweenMax\' is not defined. (no-undef)\n61:72 - \'Expo\' is not defined. (no-undef)\n61:114 - \'Expo\' is not defined. (no-undef)\n78:11 - \'$\' is not defined. (no-undef)\n79:9 - \'$\' is not defined. (no-undef)\n81:11 - \'$\' is not defined. (no-undef)\n84:9 - \'$\' is not defined. (no-undef)\n86:11 - \'$\' is not defined. (no-undef)');
   });
 
   QUnit.test('routes/geminii.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/geminii.js should pass ESLint\n\n16:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n20:13 - \'TweenMax\' is not defined. (no-undef)\n20:58 - \'Expo\' is not defined. (no-undef)\n20:87 - \'Expo\' is not defined. (no-undef)\n21:13 - \'TweenMax\' is not defined. (no-undef)\n24:15 - \'TweenMax\' is not defined. (no-undef)\n24:73 - \'Expo\' is not defined. (no-undef)\n24:114 - \'Expo\' is not defined. (no-undef)\n28:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n29:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n37:13 - \'TweenMax\' is not defined. (no-undef)\n38:13 - \'TweenMax\' is not defined. (no-undef)\n38:70 - \'Expo\' is not defined. (no-undef)\n38:112 - \'Expo\' is not defined. (no-undef)\n39:13 - \'TweenMax\' is not defined. (no-undef)\n39:74 - \'Expo\' is not defined. (no-undef)\n39:116 - \'Expo\' is not defined. (no-undef)');
+    assert.ok(false, 'routes/geminii.js should pass ESLint\n\n22:11 - \'$\' is not defined. (no-undef)\n24:13 - \'$\' is not defined. (no-undef)\n26:11 - \'NProgress\' is not defined. (no-undef)\n29:9 - \'$\' is not defined. (no-undef)\n30:11 - Unexpected console statement. (no-console)\n32:13 - \'$\' is not defined. (no-undef)\n34:13 - \'$\' is not defined. (no-undef)\n38:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n43:13 - \'TweenMax\' is not defined. (no-undef)\n43:58 - \'Expo\' is not defined. (no-undef)\n43:87 - \'Expo\' is not defined. (no-undef)\n44:13 - \'TweenMax\' is not defined. (no-undef)\n47:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n48:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n52:11 - \'$\' is not defined. (no-undef)\n54:11 - \'$\' is not defined. (no-undef)\n56:13 - \'$\' is not defined. (no-undef)\n58:11 - \'NProgress\' is not defined. (no-undef)\n65:13 - \'TweenMax\' is not defined. (no-undef)\n66:13 - \'TweenMax\' is not defined. (no-undef)\n66:70 - \'Expo\' is not defined. (no-undef)\n66:112 - \'Expo\' is not defined. (no-undef)\n67:13 - \'TweenMax\' is not defined. (no-undef)\n67:74 - \'Expo\' is not defined. (no-undef)\n67:116 - \'Expo\' is not defined. (no-undef)\n84:13 - \'$\' is not defined. (no-undef)\n85:11 - \'$\' is not defined. (no-undef)\n87:13 - \'$\' is not defined. (no-undef)\n90:11 - \'$\' is not defined. (no-undef)\n92:13 - \'$\' is not defined. (no-undef)');
   });
 
   QUnit.test('routes/home.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/home.js should pass ESLint\n\n16:3 - Irregular whitespace not allowed. (no-irregular-whitespace)\n20:17 - \'TweenMax\' is not defined. (no-undef)\n20:75 - \'Expo\' is not defined. (no-undef)\n20:116 - \'Expo\' is not defined. (no-undef)\n21:17 - \'TweenMax\' is not defined. (no-undef)\n21:79 - \'Expo\' is not defined. (no-undef)\n21:120 - \'Expo\' is not defined. (no-undef)\n24:3 - Irregular whitespace not allowed. (no-irregular-whitespace)\n28:9 - Unexpected console statement. (no-console)\n32:11 - Unexpected console statement. (no-console)\n35:13 - \'TweenMax\' is not defined. (no-undef)\n36:13 - \'TweenMax\' is not defined. (no-undef)\n36:70 - \'Expo\' is not defined. (no-undef)\n36:112 - \'Expo\' is not defined. (no-undef)\n37:13 - \'TweenMax\' is not defined. (no-undef)\n37:74 - \'Expo\' is not defined. (no-undef)\n37:116 - \'Expo\' is not defined. (no-undef)\n42:11 - Unexpected console statement. (no-console)\n55:13 - \'$\' is not defined. (no-undef)\n57:13 - \'$\' is not defined. (no-undef)\n58:13 - \'TweenMax\' is not defined. (no-undef)\n58:70 - \'Expo\' is not defined. (no-undef)\n58:111 - \'Expo\' is not defined. (no-undef)\n59:13 - \'$\' is not defined. (no-undef)\n60:13 - \'$\' is not defined. (no-undef)\n64:13 - \'TweenMax\' is not defined. (no-undef)\n64:69 - \'Expo\' is not defined. (no-undef)\n64:111 - \'Expo\' is not defined. (no-undef)\n65:13 - \'$\' is not defined. (no-undef)\n66:13 - \'$\' is not defined. (no-undef)');
+    assert.ok(false, 'routes/home.js should pass ESLint\n\n18:11 - \'$\' is not defined. (no-undef)\n20:13 - \'$\' is not defined. (no-undef)\n22:11 - \'NProgress\' is not defined. (no-undef)\n25:9 - \'$\' is not defined. (no-undef)\n26:11 - Unexpected console statement. (no-console)\n28:13 - \'$\' is not defined. (no-undef)\n30:13 - \'$\' is not defined. (no-undef)\n35:3 - Irregular whitespace not allowed. (no-irregular-whitespace)\n39:3 - Irregular whitespace not allowed. (no-irregular-whitespace)\n45:11 - \'$\' is not defined. (no-undef)\n46:11 - \'$\' is not defined. (no-undef)\n48:13 - \'$\' is not defined. (no-undef)\n50:11 - \'NProgress\' is not defined. (no-undef)\n58:13 - \'TweenMax\' is not defined. (no-undef)\n59:13 - \'TweenMax\' is not defined. (no-undef)\n59:70 - \'Expo\' is not defined. (no-undef)\n59:112 - \'Expo\' is not defined. (no-undef)\n60:13 - \'TweenMax\' is not defined. (no-undef)\n60:74 - \'Expo\' is not defined. (no-undef)\n60:116 - \'Expo\' is not defined. (no-undef)\n78:13 - \'$\' is not defined. (no-undef)\n80:13 - \'$\' is not defined. (no-undef)\n81:13 - \'TweenMax\' is not defined. (no-undef)\n81:70 - \'Expo\' is not defined. (no-undef)\n81:111 - \'Expo\' is not defined. (no-undef)\n82:13 - \'$\' is not defined. (no-undef)\n83:13 - \'$\' is not defined. (no-undef)\n87:13 - \'TweenMax\' is not defined. (no-undef)\n87:69 - \'Expo\' is not defined. (no-undef)\n87:111 - \'Expo\' is not defined. (no-undef)\n88:13 - \'$\' is not defined. (no-undef)\n89:13 - \'$\' is not defined. (no-undef)');
   });
 
   QUnit.test('routes/index.js', function (assert) {
@@ -202,7 +217,7 @@ define('e-2mass/tests/app.lint-test', [], function () {
 
   QUnit.test('routes/zone-of-avoidance.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/zone-of-avoidance.js should pass ESLint\n\n15:3 - Irregular whitespace not allowed. (no-irregular-whitespace)\n19:15 - \'TweenMax\' is not defined. (no-undef)\n19:60 - \'Expo\' is not defined. (no-undef)\n19:89 - \'Expo\' is not defined. (no-undef)\n20:15 - \'TweenMax\' is not defined. (no-undef)\n23:17 - \'TweenMax\' is not defined. (no-undef)\n23:75 - \'Expo\' is not defined. (no-undef)\n23:116 - \'Expo\' is not defined. (no-undef)\n27:3 - Irregular whitespace not allowed. (no-irregular-whitespace)\n28:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n36:13 - \'TweenMax\' is not defined. (no-undef)\n37:13 - \'TweenMax\' is not defined. (no-undef)\n37:70 - \'Expo\' is not defined. (no-undef)\n37:112 - \'Expo\' is not defined. (no-undef)\n38:13 - \'TweenMax\' is not defined. (no-undef)\n38:74 - \'Expo\' is not defined. (no-undef)\n38:116 - \'Expo\' is not defined. (no-undef)');
+    assert.ok(false, 'routes/zone-of-avoidance.js should pass ESLint\n\n16:11 - \'$\' is not defined. (no-undef)\n18:13 - \'$\' is not defined. (no-undef)\n20:11 - \'NProgress\' is not defined. (no-undef)\n24:9 - \'$\' is not defined. (no-undef)\n25:11 - Unexpected console statement. (no-console)\n27:13 - \'$\' is not defined. (no-undef)\n29:13 - \'$\' is not defined. (no-undef)\n34:3 - Irregular whitespace not allowed. (no-irregular-whitespace)\n39:15 - \'TweenMax\' is not defined. (no-undef)\n39:60 - \'Expo\' is not defined. (no-undef)\n39:89 - \'Expo\' is not defined. (no-undef)\n40:15 - \'TweenMax\' is not defined. (no-undef)\n42:3 - Irregular whitespace not allowed. (no-irregular-whitespace)\n43:1 - Irregular whitespace not allowed. (no-irregular-whitespace)\n47:11 - \'$\' is not defined. (no-undef)\n48:11 - \'$\' is not defined. (no-undef)\n50:13 - \'$\' is not defined. (no-undef)\n53:11 - \'NProgress\' is not defined. (no-undef)\n61:13 - \'TweenMax\' is not defined. (no-undef)\n62:13 - \'TweenMax\' is not defined. (no-undef)\n62:70 - \'Expo\' is not defined. (no-undef)\n62:112 - \'Expo\' is not defined. (no-undef)\n63:13 - \'TweenMax\' is not defined. (no-undef)\n63:74 - \'Expo\' is not defined. (no-undef)\n63:116 - \'Expo\' is not defined. (no-undef)\n80:13 - \'$\' is not defined. (no-undef)\n81:11 - \'$\' is not defined. (no-undef)\n83:13 - \'$\' is not defined. (no-undef)\n86:11 - \'$\' is not defined. (no-undef)\n88:13 - \'$\' is not defined. (no-undef)');
   });
 
   QUnit.test('serializers/show.js', function (assert) {
@@ -482,6 +497,66 @@ define('e-2mass/tests/integration/components/image-upload-test', ['ember-qunit']
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
+define('e-2mass/tests/integration/components/initial-loading-animation-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleForComponent)('initial-loading-animation', 'Integration | Component | initial loading animation', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      "id": "snCmYBEQ",
+      "block": "{\"statements\":[[1,[26,[\"initial-loading-animation\"]],false]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      "id": "RWXmK++h",
+      "block": "{\"statements\":[[0,\"\\n\"],[6,[\"initial-loading-animation\"],null,null,{\"statements\":[[0,\"      template block text\\n\"]],\"locals\":[]},null],[0,\"  \"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('e-2mass/tests/integration/components/loading-animation-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleForComponent)('loading-animation', 'Integration | Component | loading animation', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      "id": "hLYULujI",
+      "block": "{\"statements\":[[1,[26,[\"loading-animation\"]],false]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      "id": "tADaGQAD",
+      "block": "{\"statements\":[[0,\"\\n\"],[6,[\"loading-animation\"],null,null,{\"statements\":[[0,\"      template block text\\n\"]],\"locals\":[]},null],[0,\"  \"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('e-2mass/tests/integration/components/main-nav-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
@@ -632,6 +707,36 @@ define('e-2mass/tests/integration/components/show-nav-test', ['ember-qunit'], fu
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
+define('e-2mass/tests/integration/components/video-thing-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleForComponent)('video-thing', 'Integration | Component | video thing', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      "id": "dgKQFEWJ",
+      "block": "{\"statements\":[[1,[26,[\"video-thing\"]],false]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      "id": "h+jI96Me",
+      "block": "{\"statements\":[[0,\"\\n\"],[6,[\"video-thing\"],null,null,{\"statements\":[[0,\"      template block text\\n\"]],\"locals\":[]},null],[0,\"  \"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('e-2mass/tests/test-helper', ['e-2mass/tests/helpers/resolver', 'ember-qunit', 'ember-cli-qunit'], function (_resolver, _emberQunit, _emberCliQunit) {
   'use strict';
 
@@ -688,6 +793,16 @@ define('e-2mass/tests/tests.lint-test', [], function () {
     assert.ok(true, 'integration/components/image-upload-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('integration/components/initial-loading-animation-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/initial-loading-animation-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/components/loading-animation-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/loading-animation-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('integration/components/main-nav-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/main-nav-test.js should pass ESLint\n\n');
@@ -711,6 +826,11 @@ define('e-2mass/tests/tests.lint-test', [], function () {
   QUnit.test('integration/components/show-nav-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/show-nav-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/components/video-thing-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/video-thing-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('test-helper.js', function (assert) {
