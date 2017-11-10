@@ -346,6 +346,13 @@ body {
     // opacity: 1;
     @include transition(opacity 1s, transform .3s);
 
+    @include xs {
+      top: 10px;
+      left: 20px;
+      font-size: 12px;
+      transform: none;
+    }
+
     a {
       padding: 20px;
 
@@ -373,6 +380,10 @@ body {
     &:hover {
       transform: rotate3d(0, 0, 200, -80deg);
       @include transition(transform .3s);
+
+      @include xs {
+        transform: none;
+      }
     }
   }
 
@@ -420,6 +431,15 @@ body {
     @include justify-content(center);
     @include transition(opacity 1s);
 
+    @include xs {
+      top: 70px;
+      left: 25px;
+      text-align: left;
+      font-size: 12px;
+      @include display(block);
+      @include justify-content(none);
+    }
+
     .nav-center-inner {
       width: auto;
       pointer-events: auto;
@@ -445,9 +465,19 @@ body {
       color: black;
       @include transition(transform .3s, color .5s);
 
+      @include xs {
+        padding: 3px 15px;
+        display: block;
+
+      }
+
       &:hover {
         transform: rotate3d(0, 0, 200, 5deg);
         @include transition(transform .3s);
+
+        @include xs {
+          transform: none;
+        }
       }
 
       .outer {
@@ -582,6 +612,7 @@ a {
         height: 100%;
         position: absolute;
         cursor: url('/images/mouse-cursor.svg') 5 5 , none;
+        overflow-x: hidden;
 
         .delete-text {
           position: absolute;
@@ -736,6 +767,12 @@ body.home {
       @include justify-content(center);
       @include flex-direction(column);
       @include transition(bottom .7s);
+
+      @include xs {
+        @include display(block);
+        @include justify-content(none);
+        @include flex-direction(none);
+      }
     }
 
     &.has-scroll.peek {
@@ -755,6 +792,9 @@ body.home {
     .content-inner {
       width: 80%;
       margin: 0 auto;
+      @include xs {
+        padding-top: 170px;
+      }
     }
 
     p {
@@ -913,6 +953,10 @@ body.home {
 
     .follow {
       position: absolute;
+
+      @include xs {
+        display: none;
+      }
     }
   }
 
@@ -921,11 +965,23 @@ body.home {
     height: 300px;
     // opacity: 0;
 
+    @include xs {
+      height: auto;
+
+    }
+
     .show-info {
       position: absolute;
       bottom: 40px;
       left: 10%;
       width: 400px;
+
+      @include xs {
+        position: initial;
+        bottom: auto;
+        left: auto;
+        width: auto;
+      }
     }
 
     .show-info.show-info-right {
@@ -945,12 +1001,24 @@ body.home {
       position: absolute;
       bottom: 40px;
       left: 10%;
+
+      @include xs {
+        position: initial;
+        bottom: auto;
+        left: auto;
+        padding-bottom: 15px;
+      }
     }
 
     .watermark {
       p {
         position: absolute;
         font-size: 12px;
+
+        @include xs {
+          position: initial;
+
+        }
       }
     }
 
@@ -972,6 +1040,11 @@ body.home {
 
   .show-footer.show-footer-right {
     margin-top: 140px;
+
+    @include xs {
+      margin-top: 0px;
+      padding: 30px 20px 0px 41px;
+    }
   }
 }
 

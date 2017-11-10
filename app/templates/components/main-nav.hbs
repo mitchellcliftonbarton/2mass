@@ -39,16 +39,18 @@
       <span class="loader"></span>
     </div>
   </div>
-  <div class="audio-sounds hidden">
-    <audio autoplay loop id="player">
-      <source src="media/2MASS3-sound.mp3" type="audio/mpeg">
-    </audio>
-    <span class="outer">
-      <span class="inner speaker" {{action 'mute'}}>
-        MUTE
+  {{#unless isMobile}}
+    <div class="audio-sounds hidden">
+      <audio autoplay loop id="player">
+        <source src="media/2MASS3-sound.mp3" type="audio/mpeg">
+      </audio>
+      <span class="outer">
+        <span class="inner speaker" {{action 'mute'}}>
+          MUTE
+        </span>
       </span>
-    </span>
-  </div>
+    </div>
+  {{/unless}}
 </div>
 
 
