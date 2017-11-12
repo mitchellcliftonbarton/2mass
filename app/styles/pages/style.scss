@@ -274,6 +274,10 @@ body {
     bottom: 40px;
     right: 40px;
     font-size: 12px;
+
+    @include xs {
+      font-size: 11px;
+    }
   }
 }
 
@@ -349,12 +353,17 @@ body {
     @include xs {
       top: 10px;
       left: 20px;
-      font-size: 12px;
+      font-size: 11px;
       transform: none;
+      pointer-events: none;
     }
 
     a {
       padding: 20px;
+
+      @include xs {
+        pointer-events: auto;
+      }
 
       .outer {
         overflow: hidden;
@@ -397,6 +406,10 @@ body {
     transform: translate(30px, 13px);
     width: 60px;
     @include transition(opacity .3s);
+
+    @include xs {
+      transform: translate(20px, 80px);
+    }
   }
 
   svg .st0 {
@@ -435,7 +448,7 @@ body {
       top: 70px;
       left: 25px;
       text-align: left;
-      font-size: 12px;
+      font-size: 11px;
       @include display(block);
       @include justify-content(none);
     }
@@ -613,6 +626,10 @@ a {
         position: absolute;
         cursor: url('/images/mouse-cursor.svg') 5 5 , none;
         overflow-x: hidden;
+
+        @include xs {
+          overflow: hidden;
+        }
 
         .delete-text {
           position: absolute;
@@ -800,6 +817,10 @@ body.home {
     p {
       font-size: 12px;
       text-transform: uppercase;
+
+      @include xs {
+        font-size: 11px;
+      }
     }
 
     .artist p {
@@ -811,6 +832,11 @@ body.home {
       font-size: 12px;
       padding-left: 101px;
       margin-bottom: 30px;
+
+      @include xs {
+        padding-left: 30px;
+        margin-bottom: 10px;
+      }
     }
 
     .hidden {
@@ -893,6 +919,17 @@ body.home {
           .image-container {
             transform: scale(.3);
 
+            @include xs {
+              transform: scale(.5);
+            }
+
+            img {
+              @include xs {
+                min-height: auto;
+                width: 100%;
+              }
+            }
+
             .tall {
               width: 60%;
               @include transition(width .3s);
@@ -967,7 +1004,9 @@ body.home {
 
     @include xs {
       height: auto;
-
+      margin-top: 0px;
+      padding: 30px 20px 0px 38px;
+      display: none;
     }
 
     .show-info {
@@ -1017,13 +1056,17 @@ body.home {
 
         @include xs {
           position: initial;
-
+          font-size: 11px;
         }
       }
     }
 
     p {
       font-size: 12px;
+
+      @include xs {
+        font-size: 11px;
+      }
     }
 
     .artist {
@@ -1034,6 +1077,10 @@ body.home {
 
       .right {
         white-space: nowrap;
+
+        @include xs {
+          white-space: normal;
+        }
       }
     }
   }
