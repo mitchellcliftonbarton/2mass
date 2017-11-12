@@ -23,7 +23,7 @@ define('e-2mass/adapters/application', ['exports', 'ember-data', 'ember-simple-a
     }
   });
 });
-define('e-2mass/app', ['exports', 'ember', 'e-2mass/resolver', 'ember-load-initializers', 'e-2mass/config/environment'], function (exports, _ember, _resolver, _emberLoadInitializers, _environment) {
+define('e-2mass/app', ['exports', 'e-2mass/resolver', 'ember-load-initializers', 'e-2mass/config/environment'], function (exports, _resolver, _emberLoadInitializers, _environment) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -35,7 +35,7 @@ define('e-2mass/app', ['exports', 'ember', 'e-2mass/resolver', 'ember-load-initi
 
   // Ember.MODEL_FACTORY_INJECTIONS = true;
 
-  App = _ember.default.Application.extend({
+  App = Ember.Application.extend({
     modulePrefix: _environment.default.modulePrefix,
     podModulePrefix: _environment.default.podModulePrefix,
     Resolver: _resolver.default
@@ -64,41 +64,41 @@ define('e-2mass/authorizers/oauth2', ['exports', 'ember-simple-auth/authorizers/
   });
   exports.default = _oauth2Bearer.default.extend();
 });
-define('e-2mass/components/alt-footer-left', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/alt-footer-left', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({
+  exports.default = Ember.Component.extend({
     tagName: '',
 
     didInsertElement: function didInsertElement() {
       this._super.apply(this, arguments);
 
-      _ember.default.run.later(function () {
+      Ember.run.later(function () {
         TweenMax.fromTo('.show-footer', 3, { opacity: 0, y: -15, ease: Expo.easeOut }, { opacity: 1, y: 0, ease: Expo.easeOut });
       }, 3000);
     }
   });
 });
-define('e-2mass/components/alt-footer-right', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/alt-footer-right', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({
+  exports.default = Ember.Component.extend({
     tagName: ''
   });
 });
-define('e-2mass/components/carousel-el', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/carousel-el', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({
+  exports.default = Ember.Component.extend({
     tagName: 'div',
     classNames: 'yup',
 
@@ -106,7 +106,7 @@ define('e-2mass/components/carousel-el', ['exports', 'ember'], function (exports
       var _this = this;
 
       this._super.apply(this, arguments);
-      _ember.default.run(function () {
+      Ember.run(function () {
 
         _this.$('.carousel-inner .item').first().addClass('active');
 
@@ -139,19 +139,19 @@ define('e-2mass/components/carousel-el', ['exports', 'ember'], function (exports
     }
   });
 });
-define('e-2mass/components/footer-rotate', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/footer-rotate', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({
+  exports.default = Ember.Component.extend({
     didInsertElement: function didInsertElement() {
       var _this = this;
 
       this._super.apply(this, arguments);
 
-      _ember.default.run(function () {
+      Ember.run(function () {
         _this.$('.footer p').clone().appendTo('.footer');
 
         TweenMax.to($('.footer'), 20, {
@@ -163,39 +163,39 @@ define('e-2mass/components/footer-rotate', ['exports', 'ember'], function (expor
     }
   });
 });
-define('e-2mass/components/image-upload', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/image-upload', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({});
+  exports.default = Ember.Component.extend({});
 });
-define('e-2mass/components/initial-loading-animation', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/initial-loading-animation', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({
+  exports.default = Ember.Component.extend({
     didInsertElement: function didInsertElement() {}
   });
 });
-define('e-2mass/components/loading-animation', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/loading-animation', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({});
+  exports.default = Ember.Component.extend({});
 });
-define('e-2mass/components/main-nav', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/main-nav', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({
+  exports.default = Ember.Component.extend({
     tagName: 'div',
     classNames: ['main-nav-container'],
 
@@ -205,17 +205,17 @@ define('e-2mass/components/main-nav', ['exports', 'ember'], function (exports, _
       this._super.apply(this, arguments);
 
       if (this.isInitialLoad) {
+        console.log('initial load');
+        if (this.randomLanding && !this.isMobile) {} else {
 
-        if (this.randomLanding) {} else {
-
-          _ember.default.run(function () {
+          Ember.run(function () {
             $('.initial-loading-animation').addClass('hide');
-            _ember.default.run.later(function () {
+            Ember.run.later(function () {
               $('.initial-loading-animation').css('display', 'none');
             }, 300);
           });
 
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             _this.$('.main-nav .nav-left').removeClass('hidden');
             _this.$('.main-nav .nav-center').removeClass('hidden');
             _this.$('.audio-sounds').removeClass('hidden');
@@ -223,7 +223,9 @@ define('e-2mass/components/main-nav', ['exports', 'ember'], function (exports, _
             _this.set('isInitialLoad', false);
           }, 1000);
         }
-      } else {}
+      } else {
+        console.log(' notinitial load');
+      }
     },
 
 
@@ -242,13 +244,13 @@ define('e-2mass/components/main-nav', ['exports', 'ember'], function (exports, _
     }
   });
 });
-define('e-2mass/components/photo-clicker', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/photo-clicker', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({
+  exports.default = Ember.Component.extend({
     tagName: 'div',
     classNames: ['photo-clicker-container'],
 
@@ -272,31 +274,31 @@ define('e-2mass/components/photo-clicker', ['exports', 'ember'], function (expor
         if (this.load) {
           console.log('load is true');
         } else {
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             console.log('load is false');
             $('.photo-clicker-img').css('opacity', '1');
             $('.photo-clicker-img').css('transform', 'scale(1)');
           }, 300);
         }
       } else {
-        _ember.default.run.next(this, function () {
+        Ember.run.next(this, function () {
           this.didInsertElement();
         });
       }
 
       $('.photo-clicker').on({
         mouseenter: function mouseenter() {
-          _ember.default.run(function () {
+          Ember.run(function () {
             $('.delete-text').addClass('visible');
 
             $(window).keypress(function (e) {
               if (e.keyCode === 13) {
                 console.log(e.keyCode);
-                _ember.default.run(function () {
+                Ember.run(function () {
                   $('.photo-clicker-img').css('opacity', '0');
                   $('.delete-text').removeClass('visible');
 
-                  _ember.default.run.later(function () {
+                  Ember.run.later(function () {
                     $('.photo-clicker-img').remove();
                   }, 500);
                 });
@@ -307,7 +309,7 @@ define('e-2mass/components/photo-clicker', ['exports', 'ember'], function (expor
           });
         },
         mouseleave: function mouseleave() {
-          _ember.default.run(function () {
+          Ember.run(function () {
             $('.delete-text').removeClass('visible');
           });
         }
@@ -325,7 +327,7 @@ define('e-2mass/components/photo-clicker', ['exports', 'ember'], function (expor
         img.className = 'photo-clicker-img';
         img.src = this.imageClicker[rando];
         this.$('.photo-clicker').append(img);
-        _ember.default.run.later(function () {
+        Ember.run.later(function () {
           img.style.opacity = "1";
           img.style.transform = "scale(1)";
         }, 150);
@@ -340,13 +342,13 @@ define('e-2mass/components/photo-clicker', ['exports', 'ember'], function (expor
     }
   });
 });
-define('e-2mass/components/random-landing', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/random-landing', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({
+  exports.default = Ember.Component.extend({
     tagName: 'div',
     classNames: ['random-landing'],
 
@@ -382,18 +384,17 @@ define('e-2mass/components/random-landing', ['exports', 'ember'], function (expo
         vid.addEventListener('loadedmetadata', function () {
           console.log(vid.duration);
           this.currentTime = vid.duration - 10;
-          // this.play()
         });
       }
 
-      _ember.default.run.later(function () {
+      Ember.run.later(function () {
         $('.initial-loading-animation').addClass('hide');
-        _ember.default.run.later(function () {
+        Ember.run.later(function () {
           $('.initial-loading-animation').css('display', 'none');
 
           if (_this.allImages.length > 1) {
 
-            _ember.default.run(function () {
+            Ember.run(function () {
               _this.$('.full').css('display', 'none');
 
               if (vidRando === 1) {
@@ -413,7 +414,7 @@ define('e-2mass/components/random-landing', ['exports', 'ember'], function (expo
             });
           } else {
 
-            _ember.default.run(function () {
+            Ember.run(function () {
               _this.$('.split').css('display', 'none');
 
               if (vidRando === 1) {
@@ -438,19 +439,19 @@ define('e-2mass/components/random-landing', ['exports', 'ember'], function (expo
 
         this._super.apply(this, arguments);
 
-        _ember.default.run(function () {
+        Ember.run(function () {
           // document.body.style.overflow = "auto";
 
           $('.landing').css('height', '0');
           $('.watermark').addClass('hide');
 
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
 
             $('.main-nav .nav-left').removeClass('hidden');
             $('.main-nav .nav-center').removeClass('hidden');
             $('.audio-sounds').removeClass('hidden');
 
-            _ember.default.run.later(function () {
+            Ember.run.later(function () {
               $('.photo-clicker-img').css('opacity', '1');
               $('.photo-clicker-img').css('transform', 'scale(1)');
               _this2.set('isInitialLoad', false);
@@ -617,21 +618,21 @@ define('e-2mass/components/select-box/selected', ['exports', 'ember-select-box/c
     }
   });
 });
-define('e-2mass/components/show-listing', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/show-listing', ['exports'], function (exports) {
     'use strict';
 
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.default = _ember.default.Component.extend({});
+    exports.default = Ember.Component.extend({});
 });
-define('e-2mass/components/show-nav', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/show-nav', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({
+  exports.default = Ember.Component.extend({
     tagName: '',
 
     actions: {
@@ -646,31 +647,39 @@ define('e-2mass/components/show-nav', ['exports', 'ember'], function (exports, _
     }
   });
 });
-define('e-2mass/components/video-thing', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/components/video-thing', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Component.extend({});
+  exports.default = Ember.Component.extend({});
 });
-define('e-2mass/controllers/application', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/controllers/application', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Controller.extend({
-    session: _ember.default.inject.service('session'),
+  exports.default = Ember.Controller.extend({
+    session: Ember.inject.service('session'),
     isInitialLoad: true,
 
-    randomLanding: _ember.default.computed('currentRouteName', function () {
+    randomLanding: Ember.computed('currentRouteName', function () {
       return this.get('currentRouteName') === 'home';
+    }),
+
+    isMobile: Ember.computed(function () {
+      if ($(window).width() < 450) {
+        return true;
+      } else {
+        return false;
+      }
     }),
 
     allImages: [],
 
-    showPage: _ember.default.computed('currentRouteName', function () {
+    showPage: Ember.computed('currentRouteName', function () {
       return this.get('currentRouteName') === 'zone-of-avoidance' | this.get('currentRouteName') === 'geminii' | this.get('currentRouteName') == 'friendship';
     }),
 
@@ -711,27 +720,27 @@ define('e-2mass/controllers/application', ['exports', 'ember'], function (export
     }
   });
 });
-define('e-2mass/controllers/create-image', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/controllers/create-image', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Controller.extend({
-    allShows: _ember.default.computed(function () {
+  exports.default = Ember.Controller.extend({
+    allShows: Ember.computed(function () {
       return this.get('store').findAll('show');
     })
   });
 });
-define('e-2mass/controllers/create-page', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/controllers/create-page', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Controller.extend({
+  exports.default = Ember.Controller.extend({
 
-    allImages: _ember.default.computed(function () {
+    allImages: Ember.computed(function () {
       return this.get('store').findAll('image');
     }),
     //
@@ -739,44 +748,44 @@ define('e-2mass/controllers/create-page', ['exports', 'ember'], function (export
 
   });
 });
-define('e-2mass/controllers/create-person', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/controllers/create-person', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Controller.extend({
-    allShows: _ember.default.computed(function () {
+  exports.default = Ember.Controller.extend({
+    allShows: Ember.computed(function () {
       return this.get('store').findAll('show');
     })
   });
 });
-define('e-2mass/controllers/create-piece', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/controllers/create-piece', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Controller.extend({
-    allShows: _ember.default.computed(function () {
+  exports.default = Ember.Controller.extend({
+    allShows: Ember.computed(function () {
       return this.get('store').findAll('show');
     }),
 
-    allPeople: _ember.default.computed(function () {
+    allPeople: Ember.computed(function () {
       return this.get('store').findAll('person');
     })
   });
 });
-define('e-2mass/controllers/home', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/controllers/home', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Controller.extend({
+  exports.default = Ember.Controller.extend({
     // isInitialLoad: true,
-    applicationController: _ember.default.inject.controller('application'),
-    load: _ember.default.computed.alias('applicationController.isInitialLoad'),
+    applicationController: Ember.inject.controller('application'),
+    load: Ember.computed.alias('applicationController.isInitialLoad'),
     imageClicker: [],
 
     init: function init() {
@@ -799,14 +808,14 @@ define('e-2mass/controllers/home', ['exports', 'ember'], function (exports, _emb
     }
   });
 });
-define('e-2mass/controllers/login', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/controllers/login', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Controller.extend({
-    session: _ember.default.inject.service('session'),
+  exports.default = Ember.Controller.extend({
+    session: Ember.inject.service('session'),
 
     actions: {
       authenticate: function authenticate() {
@@ -826,18 +835,18 @@ define('e-2mass/controllers/login', ['exports', 'ember'], function (exports, _em
     }
   });
 });
-define('e-2mass/controllers/zone-of-avoidance', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/controllers/zone-of-avoidance', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Controller.extend({
+  exports.default = Ember.Controller.extend({
     // futureTransition: this.get('futureTransition')
     // futureTransition: true
   });
 });
-define('e-2mass/helpers/app-version', ['exports', 'ember', 'e-2mass/config/environment', 'ember-cli-app-version/utils/regexp'], function (exports, _ember, _environment, _regexp) {
+define('e-2mass/helpers/app-version', ['exports', 'e-2mass/config/environment', 'ember-cli-app-version/utils/regexp'], function (exports, _environment, _regexp) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -859,7 +868,7 @@ define('e-2mass/helpers/app-version', ['exports', 'ember', 'e-2mass/config/envir
     return version;
   }
 
-  exports.default = _ember.default.Helper.helper(appVersion);
+  exports.default = Ember.Helper.helper(appVersion);
 });
 define('e-2mass/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _pluralize) {
   'use strict';
@@ -940,7 +949,7 @@ define('e-2mass/initializers/container-debug-adapter', ['exports', 'ember-resolv
     }
   };
 });
-define('e-2mass/initializers/data-adapter', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/initializers/data-adapter', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -952,7 +961,7 @@ define('e-2mass/initializers/data-adapter', ['exports', 'ember'], function (expo
     initialize: function initialize() {}
   };
 });
-define('e-2mass/initializers/ember-data', ['exports', 'ember-data/setup-container', 'ember-data/index'], function (exports, _setupContainer) {
+define('e-2mass/initializers/ember-data', ['exports', 'ember-data/setup-container', 'ember-data'], function (exports, _setupContainer) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -982,7 +991,7 @@ define('e-2mass/initializers/ember-simple-auth', ['exports', 'e-2mass/config/env
     }
   };
 });
-define('e-2mass/initializers/export-application-global', ['exports', 'ember', 'e-2mass/config/environment'], function (exports, _ember, _environment) {
+define('e-2mass/initializers/export-application-global', ['exports', 'e-2mass/config/environment'], function (exports, _environment) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -1010,7 +1019,7 @@ define('e-2mass/initializers/export-application-global', ['exports', 'ember', 'e
       if (typeof value === 'string') {
         globalName = value;
       } else {
-        globalName = _ember.default.String.classify(_environment.default.modulePrefix);
+        globalName = Ember.String.classify(_environment.default.modulePrefix);
       }
 
       if (!theGlobal[globalName]) {
@@ -1032,7 +1041,7 @@ define('e-2mass/initializers/export-application-global', ['exports', 'ember', 'e
     initialize: initialize
   };
 });
-define('e-2mass/initializers/injectStore', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/initializers/injectStore', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -1044,7 +1053,7 @@ define('e-2mass/initializers/injectStore', ['exports', 'ember'], function (expor
     initialize: function initialize() {}
   };
 });
-define('e-2mass/initializers/store', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/initializers/store', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -1056,7 +1065,7 @@ define('e-2mass/initializers/store', ['exports', 'ember'], function (exports, _e
     initialize: function initialize() {}
   };
 });
-define('e-2mass/initializers/transforms', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/initializers/transforms', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -1068,7 +1077,7 @@ define('e-2mass/initializers/transforms', ['exports', 'ember'], function (export
     initialize: function initialize() {}
   };
 });
-define("e-2mass/instance-initializers/ember-data", ["exports", "ember-data/-private/instance-initializers/initialize-store-service"], function (exports, _initializeStoreService) {
+define("e-2mass/instance-initializers/ember-data", ["exports", "ember-data/instance-initializers/initialize-store-service"], function (exports, _initializeStoreService) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
@@ -1169,7 +1178,7 @@ define('e-2mass/resolver', ['exports', 'ember-resolver'], function (exports, _em
   });
   exports.default = _emberResolver.default;
 });
-define('e-2mass/router', ['exports', 'ember', 'e-2mass/config/environment'], function (exports, _ember, _environment) {
+define('e-2mass/router', ['exports', 'e-2mass/config/environment'], function (exports, _environment) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -1177,7 +1186,7 @@ define('e-2mass/router', ['exports', 'ember', 'e-2mass/config/environment'], fun
   });
 
 
-  var Router = _ember.default.Router.extend({
+  var Router = Ember.Router.extend({
     location: _environment.default.locationType,
     rootURL: _environment.default.rootURL
   });
@@ -1196,28 +1205,28 @@ define('e-2mass/router', ['exports', 'ember', 'e-2mass/config/environment'], fun
 
   exports.default = Router;
 });
-define('e-2mass/routes/application', ['exports', 'ember', 'ember-simple-auth/mixins/application-route-mixin'], function (exports, _ember, _applicationRouteMixin) {
+define('e-2mass/routes/application', ['exports', 'ember-simple-auth/mixins/application-route-mixin'], function (exports, _applicationRouteMixin) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Route.extend(_applicationRouteMixin.default, {
+  exports.default = Ember.Route.extend(_applicationRouteMixin.default, {
 
     actions: {
       didTransition: function didTransition() {
-        _ember.default.run.scheduleOnce('afterRender', this, function () {});
+        Ember.run.scheduleOnce('afterRender', this, function () {});
       }
     }
   });
 });
-define('e-2mass/routes/create-image', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _authenticatedRouteMixin) {
+define('e-2mass/routes/create-image', ['exports', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _authenticatedRouteMixin) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Route.extend(_authenticatedRouteMixin.default, {
+  exports.default = Ember.Route.extend(_authenticatedRouteMixin.default, {
     model: function model(params) {
       return this.get('store').findAll('image');
     },
@@ -1225,7 +1234,7 @@ define('e-2mass/routes/create-image', ['exports', 'ember', 'ember-simple-auth/mi
 
     actions: {
       didTransition: function didTransition() {
-        _ember.default.run.scheduleOnce('afterRender', this, function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
           // TweenMax.to('.title-sec .title', .4, {delay: .3, y: 0, opacity: 1, ease:Expo.easeOut});
           // TweenMax.to('.text-sec', .7, {delay: .5, y: 0, opacity: 1, ease:Expo.easeOut});
         });
@@ -1371,13 +1380,13 @@ define('e-2mass/routes/create-image', ['exports', 'ember', 'ember-simple-auth/mi
     }
   });
 });
-define('e-2mass/routes/create-page', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _authenticatedRouteMixin) {
+define('e-2mass/routes/create-page', ['exports', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _authenticatedRouteMixin) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Route.extend(_authenticatedRouteMixin.default, {
+  exports.default = Ember.Route.extend(_authenticatedRouteMixin.default, {
     model: function model(params) {
       return this.get('store').findAll('show');
     },
@@ -1385,7 +1394,7 @@ define('e-2mass/routes/create-page', ['exports', 'ember', 'ember-simple-auth/mix
 
     actions: {
       didTransition: function didTransition() {
-        _ember.default.run.scheduleOnce('afterRender', this, function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
           // TweenMax.to('.title-sec .title', .4, {delay: .3, y: 0, opacity: 1, ease:Expo.easeOut});
           // TweenMax.to('.text-sec', .7, {delay: .5, y: 0, opacity: 1, ease:Expo.easeOut});
         });
@@ -1528,13 +1537,13 @@ define('e-2mass/routes/create-page', ['exports', 'ember', 'ember-simple-auth/mix
     }
   });
 });
-define('e-2mass/routes/create-person', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _authenticatedRouteMixin) {
+define('e-2mass/routes/create-person', ['exports', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _authenticatedRouteMixin) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Route.extend(_authenticatedRouteMixin.default, {
+  exports.default = Ember.Route.extend(_authenticatedRouteMixin.default, {
     model: function model(params) {
       return this.get('store').findAll('person');
     },
@@ -1542,7 +1551,7 @@ define('e-2mass/routes/create-person', ['exports', 'ember', 'ember-simple-auth/m
 
     actions: {
       didTransition: function didTransition() {
-        _ember.default.run.scheduleOnce('afterRender', this, function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
           // TweenMax.to('.title-sec .title', .4, {delay: .3, y: 0, opacity: 1, ease:Expo.easeOut});
           // TweenMax.to('.text-sec', .7, {delay: .5, y: 0, opacity: 1, ease:Expo.easeOut});
         });
@@ -1673,13 +1682,13 @@ define('e-2mass/routes/create-person', ['exports', 'ember', 'ember-simple-auth/m
     }
   });
 });
-define('e-2mass/routes/create-piece', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/routes/create-piece', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Route.extend({
+  exports.default = Ember.Route.extend({
     model: function model(params) {
       return this.get('store').findAll('piece');
     },
@@ -1687,7 +1696,7 @@ define('e-2mass/routes/create-piece', ['exports', 'ember'], function (exports, _
 
     actions: {
       didTransition: function didTransition() {
-        _ember.default.run.scheduleOnce('afterRender', this, function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
           // TweenMax.to('.title-sec .title', .4, {delay: .3, y: 0, opacity: 1, ease:Expo.easeOut});
           // TweenMax.to('.text-sec', .7, {delay: .5, y: 0, opacity: 1, ease:Expo.easeOut});
         });
@@ -1821,13 +1830,13 @@ define('e-2mass/routes/create-piece', ['exports', 'ember'], function (exports, _
     }
   });
 });
-define('e-2mass/routes/friendship', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/routes/friendship', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Route.extend({
+  exports.default = Ember.Route.extend({
     showPage: true,
     futureTransition: true,
     model: function model() {
@@ -1840,9 +1849,9 @@ define('e-2mass/routes/friendship', ['exports', 'ember'], function (exports, _em
 
     actions: {
       didTransition: function didTransition() {
-        _ember.default.run(function () {
+        Ember.run(function () {
           $('.nav-left svg').css('opacity', '0');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.nav-left svg .st0').removeClass('w-animation');
           }, 300);
           NProgress.done();
@@ -1857,21 +1866,21 @@ define('e-2mass/routes/friendship', ['exports', 'ember'], function (exports, _em
           }
         });
 
-        _ember.default.run.scheduleOnce('afterRender', this, function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
           document.body.style.overflow = 'hidden';
           document.body.scrollTop = document.documentElement.scrollTop = 0;
 
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             TweenMax.fromTo('.photos', 2, { y: -15, ease: Expo.easeOut }, { y: 0, ease: Expo.easeOut });
             TweenMax.fromTo('.photos', 3, { opacity: 0 }, { opacity: 1 });
           }, 1000);
         });
       },
       willTransition: function willTransition(transition) {
-        _ember.default.run(function () {
+        Ember.run(function () {
           $(window).off();
           $('.nav-left svg').css('opacity', '1');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.nav-left svg .st0').addClass('w-animation');
           }, 300);
           NProgress.start();
@@ -1880,7 +1889,7 @@ define('e-2mass/routes/friendship', ['exports', 'ember'], function (exports, _em
         if (this.futureTransition) {
           transition.abort();
 
-          _ember.default.run(function () {
+          Ember.run(function () {
             TweenMax.fromTo('.photos', .3, { opacity: 1 }, { opacity: 0 });
             TweenMax.fromTo('.content', .3, { opacity: 1, y: 0, ease: Expo.easeOut }, { opacity: 0, y: 15, ease: Expo.easeOut });
             TweenMax.fromTo('.show-footer', .3, { opacity: 1, y: 0, ease: Expo.easeOut }, { opacity: 0, y: 15, ease: Expo.easeOut });
@@ -1888,7 +1897,7 @@ define('e-2mass/routes/friendship', ['exports', 'ember'], function (exports, _em
 
           this.futureTransition = false;
 
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             transition.retry();
           }, 300);
         } else {
@@ -1898,12 +1907,12 @@ define('e-2mass/routes/friendship', ['exports', 'ember'], function (exports, _em
       resize: function resize() {
         if ($('.carousel-inner').hasClass('small')) {
           $('.carousel-inner').removeClass('small');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.item p span').removeClass('in');
           }, 400);
         } else {
           $('.carousel-inner').addClass('small');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.item p span').addClass('in');
           }, 400);
         }
@@ -1911,13 +1920,13 @@ define('e-2mass/routes/friendship', ['exports', 'ember'], function (exports, _em
     }
   });
 });
-define('e-2mass/routes/geminii', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/routes/geminii', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Route.extend({
+  exports.default = Ember.Route.extend({
     showPage: true,
     futureTransition: true,
     model: function model() {
@@ -1932,9 +1941,9 @@ define('e-2mass/routes/geminii', ['exports', 'ember'], function (exports, _ember
     actions: {
       didTransition: function didTransition() {
 
-        _ember.default.run(function () {
+        Ember.run(function () {
           $('.nav-left svg').css('opacity', '0');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.nav-left svg .st0').removeClass('w-animation');
           }, 300);
           NProgress.done();
@@ -1949,22 +1958,22 @@ define('e-2mass/routes/geminii', ['exports', 'ember'], function (exports, _ember
           }
         });
 
-        _ember.default.run.scheduleOnce('afterRender', this, function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
           document.body.style.overflow = 'hidden';
           document.body.scrollTop = document.documentElement.scrollTop = 0;
 
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             TweenMax.fromTo('.photos', 1, { y: -15, ease: Expo.easeOut }, { y: 0, ease: Expo.easeOut });
             TweenMax.fromTo('.photos', 2, { opacity: 0 }, { opacity: 1 });
           }, 1000);
         });
       },
       willTransition: function willTransition(transition) {
-        _ember.default.run(function () {
+        Ember.run(function () {
           $(window).off();
           document.body.style.overflow = 'auto';
           $('.nav-left svg').css('opacity', '1');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.nav-left svg .st0').addClass('w-animation');
           }, 300);
           NProgress.start();
@@ -1973,7 +1982,7 @@ define('e-2mass/routes/geminii', ['exports', 'ember'], function (exports, _ember
         if (this.futureTransition) {
           transition.abort();
 
-          _ember.default.run(function () {
+          Ember.run(function () {
             TweenMax.fromTo('.photos', .3, { opacity: 1 }, { opacity: 0 });
             TweenMax.fromTo('.content', .3, { opacity: 1, y: 0, ease: Expo.easeOut }, { opacity: 0, y: 15, ease: Expo.easeOut });
             TweenMax.fromTo('.show-footer', .3, { opacity: 1, y: 0, ease: Expo.easeOut }, { opacity: 0, y: 15, ease: Expo.easeOut });
@@ -1981,7 +1990,7 @@ define('e-2mass/routes/geminii', ['exports', 'ember'], function (exports, _ember
 
           this.futureTransition = false;
 
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             transition.retry();
           }, 300);
         } else {
@@ -1991,12 +2000,12 @@ define('e-2mass/routes/geminii', ['exports', 'ember'], function (exports, _ember
       resize: function resize() {
         if ($('.carousel-inner').hasClass('small')) {
           $('.carousel-inner').removeClass('small');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.item p span').removeClass('in');
           }, 400);
         } else {
           $('.carousel-inner').addClass('small');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.item p span').addClass('in');
           }, 400);
         }
@@ -2004,13 +2013,13 @@ define('e-2mass/routes/geminii', ['exports', 'ember'], function (exports, _ember
     }
   });
 });
-define('e-2mass/routes/home', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/routes/home', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Route.extend({
+  exports.default = Ember.Route.extend({
     futureTransition: true,
 
     model: function model() {},
@@ -2020,9 +2029,9 @@ define('e-2mass/routes/home', ['exports', 'ember'], function (exports, _ember) {
     actions: {
       didTransition: function didTransition() {
 
-        _ember.default.run(function () {
+        Ember.run(function () {
           $('.nav-left svg').css('opacity', '0');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.nav-left svg .st0').removeClass('w-animation');
           }, 300);
           NProgress.done();
@@ -2037,17 +2046,17 @@ define('e-2mass/routes/home', ['exports', 'ember'], function (exports, _ember) {
           }
         });
 
-        _ember.default.run.scheduleOnce('afterRender', this, function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
           document.body.style.overflow = 'hidden';
           document.body.scrollTop = document.documentElement.scrollTop = 0;
         });
       },
       willTransition: function willTransition(transition) {
         // console.log(this.futureTransition)
-        _ember.default.run(function () {
+        Ember.run(function () {
           $(window).off();
           $('.nav-left svg').css('opacity', '1');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.nav-left svg .st0').addClass('w-animation');
           }, 300);
           NProgress.start();
@@ -2057,7 +2066,7 @@ define('e-2mass/routes/home', ['exports', 'ember'], function (exports, _ember) {
           transition.abort();
           // console.log('aborted!')
 
-          _ember.default.run(function () {
+          Ember.run(function () {
             TweenMax.fromTo('.main', .3, { opacity: 1 }, { opacity: 0 });
             TweenMax.fromTo('.content', .3, { opacity: 1, y: 0, ease: Expo.easeOut }, { opacity: 0, y: 15, ease: Expo.easeOut });
             TweenMax.fromTo('.show-footer', .3, { opacity: 1, y: 0, ease: Expo.easeOut }, { opacity: 0, y: 15, ease: Expo.easeOut });
@@ -2066,7 +2075,7 @@ define('e-2mass/routes/home', ['exports', 'ember'], function (exports, _ember) {
           this.futureTransition = false;
           // console.log(this.futureTransition)
 
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             transition.retry();
           }, 300);
         } else {
@@ -2075,14 +2084,14 @@ define('e-2mass/routes/home', ['exports', 'ember'], function (exports, _ember) {
       },
       show: function show() {
         if ($('.read-more').hasClass('closed')) {
-          _ember.default.run(function () {
+          Ember.run(function () {
             $('.hidden').css('visibility', 'visible');
             TweenMax.fromTo('.hidden', 3, { opacity: 0, y: -15, ease: Expo.easeOut }, { opacity: 1, y: 0, ease: Expo.easeOut });
             $('.read-more').removeClass('closed');
             $('.read-more').text('READ LESS');
           });
         } else {
-          _ember.default.run(function () {
+          Ember.run(function () {
             TweenMax.fromTo('.hidden', .5, { opacity: 1, y: 0, ease: Expo.easeOut }, { opacity: 0, y: 15, ease: Expo.easeOut, visibility: 'visible' });
             $('.read-more').addClass('closed');
             $('.read-more').text('READ MORE');
@@ -2092,13 +2101,13 @@ define('e-2mass/routes/home', ['exports', 'ember'], function (exports, _ember) {
     }
   });
 });
-define('e-2mass/routes/index', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/routes/index', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Route.extend({
+  exports.default = Ember.Route.extend({
     model: function model(params) {
       // if (params.link !== 'index') {
       //   this.set('templateName', 'show-page');
@@ -2112,21 +2121,21 @@ define('e-2mass/routes/index', ['exports', 'ember'], function (exports, _ember) 
     }
   });
 });
-define('e-2mass/routes/login', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/routes/login', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Route.extend({});
+  exports.default = Ember.Route.extend({});
 });
-define('e-2mass/routes/zone-of-avoidance', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/routes/zone-of-avoidance', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _ember.default.Route.extend({
+  exports.default = Ember.Route.extend({
     showPage: true,
     futureTransition: true,
     model: function model() {
@@ -2139,9 +2148,9 @@ define('e-2mass/routes/zone-of-avoidance', ['exports', 'ember'], function (expor
 
     actions: {
       didTransition: function didTransition() {
-        _ember.default.run(function () {
+        Ember.run(function () {
           $('.nav-left svg').css('opacity', '0');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.nav-left svg .st0').removeClass('w-animation');
           }, 300);
           NProgress.done();
@@ -2156,21 +2165,21 @@ define('e-2mass/routes/zone-of-avoidance', ['exports', 'ember'], function (expor
           }
         });
 
-        _ember.default.run.scheduleOnce('afterRender', this, function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
           document.body.style.overflow = 'hidden';
           document.body.scrollTop = document.documentElement.scrollTop = 0;
 
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             TweenMax.fromTo('.photos', 2, { y: -15, ease: Expo.easeOut }, { y: 0, ease: Expo.easeOut });
             TweenMax.fromTo('.photos', 3, { opacity: 0 }, { opacity: 1 });
           }, 1000);
         });
       },
       willTransition: function willTransition(transition) {
-        _ember.default.run(function () {
+        Ember.run(function () {
           $(window).off();
           $('.nav-left svg').css('opacity', '1');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.nav-left svg .st0').addClass('w-animation');
           }, 300);
 
@@ -2180,7 +2189,7 @@ define('e-2mass/routes/zone-of-avoidance', ['exports', 'ember'], function (expor
         if (this.futureTransition) {
           transition.abort();
 
-          _ember.default.run(function () {
+          Ember.run(function () {
             TweenMax.fromTo('.photos', .4, { opacity: 1 }, { opacity: 0 });
             TweenMax.fromTo('.content', .4, { opacity: 1, y: 0, ease: Expo.easeOut }, { opacity: 0, y: 15, ease: Expo.easeOut });
             TweenMax.fromTo('.show-footer', .3, { opacity: 1, y: 0, ease: Expo.easeOut }, { opacity: 0, y: 15, ease: Expo.easeOut });
@@ -2188,7 +2197,7 @@ define('e-2mass/routes/zone-of-avoidance', ['exports', 'ember'], function (expor
 
           this.futureTransition = false;
 
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             transition.retry();
           }, 300);
         } else {
@@ -2198,12 +2207,12 @@ define('e-2mass/routes/zone-of-avoidance', ['exports', 'ember'], function (expor
       resize: function resize() {
         if ($('.carousel-inner').hasClass('small')) {
           $('.carousel-inner').removeClass('small');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.item p span').removeClass('in');
           }, 400);
         } else {
           $('.carousel-inner').addClass('small');
-          _ember.default.run.later(function () {
+          Ember.run.later(function () {
             $('.item p span').addClass('in');
           }, 400);
         }
@@ -2267,7 +2276,7 @@ define("e-2mass/templates/application", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "ypxPIYB3", "block": "{\"statements\":[[1,[33,[\"main-nav\"],null,[[\"isInitialLoad\",\"randomLanding\"],[[28,[\"isInitialLoad\"]],[28,[\"randomLanding\"]]]]],false],[0,\"\\n\\n\"],[6,[\"if\"],[[28,[\"allImages\",\"length\"]]],null,{\"statements\":[[6,[\"if\"],[[28,[\"randomLanding\"]]],null,{\"statements\":[[0,\"    \"],[1,[33,[\"random-landing\"],null,[[\"isInitialLoad\",\"allImages\",\"randomLanding\"],[[28,[\"isInitialLoad\"]],[28,[\"allImages\"]],[28,[\"randomLanding\"]]]]],false],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n\"],[6,[\"if\"],[[28,[\"showPage\"]]],null,{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container show\"],[13],[0,\"\\n  \"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]},{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container home\"],[13],[0,\"\\n  \"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]}]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "tTAOIv6k", "block": "{\"statements\":[[1,[33,[\"main-nav\"],null,[[\"isMobile\",\"isInitialLoad\",\"randomLanding\"],[[28,[\"isMobile\"]],[28,[\"isInitialLoad\"]],[28,[\"randomLanding\"]]]]],false],[0,\"\\n\\n\"],[6,[\"if\"],[[28,[\"allImages\",\"length\"]]],null,{\"statements\":[[6,[\"if\"],[[28,[\"randomLanding\"]]],null,{\"statements\":[[0,\"    \"],[1,[33,[\"random-landing\"],null,[[\"isMobile\",\"isInitialLoad\",\"allImages\",\"randomLanding\"],[[28,[\"isMobile\"]],[28,[\"isInitialLoad\"]],[28,[\"allImages\"]],[28,[\"randomLanding\"]]]]],false],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n\"],[6,[\"if\"],[[28,[\"showPage\"]]],null,{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container show\"],[13],[0,\"\\n  \"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]},{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container home\"],[13],[0,\"\\n  \"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]}]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/application.hbs" } });
 });
 define("e-2mass/templates/components/alt-footer-left", ["exports"], function (exports) {
   "use strict";
@@ -2331,7 +2340,7 @@ define("e-2mass/templates/components/main-nav", ["exports"], function (exports) 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "L6SPNbVg", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"main-nav\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"nav-left hidden\"],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"home\"],null,{\"statements\":[[0,\"      \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n        \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n          2MASS.INFO\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"    \"],[11,\"svg\",[]],[15,\"version\",\"1.1\"],[15,\"id\",\"Layer_1\"],[15,\"xmlns\",\"http://www.w3.org/2000/svg\",\"http://www.w3.org/2000/xmlns/\"],[15,\"xmlns:xlink\",\"http://www.w3.org/1999/xlink\",\"http://www.w3.org/2000/xmlns/\"],[15,\"x\",\"0px\"],[15,\"y\",\"0px\"],[15,\"viewBox\",\"0 0 50.13 15.75\"],[15,\"style\",\"enable-background:new 0 0 50.13 15.75;\"],[15,\"xml:space\",\"preserve\",\"http://www.w3.org/XML/1998/namespace\"],[13],[0,\"\\n        \"],[11,\"path\",[]],[15,\"class\",\"st0\"],[15,\"d\",\"M49.35,7.63c0,0-12,15.17-7.5,0s-8.96,0.45-8.96,0.45l0.12-0.14c-1.18,1.29-11.79,14.85-7.29-0.31\\n        \\ts-8.96,0.45-8.96,0.45l0.23-0.26C15.73,9.21,5.22,22.79,9.72,7.63S0.76,8.08,0.76,8.08\"],[13],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"nav-center hidden\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"nav-center-inner\"],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"zone-of-avoidance\"],null,{\"statements\":[[0,\"        \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n          \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n            ZONE OF AVOIDANCE\\n          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[6,[\"link-to\"],[\"geminii\"],null,{\"statements\":[[0,\"        \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n          \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n            GEMINII\\n          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[6,[\"link-to\"],[\"friendship\"],null,{\"statements\":[[0,\"        \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n          \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n            FRIENDSHIP\\n          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"      \"],[11,\"span\",[]],[15,\"class\",\"loader\"],[13],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"audio-sounds hidden\"],[13],[0,\"\\n    \"],[11,\"audio\",[]],[15,\"autoplay\",\"\"],[15,\"loop\",\"\"],[15,\"id\",\"player\"],[13],[0,\"\\n      \"],[11,\"source\",[]],[15,\"src\",\"media/2MASS3-sound.mp3\"],[15,\"type\",\"audio/mpeg\"],[13],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n      \"],[11,\"span\",[]],[15,\"class\",\"inner speaker\"],[5,[\"action\"],[[28,[null]],\"mute\"]],[13],[0,\"\\n        MUTE\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/main-nav.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "HwbNhhWX", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"main-nav\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"nav-left hidden\"],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"home\"],null,{\"statements\":[[0,\"      \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n        \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n          2MASS.INFO\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"    \"],[11,\"svg\",[]],[15,\"version\",\"1.1\"],[15,\"id\",\"Layer_1\"],[15,\"xmlns\",\"http://www.w3.org/2000/svg\",\"http://www.w3.org/2000/xmlns/\"],[15,\"xmlns:xlink\",\"http://www.w3.org/1999/xlink\",\"http://www.w3.org/2000/xmlns/\"],[15,\"x\",\"0px\"],[15,\"y\",\"0px\"],[15,\"viewBox\",\"0 0 50.13 15.75\"],[15,\"style\",\"enable-background:new 0 0 50.13 15.75;\"],[15,\"xml:space\",\"preserve\",\"http://www.w3.org/XML/1998/namespace\"],[13],[0,\"\\n        \"],[11,\"path\",[]],[15,\"class\",\"st0\"],[15,\"d\",\"M49.35,7.63c0,0-12,15.17-7.5,0s-8.96,0.45-8.96,0.45l0.12-0.14c-1.18,1.29-11.79,14.85-7.29-0.31\\n        \\ts-8.96,0.45-8.96,0.45l0.23-0.26C15.73,9.21,5.22,22.79,9.72,7.63S0.76,8.08,0.76,8.08\"],[13],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"nav-center hidden\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"nav-center-inner\"],[13],[0,\"\\n\"],[6,[\"link-to\"],[\"zone-of-avoidance\"],null,{\"statements\":[[0,\"        \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n          \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n            ZONE OF AVOIDANCE\\n          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[6,[\"link-to\"],[\"geminii\"],null,{\"statements\":[[0,\"        \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n          \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n            GEMINII\\n          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[6,[\"link-to\"],[\"friendship\"],null,{\"statements\":[[0,\"        \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n          \"],[11,\"span\",[]],[15,\"class\",\"inner\"],[13],[0,\"\\n            FRIENDSHIP\\n          \"],[14],[0,\"\\n        \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"      \"],[11,\"span\",[]],[15,\"class\",\"loader\"],[13],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[6,[\"unless\"],[[28,[\"isMobile\"]]],null,{\"statements\":[[0,\"    \"],[11,\"div\",[]],[15,\"class\",\"audio-sounds hidden\"],[13],[0,\"\\n      \"],[11,\"audio\",[]],[15,\"autoplay\",\"\"],[15,\"loop\",\"\"],[15,\"id\",\"player\"],[13],[0,\"\\n        \"],[11,\"source\",[]],[15,\"src\",\"media/2MASS3-sound.mp3\"],[15,\"type\",\"audio/mpeg\"],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"span\",[]],[15,\"class\",\"outer\"],[13],[0,\"\\n        \"],[11,\"span\",[]],[15,\"class\",\"inner speaker\"],[5,[\"action\"],[[28,[null]],\"mute\"]],[13],[0,\"\\n          MUTE\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[14],[0,\"\\n\\n\\n\"],[18,\"default\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/main-nav.hbs" } });
 });
 define("e-2mass/templates/components/photo-clicker", ["exports"], function (exports) {
   "use strict";
@@ -2347,7 +2356,7 @@ define("e-2mass/templates/components/random-landing", ["exports"], function (exp
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "pua2rQV+", "block": "{\"statements\":[[6,[\"if\"],[[28,[\"isInitialLoad\"]]],null,{\"statements\":[[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"landing\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"split\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"left\"],[5,[\"action\"],[[28,[null]],\"goAwayFull\"]],[13],[0,\"\\n\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"right\"],[5,[\"action\"],[[28,[null]],\"goAwayFull\"]],[13],[0,\"\\n\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"full\"],[5,[\"action\"],[[28,[null]],\"goAwayFull\"]],[13],[0,\"\\n\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"watermark\"],[13],[0,\"\\n      \"],[11,\"p\",[]],[13],[0,\"©\"],[11,\"br\",[]],[13],[14],[0,\"2017\"],[11,\"br\",[]],[13],[14],[0,\"2MASS\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n  \"],[18,\"default\"],[0,\"\\n\\n\"]],\"locals\":[]},null]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/random-landing.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "yu3JwEWs", "block": "{\"statements\":[[6,[\"if\"],[[28,[\"isInitialLoad\"]]],null,{\"statements\":[[6,[\"unless\"],[[28,[\"isMobile\"]]],null,{\"statements\":[[0,\"    \"],[11,\"div\",[]],[15,\"class\",\"landing\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"split\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"left\"],[5,[\"action\"],[[28,[null]],\"goAwayFull\"]],[13],[0,\"\\n\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"right\"],[5,[\"action\"],[[28,[null]],\"goAwayFull\"]],[13],[0,\"\\n\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"full\"],[5,[\"action\"],[[28,[null]],\"goAwayFull\"]],[13],[0,\"\\n\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"watermark\"],[13],[0,\"\\n        \"],[11,\"p\",[]],[13],[0,\"©\"],[11,\"br\",[]],[13],[14],[0,\"2017\"],[11,\"br\",[]],[13],[14],[0,\"2MASS\"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n\\n    \"],[18,\"default\"],[0,\"\\n\\n\"]],\"locals\":[]},null]],\"locals\":[]},null]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/components/random-landing.hbs" } });
 });
 define("e-2mass/templates/components/show-listing", ["exports"], function (exports) {
   "use strict";
@@ -2509,6 +2518,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("e-2mass/app")["default"].create({"name":"e-2mass","version":"0.0.0+051db45a"});
+  require("e-2mass/app")["default"].create({"name":"e-2mass","version":"0.0.0+aa45c756"});
 }
 //# sourceMappingURL=e-2mass.map

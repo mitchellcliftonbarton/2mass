@@ -173,16 +173,16 @@ body {
     width: 100%;
     height: 100%;
     position: absolute; }
-    .landing .split .left, .landing .full .left {
-      width: 50%;
-      height: 100%; }
-    .landing .split .right, .landing .full .right {
-      width: 50%;
-      height: 100%; }
     .landing .split .left, .landing .split .right, .landing .full .left, .landing .full .right {
       background-position: center;
       float: left;
-      overflow: hidden; }
+      overflow: hidden;
+      width: 50%;
+      height: 100%; }
+      @media (max-width: 480px) {
+        .landing .split .left, .landing .split .right, .landing .full .left, .landing .full .right {
+          width: 100%;
+          height: 50%; } }
       .landing .split .left video, .landing .split .right video, .landing .full .left video, .landing .full .right video {
         height: 100%; }
       .landing .split .left:hover, .landing .split .right:hover, .landing .full .left:hover, .landing .full .right:hover {
@@ -209,6 +209,9 @@ body {
     bottom: 40px;
     right: 40px;
     font-size: 12px; }
+    @media (max-width: 480px) {
+      .watermark p {
+        font-size: 11px; } }
 
 @keyframes fadeIn {
   0% {
@@ -260,8 +263,18 @@ body {
   -webkit-transition: opacity 1s, -webkit-transform 0.3s;
   -moz-transition: opacity 1s, -moz-transform 0.3s;
   transition: opacity 1s, transform 0.3s; }
+  @media (max-width: 480px) {
+    .main-nav .nav-left {
+      top: 10px;
+      left: 20px;
+      font-size: 11px;
+      transform: none;
+      pointer-events: none; } }
   .main-nav .nav-left a {
     padding: 20px; }
+    @media (max-width: 480px) {
+      .main-nav .nav-left a {
+        pointer-events: auto; } }
     .main-nav .nav-left a .outer {
       overflow: hidden;
       display: block; }
@@ -281,6 +294,9 @@ body {
     -webkit-transition: -webkit-transform 0.3s;
     -moz-transition: -moz-transform 0.3s;
     transition: transform 0.3s; }
+    @media (max-width: 480px) {
+      .main-nav .nav-left:hover {
+        transform: none; } }
 
 @keyframes loading {
   to {
@@ -292,6 +308,9 @@ body {
   -webkit-transition: opacity 0.3s;
   -moz-transition: opacity 0.3s;
   transition: opacity 0.3s; }
+  @media (max-width: 480px) {
+    .main-nav svg {
+      transform: translate(20px, 80px); } }
 
 .main-nav svg .st0 {
   fill: none;
@@ -334,6 +353,22 @@ body {
   -webkit-transition: opacity 1s;
   -moz-transition: opacity 1s;
   transition: opacity 1s; }
+  @media (max-width: 480px) {
+    .main-nav .nav-center {
+      top: 70px;
+      left: 25px;
+      text-align: left;
+      font-size: 11px;
+      display: block;
+      -webkit-box-pack: none;
+      -moz-box-pack: none;
+      box-pack: none;
+      -webkit-justify-content: none;
+      -moz-justify-content: none;
+      -ms-justify-content: none;
+      -o-justify-content: none;
+      justify-content: none;
+      -ms-flex-pack: none; } }
   .main-nav .nav-center .nav-center-inner {
     width: auto;
     pointer-events: auto;
@@ -356,11 +391,18 @@ body {
     -webkit-transition: -webkit-transform 0.3s, color 0.5s;
     -moz-transition: -moz-transform 0.3s, color 0.5s;
     transition: transform 0.3s, color 0.5s; }
+    @media (max-width: 480px) {
+      .main-nav .nav-center a {
+        padding: 3px 15px;
+        display: block; } }
     .main-nav .nav-center a:hover {
       transform: rotate3d(0, 0, 200, 5deg);
       -webkit-transition: -webkit-transform 0.3s;
       -moz-transition: -moz-transform 0.3s;
       transition: transform 0.3s; }
+      @media (max-width: 480px) {
+        .main-nav .nav-center a:hover {
+          transform: none; } }
     .main-nav .nav-center a .outer {
       overflow: hidden;
       display: block; }
@@ -454,7 +496,11 @@ a {
       width: 100%;
       height: 100%;
       position: absolute;
-      cursor: url("/images/mouse-cursor.svg") 5 5, none; }
+      cursor: url("/images/mouse-cursor.svg") 5 5, none;
+      overflow-x: hidden; }
+      @media (max-width: 480px) {
+        .container .main .photo-clicker {
+          overflow: hidden; } }
       .container .main .photo-clicker .delete-text {
         position: absolute;
         top: 30px;
@@ -583,6 +629,28 @@ body.home {
     -webkit-transition: bottom 0.7s;
     -moz-transition: bottom 0.7s;
     transition: bottom 0.7s; }
+    @media (max-width: 480px) {
+      .container.show .content.has-scroll, .container.home .content.has-scroll {
+        display: block;
+        -webkit-box-pack: none;
+        -moz-box-pack: none;
+        box-pack: none;
+        -webkit-justify-content: none;
+        -moz-justify-content: none;
+        -ms-justify-content: none;
+        -o-justify-content: none;
+        justify-content: none;
+        -ms-flex-pack: none;
+        -webkit-box-orient: none;
+        -moz-box-orient: none;
+        box-orient: none;
+        -webkit-box-direction: normal;
+        -moz-box-direction: normal;
+        box-direction: normal;
+        -webkit-flex-direction: none;
+        -moz-flex-direction: none;
+        flex-direction: none;
+        -ms-flex-direction: none; } }
   .container.show .content.has-scroll.peek, .container.home .content.has-scroll.peek {
     bottom: -90%;
     -webkit-transition: bottom 0.5s;
@@ -600,9 +668,15 @@ body.home {
   .container.show .content .content-inner, .container.home .content .content-inner {
     width: 80%;
     margin: 0 auto; }
+    @media (max-width: 480px) {
+      .container.show .content .content-inner, .container.home .content .content-inner {
+        padding-top: 170px; } }
   .container.show .content p, .container.home .content p {
     font-size: 12px;
     text-transform: uppercase; }
+    @media (max-width: 480px) {
+      .container.show .content p, .container.home .content p {
+        font-size: 11px; } }
   .container.show .content .artist p, .container.home .content .artist p {
     text-transform: none; }
   .container.show .content .show-title, .container.home .content .show-title {
@@ -610,6 +684,10 @@ body.home {
     font-size: 12px;
     padding-left: 101px;
     margin-bottom: 30px; }
+    @media (max-width: 480px) {
+      .container.show .content .show-title, .container.home .content .show-title {
+        padding-left: 30px;
+        margin-bottom: 10px; } }
   .container.show .content .hidden, .container.home .content .hidden {
     visibility: hidden; }
 
@@ -679,6 +757,13 @@ body.home {
     width: 100vw; }
     .container.show .carousel .carousel-inner.small .item .image-container, .container.home .carousel .carousel-inner.small .item .image-container {
       transform: scale(0.3); }
+      @media (max-width: 480px) {
+        .container.show .carousel .carousel-inner.small .item .image-container, .container.home .carousel .carousel-inner.small .item .image-container {
+          transform: scale(0.5); } }
+      @media (max-width: 480px) {
+        .container.show .carousel .carousel-inner.small .item .image-container img, .container.home .carousel .carousel-inner.small .item .image-container img {
+          min-height: auto;
+          width: 100%; } }
       .container.show .carousel .carousel-inner.small .item .image-container .tall, .container.home .carousel .carousel-inner.small .item .image-container .tall {
         width: 60%;
         -webkit-transition: width 0.3s;
@@ -742,15 +827,30 @@ body.home {
     right: 0px; }
   .container.show .carousel .follow, .container.home .carousel .follow {
     position: absolute; }
+    @media (max-width: 480px) {
+      .container.show .carousel .follow, .container.home .carousel .follow {
+        display: none; } }
 
 .container.show .show-footer, .container.home .show-footer {
   position: relative;
   height: 300px; }
+  @media (max-width: 480px) {
+    .container.show .show-footer, .container.home .show-footer {
+      height: auto;
+      margin-top: 0px;
+      padding: 30px 20px 0px 38px;
+      display: none; } }
   .container.show .show-footer .show-info, .container.home .show-footer .show-info {
     position: absolute;
     bottom: 40px;
     left: 10%;
     width: 400px; }
+    @media (max-width: 480px) {
+      .container.show .show-footer .show-info, .container.home .show-footer .show-info {
+        position: initial;
+        bottom: auto;
+        left: auto;
+        width: auto; } }
   .container.show .show-footer .show-info.show-info-right, .container.home .show-footer .show-info.show-info-right {
     bottom: 180px;
     right: 40px;
@@ -762,19 +862,39 @@ body.home {
     position: absolute;
     bottom: 40px;
     left: 10%; }
+    @media (max-width: 480px) {
+      .container.show .show-footer .address, .container.home .show-footer .address {
+        position: initial;
+        bottom: auto;
+        left: auto;
+        padding-bottom: 15px; } }
   .container.show .show-footer .watermark p, .container.home .show-footer .watermark p {
     position: absolute;
     font-size: 12px; }
+    @media (max-width: 480px) {
+      .container.show .show-footer .watermark p, .container.home .show-footer .watermark p {
+        position: initial;
+        font-size: 11px; } }
   .container.show .show-footer p, .container.home .show-footer p {
     font-size: 12px; }
+    @media (max-width: 480px) {
+      .container.show .show-footer p, .container.home .show-footer p {
+        font-size: 11px; } }
   .container.show .show-footer .artist .left, .container.show .show-footer .artist .right, .container.home .show-footer .artist .left, .container.home .show-footer .artist .right {
     float: left;
     width: 50%; }
   .container.show .show-footer .artist .right, .container.home .show-footer .artist .right {
     white-space: nowrap; }
+    @media (max-width: 480px) {
+      .container.show .show-footer .artist .right, .container.home .show-footer .artist .right {
+        white-space: normal; } }
 
 .container.show .show-footer.show-footer-right, .container.home .show-footer.show-footer-right {
   margin-top: 140px; }
+  @media (max-width: 480px) {
+    .container.show .show-footer.show-footer-right, .container.home .show-footer.show-footer-right {
+      margin-top: 0px;
+      padding: 30px 20px 0px 41px; } }
 
 .login, .create-page, .create-image, .create-person, .create-piece {
   display: flex;

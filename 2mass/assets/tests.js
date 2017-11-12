@@ -62,7 +62,7 @@ define('e-2mass/tests/app.lint-test', [], function () {
 
   QUnit.test('components/main-nav.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/main-nav.js should pass ESLint\n\n12:31 - Empty block statement. (no-empty)\n17:13 - \'$\' is not defined. (no-undef)\n19:15 - \'$\' is not defined. (no-undef)\n28:11 - Unexpected console statement. (no-console)\n34:12 - Empty block statement. (no-empty)\n42:11 - \'$\' is not defined. (no-undef)\n43:9 - \'$\' is not defined. (no-undef)\n45:9 - \'$\' is not defined. (no-undef)\n47:9 - \'$\' is not defined. (no-undef)\n49:9 - \'$\' is not defined. (no-undef)');
+    assert.ok(false, 'components/main-nav.js should pass ESLint\n\n11:7 - Unexpected console statement. (no-console)\n12:49 - Empty block statement. (no-empty)\n17:13 - \'$\' is not defined. (no-undef)\n19:15 - \'$\' is not defined. (no-undef)\n28:11 - Unexpected console statement. (no-console)\n35:9 - Unexpected console statement. (no-console)\n42:11 - \'$\' is not defined. (no-undef)\n43:9 - \'$\' is not defined. (no-undef)\n45:9 - \'$\' is not defined. (no-undef)\n47:9 - \'$\' is not defined. (no-undef)\n49:9 - \'$\' is not defined. (no-undef)');
   });
 
   QUnit.test('components/photo-clicker.js', function (assert) {
@@ -72,7 +72,7 @@ define('e-2mass/tests/app.lint-test', [], function () {
 
   QUnit.test('components/random-landing.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/random-landing.js should pass ESLint\n\n27:7 - \'$\' is not defined. (no-undef)\n36:9 - Unexpected console statement. (no-console)\n43:7 - \'$\' is not defined. (no-undef)\n45:9 - \'$\' is not defined. (no-undef)\n65:15 - \'TweenMax\' is not defined. (no-undef)\n80:15 - \'TweenMax\' is not defined. (no-undef)\n98:9 - \'$\' is not defined. (no-undef)\n99:9 - \'$\' is not defined. (no-undef)\n103:11 - \'$\' is not defined. (no-undef)\n104:11 - \'$\' is not defined. (no-undef)\n105:11 - \'$\' is not defined. (no-undef)\n108:13 - \'$\' is not defined. (no-undef)\n109:13 - \'$\' is not defined. (no-undef)');
+    assert.ok(false, 'components/random-landing.js should pass ESLint\n\n27:7 - \'$\' is not defined. (no-undef)\n36:9 - Unexpected console statement. (no-console)\n42:7 - \'$\' is not defined. (no-undef)\n44:9 - \'$\' is not defined. (no-undef)\n64:15 - \'TweenMax\' is not defined. (no-undef)\n79:15 - \'TweenMax\' is not defined. (no-undef)\n97:9 - \'$\' is not defined. (no-undef)\n98:9 - \'$\' is not defined. (no-undef)\n102:11 - \'$\' is not defined. (no-undef)\n103:11 - \'$\' is not defined. (no-undef)\n104:11 - \'$\' is not defined. (no-undef)\n107:13 - \'$\' is not defined. (no-undef)\n108:13 - \'$\' is not defined. (no-undef)');
   });
 
   QUnit.test('components/show-listing.js', function (assert) {
@@ -92,7 +92,7 @@ define('e-2mass/tests/app.lint-test', [], function () {
 
   QUnit.test('controllers/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'controllers/application.js should pass ESLint\n\n');
+    assert.ok(false, 'controllers/application.js should pass ESLint\n\n12:9 - \'$\' is not defined. (no-undef)');
   });
 
   QUnit.test('controllers/create-image.js', function (assert) {
@@ -225,7 +225,7 @@ define('e-2mass/tests/app.lint-test', [], function () {
     assert.ok(true, 'serializers/show.js should pass ESLint\n\n');
   });
 });
-define('e-2mass/tests/helpers/destroy-app', ['exports', 'ember'], function (exports, _ember) {
+define('e-2mass/tests/helpers/destroy-app', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -233,7 +233,7 @@ define('e-2mass/tests/helpers/destroy-app', ['exports', 'ember'], function (expo
   });
   exports.default = destroyApp;
   function destroyApp(application) {
-    _ember.default.run(application, 'destroy');
+    Ember.run(application, 'destroy');
     if (window.server) {
       window.server.shutdown();
     }
@@ -280,7 +280,7 @@ define('e-2mass/tests/helpers/ember-simple-auth', ['exports', 'ember-simple-auth
     return wait();
   }
 });
-define('e-2mass/tests/helpers/module-for-acceptance', ['exports', 'qunit', 'ember', 'e-2mass/tests/helpers/start-app', 'e-2mass/tests/helpers/destroy-app'], function (exports, _qunit, _ember, _startApp, _destroyApp) {
+define('e-2mass/tests/helpers/module-for-acceptance', ['exports', 'qunit', 'e-2mass/tests/helpers/start-app', 'e-2mass/tests/helpers/destroy-app'], function (exports, _qunit, _startApp, _destroyApp) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -309,7 +309,7 @@ define('e-2mass/tests/helpers/module-for-acceptance', ['exports', 'qunit', 'embe
     });
   };
 
-  var Promise = _ember.default.RSVP.Promise;
+  var Promise = Ember.RSVP.Promise;
 });
 define('e-2mass/tests/helpers/resolver', ['exports', 'e-2mass/resolver', 'e-2mass/config/environment'], function (exports, _resolver, _environment) {
   'use strict';
@@ -328,7 +328,7 @@ define('e-2mass/tests/helpers/resolver', ['exports', 'e-2mass/resolver', 'e-2mas
 
   exports.default = resolver;
 });
-define('e-2mass/tests/helpers/start-app', ['exports', 'ember', 'e-2mass/app', 'e-2mass/config/environment'], function (exports, _ember, _app, _environment) {
+define('e-2mass/tests/helpers/start-app', ['exports', 'e-2mass/app', 'e-2mass/config/environment'], function (exports, _app, _environment) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -336,10 +336,10 @@ define('e-2mass/tests/helpers/start-app', ['exports', 'ember', 'e-2mass/app', 'e
   });
   exports.default = startApp;
   function startApp(attrs) {
-    var attributes = _ember.default.merge({}, _environment.default.APP);
-    attributes = _ember.default.merge(attributes, attrs); // use defaults, but you can override;
+    var attributes = Ember.merge({}, _environment.default.APP);
+    attributes = Ember.merge(attributes, attrs); // use defaults, but you can override;
 
-    return _ember.default.run(function () {
+    return Ember.run(function () {
       var application = _app.default.create(attributes);
       application.setupForTesting();
       application.injectTestHelpers();

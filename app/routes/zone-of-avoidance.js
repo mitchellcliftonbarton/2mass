@@ -21,7 +21,7 @@ export default Ember.Route.extend({
         })
 
 
-        $(window).on('wheel DOMMouseScroll', (e) => {
+        $(window).on('wheel DOMMouseScroll mousewheel', (e) => {
           console.log('scrolllllll')
           if (e.originalEvent.deltaY >= 0) {
             $('.container.show .content').addClass('showing');
