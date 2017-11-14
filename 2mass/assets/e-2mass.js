@@ -205,7 +205,7 @@ define('e-2mass/components/main-nav', ['exports'], function (exports) {
       this._super.apply(this, arguments);
 
       if (this.isInitialLoad) {
-        console.log('initial load');
+        // console.log('initial load')
         if (this.randomLanding && !this.isMobile) {} else {
 
           Ember.run(function () {
@@ -219,7 +219,7 @@ define('e-2mass/components/main-nav', ['exports'], function (exports) {
             _this.$('.main-nav .nav-left').removeClass('hidden');
             _this.$('.main-nav .nav-center').removeClass('hidden');
             _this.$('.audio-sounds').removeClass('hidden');
-            console.log('hello');
+            // console.log('hello')
             _this.set('isInitialLoad', false);
           }, 1000);
         }
@@ -1857,15 +1857,6 @@ define('e-2mass/routes/friendship', ['exports'], function (exports) {
           NProgress.done();
         });
 
-        $(window).on('wheel DOMMouseScroll', function (e) {
-          console.log('scrolllllll');
-          if (e.originalEvent.deltaY >= 0) {
-            $('.container.show .content').addClass('showing');
-          } else {
-            $('.container.show .content').removeClass('showing');
-          }
-        });
-
         Ember.run.scheduleOnce('afterRender', this, function () {
           document.body.style.overflow = 'hidden';
           document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -1874,7 +1865,29 @@ define('e-2mass/routes/friendship', ['exports'], function (exports) {
             TweenMax.fromTo('.photos', 2, { y: -15, ease: Expo.easeOut }, { y: 0, ease: Expo.easeOut });
             TweenMax.fromTo('.photos', 3, { opacity: 0 }, { opacity: 1 });
           }, 1000);
+
+          if ($(window).width() < 450) {
+            Ember.run(function () {
+              $('.down').css('display', 'block');
+            });
+          } else {
+            Ember.run(function () {
+              $('.down').css('display', 'none');
+
+              $(window).on('wheel DOMMouseScroll mousewheel', function (e) {
+                console.log('scrolllllll');
+                if (e.originalEvent.deltaY >= 0) {
+                  $('.container.show .content').addClass('showing');
+                } else {
+                  $('.container.show .content').removeClass('showing');
+                }
+              });
+            });
+          }
         });
+      },
+      showContent: function showContent() {
+        $('.container.show .content').hasClass('showing') ? $('.container.show .content').removeClass('showing') : $('.container.show .content').addClass('showing');
       },
       willTransition: function willTransition(transition) {
         Ember.run(function () {
@@ -1949,15 +1962,6 @@ define('e-2mass/routes/geminii', ['exports'], function (exports) {
           NProgress.done();
         });
 
-        $(window).on('wheel DOMMouseScroll', function (e) {
-          console.log('scrolllllll');
-          if (e.originalEvent.deltaY >= 0) {
-            $('.container.show .content').addClass('showing');
-          } else {
-            $('.container.show .content').removeClass('showing');
-          }
-        });
-
         Ember.run.scheduleOnce('afterRender', this, function () {
           document.body.style.overflow = 'hidden';
           document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -1966,7 +1970,29 @@ define('e-2mass/routes/geminii', ['exports'], function (exports) {
             TweenMax.fromTo('.photos', 1, { y: -15, ease: Expo.easeOut }, { y: 0, ease: Expo.easeOut });
             TweenMax.fromTo('.photos', 2, { opacity: 0 }, { opacity: 1 });
           }, 1000);
+
+          if ($(window).width() < 450) {
+            Ember.run(function () {
+              $('.down').css('display', 'block');
+            });
+          } else {
+            Ember.run(function () {
+              $('.down').css('display', 'none');
+
+              $(window).on('wheel DOMMouseScroll mousewheel', function (e) {
+                console.log('scrolllllll');
+                if (e.originalEvent.deltaY >= 0) {
+                  $('.container.show .content').addClass('showing');
+                } else {
+                  $('.container.show .content').removeClass('showing');
+                }
+              });
+            });
+          }
         });
+      },
+      showContent: function showContent() {
+        $('.container.show .content').hasClass('showing') ? $('.container.show .content').removeClass('showing') : $('.container.show .content').addClass('showing');
       },
       willTransition: function willTransition(transition) {
         Ember.run(function () {
@@ -2156,15 +2182,6 @@ define('e-2mass/routes/zone-of-avoidance', ['exports'], function (exports) {
           NProgress.done();
         });
 
-        $(window).on('wheel DOMMouseScroll', function (e) {
-          console.log('scrolllllll');
-          if (e.originalEvent.deltaY >= 0) {
-            $('.container.show .content').addClass('showing');
-          } else {
-            $('.container.show .content').removeClass('showing');
-          }
-        });
-
         Ember.run.scheduleOnce('afterRender', this, function () {
           document.body.style.overflow = 'hidden';
           document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -2173,7 +2190,29 @@ define('e-2mass/routes/zone-of-avoidance', ['exports'], function (exports) {
             TweenMax.fromTo('.photos', 2, { y: -15, ease: Expo.easeOut }, { y: 0, ease: Expo.easeOut });
             TweenMax.fromTo('.photos', 3, { opacity: 0 }, { opacity: 1 });
           }, 1000);
+
+          if ($(window).width() < 450) {
+            Ember.run(function () {
+              $('.down').css('display', 'block');
+            });
+          } else {
+            Ember.run(function () {
+              $('.down').css('display', 'none');
+
+              $(window).on('wheel DOMMouseScroll mousewheel', function (e) {
+                console.log('scrolllllll');
+                if (e.originalEvent.deltaY >= 0) {
+                  $('.container.show .content').addClass('showing');
+                } else {
+                  $('.container.show .content').removeClass('showing');
+                }
+              });
+            });
+          }
         });
+      },
+      showContent: function showContent() {
+        $('.container.show .content').hasClass('showing') ? $('.container.show .content').removeClass('showing') : $('.container.show .content').addClass('showing');
       },
       willTransition: function willTransition(transition) {
         Ember.run(function () {
@@ -2420,7 +2459,7 @@ define("e-2mass/templates/friendship", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "wmQaK8db", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"buttons\"],[13],[0,\"\\n  \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"resize\"]],[13],[0,\"+\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"photos geminii\"],[13],[0,\"\\n  \"],[1,[33,[\"carousel-el\"],null,[[\"images\"],[[28,[\"model\",\"images\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content has-scroll\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"content-inner\"],[13],[0,\"\\n    \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n      EXHIBITION:\\n      \"],[11,\"br\",[]],[13],[14],[0,\"\\n      \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"\\n      \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/friendship.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "X6nty70U", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"down\"],[13],[0,\"\\n    \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"showContent\"]],[13],[0,\"↓\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"buttons\"],[13],[0,\"\\n  \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"resize\"]],[13],[0,\"+\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"photos geminii\"],[13],[0,\"\\n  \"],[1,[33,[\"carousel-el\"],null,[[\"images\"],[[28,[\"model\",\"images\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content has-scroll\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"content-inner\"],[13],[0,\"\\n    \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n      EXHIBITION:\\n      \"],[11,\"br\",[]],[13],[14],[0,\"\\n      \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"\\n      \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/friendship.hbs" } });
 });
 define("e-2mass/templates/geminii", ["exports"], function (exports) {
   "use strict";
@@ -2428,7 +2467,7 @@ define("e-2mass/templates/geminii", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "SMFFU1YA", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"buttons\"],[13],[0,\"\\n  \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"resize\"]],[13],[0,\"+\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"photos geminii\"],[13],[0,\"\\n  \"],[1,[33,[\"carousel-el\"],null,[[\"images\"],[[28,[\"model\",\"images\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content has-scroll\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"content-inner\"],[13],[0,\"\\n    \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n      EXHIBITION:\\n      \"],[11,\"br\",[]],[13],[14],[0,\"\\n      \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"\\n      \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/geminii.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "y/X1TQDB", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"down\"],[13],[0,\"\\n    \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"showContent\"]],[13],[0,\"↓\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"buttons\"],[13],[0,\"\\n  \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"resize\"]],[13],[0,\"+\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"photos geminii\"],[13],[0,\"\\n  \"],[1,[33,[\"carousel-el\"],null,[[\"images\"],[[28,[\"model\",\"images\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content has-scroll\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"content-inner\"],[13],[0,\"\\n    \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n      EXHIBITION:\\n      \"],[11,\"br\",[]],[13],[14],[0,\"\\n      \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"\\n      \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/geminii.hbs" } });
 });
 define("e-2mass/templates/home", ["exports"], function (exports) {
   "use strict";
@@ -2468,7 +2507,7 @@ define("e-2mass/templates/zone-of-avoidance", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "yUjM/VMW", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"buttons\"],[13],[0,\"\\n  \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"resize\"]],[13],[0,\"+\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"photos geminii\"],[13],[0,\"\\n  \"],[1,[33,[\"carousel-el\"],null,[[\"images\"],[[28,[\"model\",\"images\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content has-scroll\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"content-inner\"],[13],[0,\"\\n    \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n      EXHIBITION:\\n      \"],[11,\"br\",[]],[13],[14],[0,\"\\n      \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"\\n      \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/zone-of-avoidance.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "Vvco8kiy", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"down\"],[13],[0,\"\\n    \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"showContent\"]],[13],[0,\"↓\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"buttons\"],[13],[0,\"\\n  \"],[11,\"span\",[]],[5,[\"action\"],[[28,[null]],\"resize\"]],[13],[0,\"+\"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"photos geminii\"],[13],[0,\"\\n  \"],[1,[33,[\"carousel-el\"],null,[[\"images\"],[[28,[\"model\",\"images\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"content has-scroll\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"content-inner\"],[13],[0,\"\\n    \"],[11,\"p\",[]],[15,\"class\",\"show-title\"],[13],[0,\"\\n      EXHIBITION:\\n      \"],[11,\"br\",[]],[13],[14],[0,\"\\n      \"],[1,[28,[\"model\",\"title\"]],false],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"\\n      \"],[1,[28,[\"model\",\"text\"]],true],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[1,[33,[\"alt-footer-left\"],null,[[\"people\"],[[28,[\"model\",\"people\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-2mass/templates/zone-of-avoidance.hbs" } });
 });
 define('e-2mass/utils/select-box/class-name', ['exports', 'ember-select-box/utils/select-box/class-name'], function (exports, _className) {
   'use strict';
@@ -2518,6 +2557,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("e-2mass/app")["default"].create({"name":"e-2mass","version":"0.0.0+aa45c756"});
+  require("e-2mass/app")["default"].create({"name":"e-2mass","version":"0.0.0+07bdf23e"});
 }
 //# sourceMappingURL=e-2mass.map
